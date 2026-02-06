@@ -47,7 +47,10 @@ export function FeaturedTours() {
 
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {featuredTours.map((tour) => (
-            <Card key={tour.id} className="overflow-hidden border border-border/60 bg-card">
+            <Card
+              key={tour.id}
+              className="overflow-hidden border border-border/60 bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+            >
               <div className="relative h-56">
                 <Image
                   src={tour.image}

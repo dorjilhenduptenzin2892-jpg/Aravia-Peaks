@@ -34,7 +34,10 @@ export function BhutanMap() {
 
           <div className="grid gap-4 sm:grid-cols-2">
             {regions.map((region) => (
-              <div key={region.name} className="rounded-xl border border-border/60 bg-card p-4">
+              <div
+                key={region.name}
+                className="rounded-xl border border-border/60 bg-card p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+              >
                 <h3 className="font-semibold text-lg">{region.name}</h3>
                 <p className="text-sm text-muted-foreground mb-3">{region.description}</p>
                 <Button variant="outline" size="sm">Explore {region.name}</Button>

@@ -431,18 +431,45 @@ export default function PackagesPage() {
             </Tabs>
 
             {compare.length > 0 && (
-              <div className="mt-10 rounded-xl border border-border/60 bg-card p-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                <div className="text-sm text-muted-foreground">
-                  Compare: {compare.join(" vs ")}
+              <div className="mt-10 rounded-xl border border-border/60 bg-card p-6">
+                <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-4">
+                  <div className="text-sm text-muted-foreground">Compare: {compare.join(" vs ")}</div>
+                  <div className="flex gap-3">
+                    <Button variant="outline" onClick={() => setCompare([])}>
+                      Clear
+                    </Button>
+                    <Button asChild>
+                      <Link href="/inquiry">Request Details</Link>
+                    </Button>
+                  </div>
                 </div>
-                <div className="flex gap-3">
-                  <Button variant="outline" onClick={() => setCompare([])}>
-                    Clear
-                  </Button>
-                  <Button asChild>
-                    <Link href="/inquiry">Request Details</Link>
-                  </Button>
-                </div>
+
+                {compare.length === 2 && (
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="border-b">
+                          <th className="text-left py-2">Feature</th>
+                          <th className="text-left py-2">{compare[0]}</th>
+                          <th className="text-left py-2">{compare[1]}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {["duration", "region", "difficulty", "budget"].map((key) => {
+                          const left = packages.find((p) => p.id === compare[0])
+                          const right = packages.find((p) => p.id === compare[1])
+                          return (
+                            <tr key={key} className="border-b">
+                              <td className="py-2 capitalize">{key}</td>
+                              <td className="py-2">{left?.[key as keyof typeof left]}</td>
+                              <td className="py-2">{right?.[key as keyof typeof right]}</td>
+                            </tr>
+                          )
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
               </div>
             )}
           </div>

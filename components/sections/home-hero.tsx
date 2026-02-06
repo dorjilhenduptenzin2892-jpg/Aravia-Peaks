@@ -23,7 +23,7 @@ export function HomeHero() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/50 to-black/70" />
       </div>
 
-      <div className="container mx-auto px-4 md:px-6 relative z-10 text-center">
+      <div className="container mx-auto px-4 md:px-6 relative z-10 text-center animate-fade-in-up">
         <Badge className="mb-6 bg-accent text-accent-foreground shadow-sm" variant="secondary">
           {t("licensed_tour_operator")}
         </Badge>
