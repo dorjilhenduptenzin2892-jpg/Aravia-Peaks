@@ -6,9 +6,11 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useLanguage } from "@/lib/language-context"
 import Link from "next/link"
 import Image from "next/image"
+import { useState } from "react"
 
 const packages = [
   // Cultural Festival Packages
@@ -19,6 +21,9 @@ const packages = [
     description: "Experience the most famous festival in Bhutan with spectacular masked dances and ceremonies",
     duration: "7 Days / 6 Nights",
     price: 2450,
+    region: "Western",
+    difficulty: "Easy",
+    budget: "Premium",
     image: "/paro-tshechu-festival-bhutan-colorful-masks-dancin.jpg",
     highlights: ["Paro Tshechu Festival", "Tiger's Nest Trek", "Thimphu Sightseeing", "Cultural Immersion"],
     popular: true,
@@ -32,6 +37,9 @@ const packages = [
     description: "Witness Bhutan's largest festival in the capital city with grand celebrations",
     duration: "6 Days / 5 Nights",
     price: 2250,
+    region: "Western",
+    difficulty: "Easy",
+    budget: "Premium",
     image: "/thimphu-tshechu-festival-dancers-masks.jpg",
     highlights: ["Thimphu Festival", "Buddha Dordenma", "Punakha Dzong", "Local Markets"],
     rating: 4.8,
@@ -44,6 +52,9 @@ const packages = [
     description: "Two consecutive festivals featuring dramatic reenactments and sacred dances",
     duration: "8 Days / 7 Nights",
     price: 2650,
+    region: "Western",
+    difficulty: "Easy",
+    budget: "Premium",
     image: "/punakha-dzong-festival-bhutan-fortress.jpg",
     highlights: ["Punakha Festival", "Chimi Lhakhang", "Valley Hikes", "Traditional Ceremonies"],
     rating: 4.9,
@@ -56,6 +67,9 @@ const packages = [
     description: "Unique fire ceremony and naked dance in the mystical Bumthang valley",
     duration: "9 Days / 8 Nights",
     price: 2850,
+    region: "Central",
+    difficulty: "Easy",
+    budget: "Premium",
     image: "/jambay-lhakhang-fire-ceremony-bhutan-temple.jpg",
     highlights: ["Fire Ceremony", "Bumthang Valley", "Ancient Temples", "Sacred Dances"],
     rating: 4.7,
@@ -70,6 +84,9 @@ const packages = [
     description: "Discover ancient dzongs, monasteries, and the iconic Tiger's Nest",
     duration: "5 Days / 4 Nights",
     price: 1850,
+    region: "Western",
+    difficulty: "Easy",
+    budget: "Standard",
     image: "/tigers-nest-monastery-bhutan-cliff-mountain.jpg",
     highlights: ["Tiger's Nest", "Paro Dzong", "Thimphu Sightseeing", "Traditional Crafts"],
     popular: true,
@@ -83,6 +100,9 @@ const packages = [
     description: "Meditate in ancient monasteries and connect with Buddhist wisdom",
     duration: "7 Days / 6 Nights",
     price: 2350,
+    region: "Western",
+    difficulty: "Easy",
+    budget: "Premium",
     image: "/bhutan-monastery-meditation-monks-spiritual-peace.jpg",
     highlights: ["Monastery Stays", "Meditation Sessions", "Buddhist Teachings", "Sacred Sites"],
     rating: 4.8,
@@ -95,6 +115,9 @@ const packages = [
     description: "Explore the remote and less-visited eastern regions of Bhutan",
     duration: "10 Days / 9 Nights",
     price: 3200,
+    region: "Eastern",
+    difficulty: "Moderate",
+    budget: "Premium",
     image: "/eastern-bhutan-remote-villages-mountains.jpg",
     highlights: ["Trashigang", "Mongar", "Traditional Villages", "Handicraft Centers"],
     rating: 4.7,
@@ -107,6 +130,9 @@ const packages = [
     description: "Experience the best of Paro, Thimphu, and Punakha valleys",
     duration: "6 Days / 5 Nights",
     price: 2100,
+    region: "Western",
+    difficulty: "Easy",
+    budget: "Standard",
     image: "/punakha-valley-bhutan-rice-fields-landscape.jpg",
     highlights: ["Dochula Pass", "Punakha Dzong", "Memorial Chorten", "Folk Museum"],
     rating: 4.8,
@@ -121,6 +147,9 @@ const packages = [
     description: "Classic trek from Paro to Thimphu through alpine meadows and lakes",
     duration: "8 Days / 7 Nights",
     price: 2750,
+    region: "Western",
+    difficulty: "Moderate",
+    budget: "Premium",
     image: "/druk-path-trek-alpine-lakes-mountains-bhutan.jpg",
     highlights: ["Alpine Lakes", "Mountain Views", "Yak Herders", "Camping"],
     popular: true,
@@ -134,6 +163,9 @@ const packages = [
     description: "Challenging trek to the base of sacred Mt. Jomolhari",
     duration: "11 Days / 10 Nights",
     price: 3600,
+    region: "Western",
+    difficulty: "Challenging",
+    budget: "Premium",
     image: "/mt-jomolhari-bhutan-snow-mountain-base-camp.jpg",
     highlights: ["Mt. Jomolhari", "Hot Springs", "Nomadic Camps", "High Passes"],
     rating: 4.8,
@@ -146,6 +178,9 @@ const packages = [
     description: "One of the world's most difficult treks through remote Himalayan regions",
     duration: "25 Days / 24 Nights",
     price: 7850,
+    region: "Northern",
+    difficulty: "Extreme",
+    budget: "Luxury",
     image: "/bhutan-snowman-trek-extreme-himalayan-mountains-sn.jpg",
     highlights: ["11 High Passes", "Remote Valleys", "Extreme Adventure", "Yak Caravans"],
     rating: 4.9,
@@ -158,6 +193,9 @@ const packages = [
     description: "Moderate trek through pristine alpine landscape dotted with glacial lakes",
     duration: "9 Days / 8 Nights",
     price: 2950,
+    region: "Western",
+    difficulty: "Moderate",
+    budget: "Premium",
     image: "/bhutan-alpine-glacial-lakes-mountains-pristine-wil.jpg",
     highlights: ["Alpine Lakes", "Rhododendrons", "Wildlife Spotting", "Mountain Panoramas"],
     rating: 4.7,
@@ -172,6 +210,9 @@ const packages = [
     description: "Indulge in Bhutan's finest hotels, cuisine, and exclusive experiences",
     duration: "7 Days / 6 Nights",
     price: 4950,
+    region: "Western",
+    difficulty: "Easy",
+    budget: "Luxury",
     image: "/luxury-resort-bhutan-mountains-spa-five-star-hotel.jpg",
     highlights: ["5-Star Resorts", "Private Tours", "Gourmet Dining", "Spa Treatments"],
     rating: 5.0,
@@ -184,6 +225,9 @@ const packages = [
     description: "Holistic wellness journey with hot stone baths and spa treatments",
     duration: "6 Days / 5 Nights",
     price: 3850,
+    region: "Western",
+    difficulty: "Easy",
+    budget: "Luxury",
     image: "/bhutan-wellness-spa-hot-stone-bath-meditation-retr.jpg",
     highlights: ["Hot Stone Baths", "Yoga Sessions", "Meditation", "Organic Cuisine"],
     rating: 4.9,
@@ -198,6 +242,9 @@ const packages = [
     description: "Capture Bhutan's stunning landscapes and vibrant culture with expert guidance",
     duration: "8 Days / 7 Nights",
     price: 3150,
+    region: "Multiple",
+    difficulty: "Easy",
+    budget: "Premium",
     image: "/bhutan-photography-landscape-monks-temples-colorfu.jpg",
     highlights: ["Golden Hour Shoots", "Festival Photography", "Landscape Focus", "Pro Tips"],
     rating: 4.8,
@@ -210,6 +257,9 @@ const packages = [
     description: "Spot rare Himalayan birds in pristine forests and valleys",
     duration: "9 Days / 8 Nights",
     price: 2950,
+    region: "Central",
+    difficulty: "Easy",
+    budget: "Premium",
     image: "/bhutan-himalayan-birds-black-necked-crane-colorful.jpg",
     highlights: ["680+ Bird Species", "Expert Guides", "Endemic Species", "Nature Walks"],
     rating: 4.7,
@@ -219,6 +269,32 @@ const packages = [
 
 export default function PackagesPage() {
   const { t } = useLanguage()
+  const [regionFilter, setRegionFilter] = useState("all")
+  const [difficultyFilter, setDifficultyFilter] = useState("all")
+  const [budgetFilter, setBudgetFilter] = useState("all")
+  const [durationFilter, setDurationFilter] = useState("all")
+  const [compare, setCompare] = useState<string[]>([])
+
+  const filterByDuration = (duration: string) => {
+    if (durationFilter === "all") return true
+    if (durationFilter === "short") return duration.includes("5") || duration.includes("6")
+    if (durationFilter === "medium") return duration.includes("7") || duration.includes("8") || duration.includes("9")
+    if (durationFilter === "long") return duration.includes("10") || duration.includes("11") || duration.includes("25")
+    return true
+  }
+
+  const filterPackages = (list: typeof packages) =>
+    list.filter((pkg) => {
+      const regionMatch = regionFilter === "all" || pkg.region.toLowerCase() === regionFilter
+      const difficultyMatch = difficultyFilter === "all" || pkg.difficulty.toLowerCase() === difficultyFilter
+      const budgetMatch = budgetFilter === "all" || pkg.budget.toLowerCase() === budgetFilter
+      const durationMatch = filterByDuration(pkg.duration)
+      return regionMatch && difficultyMatch && budgetMatch && durationMatch
+    })
+
+  const toggleCompare = (id: string) => {
+    setCompare((prev) => (prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id].slice(-2)))
+  }
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -244,6 +320,59 @@ export default function PackagesPage() {
         {/* Packages Grid with Tabs */}
         <section className="py-12 md:py-16">
           <div className="container px-4 md:px-6">
+            <div className="mb-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              <Select value={regionFilter} onValueChange={setRegionFilter}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Region" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Regions</SelectItem>
+                  <SelectItem value="western">Western</SelectItem>
+                  <SelectItem value="central">Central</SelectItem>
+                  <SelectItem value="eastern">Eastern</SelectItem>
+                  <SelectItem value="northern">Northern</SelectItem>
+                  <SelectItem value="multiple">Multiple</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <Select value={difficultyFilter} onValueChange={setDifficultyFilter}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Difficulty" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Difficulty</SelectItem>
+                  <SelectItem value="easy">Easy</SelectItem>
+                  <SelectItem value="moderate">Moderate</SelectItem>
+                  <SelectItem value="challenging">Challenging</SelectItem>
+                  <SelectItem value="extreme">Extreme</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <Select value={budgetFilter} onValueChange={setBudgetFilter}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Budget" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Budgets</SelectItem>
+                  <SelectItem value="standard">Standard</SelectItem>
+                  <SelectItem value="premium">Premium</SelectItem>
+                  <SelectItem value="luxury">Luxury</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <Select value={durationFilter} onValueChange={setDurationFilter}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Duration" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Durations</SelectItem>
+                  <SelectItem value="short">4–6 Days</SelectItem>
+                  <SelectItem value="medium">7–9 Days</SelectItem>
+                  <SelectItem value="long">10+ Days</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
             <Tabs defaultValue="all" className="w-full">
               <div className="flex justify-center mb-8">
                 <TabsList className="grid w-full max-w-2xl grid-cols-3 lg:grid-cols-6">
@@ -257,29 +386,65 @@ export default function PackagesPage() {
               </div>
 
               <TabsContent value="all" className="mt-0">
-                <PackageGrid packages={packages} />
+                <PackageGrid packages={filterPackages(packages)} compare={compare} onCompare={toggleCompare} />
               </TabsContent>
 
               <TabsContent value="festival" className="mt-0">
-                <PackageGrid packages={packages.filter((p) => p.category === "festival")} />
+                <PackageGrid
+                  packages={filterPackages(packages.filter((p) => p.category === "festival"))}
+                  compare={compare}
+                  onCompare={toggleCompare}
+                />
               </TabsContent>
 
               <TabsContent value="cultural" className="mt-0">
-                <PackageGrid packages={packages.filter((p) => p.category === "cultural")} />
+                <PackageGrid
+                  packages={filterPackages(packages.filter((p) => p.category === "cultural"))}
+                  compare={compare}
+                  onCompare={toggleCompare}
+                />
               </TabsContent>
 
               <TabsContent value="trekking" className="mt-0">
-                <PackageGrid packages={packages.filter((p) => p.category === "trekking")} />
+                <PackageGrid
+                  packages={filterPackages(packages.filter((p) => p.category === "trekking"))}
+                  compare={compare}
+                  onCompare={toggleCompare}
+                />
               </TabsContent>
 
               <TabsContent value="luxury" className="mt-0">
-                <PackageGrid packages={packages.filter((p) => p.category === "luxury")} />
+                <PackageGrid
+                  packages={filterPackages(packages.filter((p) => p.category === "luxury"))}
+                  compare={compare}
+                  onCompare={toggleCompare}
+                />
               </TabsContent>
 
               <TabsContent value="special" className="mt-0">
-                <PackageGrid packages={packages.filter((p) => p.category === "special")} />
+                <PackageGrid
+                  packages={filterPackages(packages.filter((p) => p.category === "special"))}
+                  compare={compare}
+                  onCompare={toggleCompare}
+                />
               </TabsContent>
             </Tabs>
+
+            {compare.length > 0 && (
+              <div className="mt-10 rounded-xl border border-border/60 bg-card p-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                <div className="text-sm text-muted-foreground">
+                  Compare: {compare.join(" vs ")}
+                </div>
+                <div className="flex gap-3">
+                  <Button variant="outline" onClick={() => setCompare([])}>
+                    Clear
+                  </Button>
+                  <Button asChild>
+                    <Link href="/inquiry">Request Details</Link>
+                  </Button>
+                </div>
+              </div>
+            )}
           </div>
         </section>
 
@@ -302,7 +467,15 @@ export default function PackagesPage() {
   )
 }
 
-function PackageGrid({ packages }: { packages: typeof packages }) {
+function PackageGrid({
+  packages,
+  compare,
+  onCompare,
+}: {
+  packages: typeof packages
+  compare: string[]
+  onCompare: (id: string) => void
+}) {
   const { t } = useLanguage()
 
   return (
@@ -343,6 +516,11 @@ function PackageGrid({ packages }: { packages: typeof packages }) {
                   <span>{pkg.duration}</span>
                 </div>
               </div>
+              <div className="mb-3 flex flex-wrap gap-2 text-xs">
+                <Badge variant="outline">{pkg.region}</Badge>
+                <Badge variant="outline">{pkg.difficulty}</Badge>
+                <Badge variant="outline">{pkg.budget}</Badge>
+              </div>
 
               <h3 className="font-semibold text-xl mb-2 group-hover:text-foreground transition-colors">
                 {pkg.title}
@@ -370,6 +548,14 @@ function PackageGrid({ packages }: { packages: typeof packages }) {
                 <Button variant="outline" className="w-full bg-transparent">
                   {t("view_details")}
                 </Button>
+                <label className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
+                  <input
+                    type="checkbox"
+                    checked={compare.includes(pkg.id)}
+                    onChange={() => onCompare(pkg.id)}
+                  />
+                  Compare
+                </label>
               </div>
             </CardContent>
           </Card>

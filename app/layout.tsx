@@ -3,6 +3,8 @@ import type { Metadata } from "next"
 import { Playfair_Display, Inter } from "next/font/google"
 import { LanguageProvider } from "@/lib/language-context"
 import { ScrollToTop } from "@/components/scroll-to-top"
+import { StickyCTA } from "@/components/sticky-cta"
+import { WhatsAppFloat } from "@/components/whatsapp-float"
 import "./globals.css"
 
 const playfair = Playfair_Display({
@@ -44,6 +46,8 @@ export default function RootLayout({
       <LanguageProvider>
         <ScrollToTop />
         {children}
+        <StickyCTA />
+        <WhatsAppFloat />
       </LanguageProvider>
 
       <script
