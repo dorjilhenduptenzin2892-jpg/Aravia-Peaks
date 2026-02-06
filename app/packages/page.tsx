@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useLanguage } from "@/lib/language-context"
+import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 import { useState } from "react"
@@ -269,11 +270,16 @@ const packages = [
 
 export default function PackagesPage() {
   const { t } = useLanguage()
+  const searchParams = useSearchParams()
+  const categoryParam = (searchParams.get("category") || "all").toLowerCase()
   const [regionFilter, setRegionFilter] = useState("all")
   const [difficultyFilter, setDifficultyFilter] = useState("all")
   const [budgetFilter, setBudgetFilter] = useState("all")
   const [durationFilter, setDurationFilter] = useState("all")
   const [compare, setCompare] = useState<string[]>([])
+  const [activeTab, setActiveTab] = useState(
+    ["festival", "cultural", "trekking", "luxury", "special"].includes(categoryParam) ? categoryParam : "all",
+  )
 
   const filterByDuration = (duration: string) => {
     if (durationFilter === "all") return true
@@ -373,7 +379,7 @@ export default function PackagesPage() {
               </Select>
             </div>
 
-            <Tabs defaultValue="all" className="w-full">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <div className="flex justify-center mb-8">
                 <TabsList className="grid w-full max-w-2xl grid-cols-3 lg:grid-cols-6">
                   <TabsTrigger value="all">{t("all_tours")}</TabsTrigger>

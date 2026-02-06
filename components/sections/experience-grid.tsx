@@ -45,7 +45,7 @@ const experiences = [
 
 export function ExperienceGrid() {
   return (
-    <section className="py-16 md:py-24 bg-muted/30">
+    <section id="experiences" className="py-16 md:py-24 bg-muted/30">
       <div className="container mx-auto px-4 md:px-6">
         <SectionHeader
           eyebrow={<Badge variant="secondary">Explore Bhutan by Experience</Badge>}

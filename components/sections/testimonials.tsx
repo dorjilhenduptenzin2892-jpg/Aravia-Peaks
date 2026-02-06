@@ -28,7 +28,7 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="py-16 md:py-24 bg-muted/30">
+    <section id="testimonials" className="py-16 md:py-24 bg-muted/30">
       <div className="container mx-auto px-4 md:px-6">
         <SectionHeader
           eyebrow={<Badge variant="secondary">Testimonials</Badge>}

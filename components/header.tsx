@@ -45,19 +45,76 @@ export function Header() {
           >
             Home
           </Link>
+
+          <div className="relative group">
+            <button className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground">
+              Bhutan Tours
+            </button>
+            <div className="absolute left-0 top-full mt-3 hidden w-64 rounded-xl border border-border bg-background p-4 shadow-lg group-hover:block">
+              <Link href="/packages?category=cultural" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
+                Cultural Tours
+              </Link>
+              <Link href="/packages?category=festival" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
+                Festival Tours
+              </Link>
+              <Link href="/packages?category=trekking" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
+                Trekking Tours
+              </Link>
+              <Link href="/packages?category=luxury" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
+                Luxury Tours
+              </Link>
+              <Link href="/packages" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
+                Adventure Tours
+              </Link>
+              <Link href="/inquiry" className="block px-3 py-2 text-sm font-semibold hover:bg-muted" onClick={handleLinkClick}>
+                Custom/Bespoke Tours
+              </Link>
+            </div>
+          </div>
+
+          <div className="relative group">
+            <button className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground">
+              Travel Guide
+            </button>
+            <div className="absolute left-0 top-full mt-3 hidden w-60 rounded-xl border border-border bg-background p-4 shadow-lg group-hover:block">
+              <Link href="/travel-guide" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
+                Bhutan Visa Guide
+              </Link>
+              <Link href="/travel-guide" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
+                Best Time to Visit
+              </Link>
+              <Link href="/festivals" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
+                Festivals Calendar
+              </Link>
+              <Link href="/travel-guide" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
+                Top Attractions
+              </Link>
+              <Link href="/travel-guide" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
+                Travel Tips & FAQs
+              </Link>
+            </div>
+          </div>
+
           <Link
-            href="/packages"
+            href="/bhutan/farmhouses-homestays"
             className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
             onClick={handleLinkClick}
           >
-            Tour Packages
+            Hotels & Homestays
           </Link>
           <Link
-            href="/travel-guide"
+            href="/#experiences"
             className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
             onClick={handleLinkClick}
           >
-            Travel Guide
+            Bhutan Experiences
+          </Link>
+          <Link
+            href="/#testimonials"
+            className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
+            onClick={handleLinkClick}
+          >
+            Testimonials & Reviews
           </Link>
           <Link
             href="/about"
@@ -71,7 +128,7 @@ export function Header() {
             className="text-sm font-semibold px-4 py-2 rounded-md border border-border text-foreground/90 hover:text-foreground hover:border-foreground/30 transition-colors"
             onClick={handleLinkClick}
           >
-            Contact Us
+            Contact / Plan
           </Link>
         </nav>
 
@@ -81,7 +138,7 @@ export function Header() {
             className="inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-md bg-primary text-primary-foreground shadow-sm hover:shadow-md transition-shadow"
             onClick={handleLinkClick}
           >
-            Plan Your Trip
+            Book Custom Tour
           </Link>
 
           <div className="flex items-stretch rounded-lg border border-border bg-muted/60 shadow-sm overflow-hidden">
@@ -107,14 +164,22 @@ export function Header() {
               Home
             </Link>
             <Link href="/packages" className="text-sm font-medium text-foreground/80 hover:text-foreground" onClick={handleLinkClick}>
-              Tour Packages
+              Bhutan Tours
             </Link>
-            <Link
-              href="/travel-guide"
-              className="text-sm font-medium text-foreground/80 hover:text-foreground"
-              onClick={handleLinkClick}
-            >
+            <Link href="/bhutan/farmhouses-homestays" className="text-sm font-medium text-foreground/80 hover:text-foreground" onClick={handleLinkClick}>
+              Hotels & Homestays
+            </Link>
+            <Link href="/travel-guide" className="text-sm font-medium text-foreground/80 hover:text-foreground" onClick={handleLinkClick}>
               Travel Guide
+            </Link>
+            <Link href="/festivals" className="text-sm font-medium text-foreground/80 hover:text-foreground" onClick={handleLinkClick}>
+              Festivals Calendar
+            </Link>
+            <Link href="/#experiences" className="text-sm font-medium text-foreground/80 hover:text-foreground" onClick={handleLinkClick}>
+              Bhutan Experiences
+            </Link>
+            <Link href="/#testimonials" className="text-sm font-medium text-foreground/80 hover:text-foreground" onClick={handleLinkClick}>
+              Testimonials & Reviews
             </Link>
             <Link href="/about" className="text-sm font-medium text-foreground/80 hover:text-foreground" onClick={handleLinkClick}>
               About Us
@@ -134,7 +199,7 @@ export function Header() {
               className="inline-flex items-center justify-center w-full py-3 text-sm font-semibold rounded-md bg-primary text-primary-foreground shadow-sm hover:shadow-md transition-shadow"
               onClick={handleLinkClick}
             >
-              Plan Your Trip
+              Book Custom Tour
             </Link>
           </nav>
         </div>

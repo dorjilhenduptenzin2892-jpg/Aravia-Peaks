@@ -11,7 +11,7 @@ import { BhutanMap } from "@/components/sections/bhutan-map"
 import { FestivalSeason } from "@/components/sections/festival-season"
 import { Testimonials } from "@/components/sections/testimonials"
 import { TravelGuideSection } from "@/components/sections/travel-guide-section"
-import { TripBuilder } from "@/components/sections/trip-builder"
+import { CustomTourBuilder } from "@/components/sections/custom-tour-builder"
 import { Partners } from "@/components/sections/partners"
 import { ContactHub } from "@/components/sections/contact-hub"
 import { sendContactEmail } from "@/app/actions/send-contact"
@@ -71,7 +71,7 @@ export default function Home() {
         <FestivalSeason />
         <Testimonials />
         <TravelGuideSection />
-        <TripBuilder />
+        <CustomTourBuilder />
         <Partners />
         <ContactHub
           onSubmit={handleContactSubmit}
