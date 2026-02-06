@@ -5,6 +5,7 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import Image from "next/image"
 
 export default function TravelGuidePage() {
   const { t } = useLanguage()
@@ -16,11 +17,16 @@ export default function TravelGuidePage() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative py-24 md:py-32 overflow-hidden">
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url('/bhutan-himalayan-mountains-prayer-flags-temple-scenic.jpg')" }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-background" />
+          <div className="absolute inset-0">
+            <Image
+              src="/bhutan-himalayan-mountains-prayer-flags-temple-scenic.jpg"
+              alt="Bhutan travel guide"
+              fill
+              priority
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-background" />
+          </div>
           <div className="container px-4 md:px-6 relative z-10">
             <div className="mx-auto max-w-3xl text-center">
               <Badge className="mb-4 bg-accent text-accent-foreground">{t("guide_badge")}</Badge>
@@ -252,11 +258,14 @@ export default function TravelGuidePage() {
                   image: "/bhutan-bumthang-valley-ancient-temples-monasteries.jpg",
                 },
               ].map((attraction) => (
-                <Card key={attraction.name} className="overflow-hidden">
+                <Card key={attraction.name} className="overflow-hidden border border-border/60">
                   <div className="relative h-48">
-                    <div
-                      className="absolute inset-0 bg-cover bg-center"
-                      style={{ backgroundImage: `url('${attraction.image}')` }}
+                    <Image
+                      src={attraction.image}
+                      alt={attraction.name}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                     <div className="absolute bottom-4 left-4">

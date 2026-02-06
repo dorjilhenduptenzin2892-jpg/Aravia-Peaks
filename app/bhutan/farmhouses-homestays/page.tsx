@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
+import Image from "next/image"
 
 export default function FarmhousesHomestaysPage() {
   const { t } = useLanguage()
@@ -155,11 +156,12 @@ export default function FarmhousesHomestaysPage() {
                 <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
                   <div className="grid md:grid-cols-2 gap-0">
                     <div className="relative h-80 md:h-auto overflow-hidden">
-                      <div
-                        className="absolute inset-0 bg-cover bg-center"
-                        style={{
-                          backgroundImage: `url('${homestay.image}')`,
-                        }}
+                      <Image
+                        src={homestay.image}
+                        alt={homestay.name}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
                       />
                       <Badge className="absolute top-4 left-4 bg-accent text-accent-foreground">
                         {homestay.location}
@@ -183,15 +185,10 @@ export default function FarmhousesHomestaysPage() {
                       </div>
 
                       <div className="flex gap-3">
-                        <Button
-                          asChild
-                          className="group relative overflow-hidden px-6 py-3 text-sm font-bold rounded-md uppercase tracking-wide shadow-lg hover:shadow-xl transition-all duration-300 border-2 bg-[#623c2b] hover:bg-[#4d2f21] text-white border-[#3d2318] hover:scale-105 hover:-translate-y-0.5 active:scale-95"
-                        >
-                          <Link href="/inquiry" className="relative z-10 flex items-center gap-2">
+                        <Button asChild className="px-6 py-3 text-sm font-semibold">
+                          <Link href="/inquiry" className="flex items-center gap-2">
                             {t("farmhouse_book_now")}
-                            <span className="inline-block transition-transform group-hover:translate-x-1 duration-300">
-                              →
-                            </span>
+                            <span className="inline-block">→</span>
                           </Link>
                         </Button>
                         <Button asChild variant="outline" className="shadow-sm border-2 bg-transparent">

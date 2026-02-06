@@ -2161,11 +2161,17 @@ export default function PackageDetailClient({ id }: { id: string }) {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative min-h-[50vh] md:h-[60vh] flex items-center justify-center overflow-hidden py-8 md:py-0">
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url('${image || "/placeholder.svg?height=600&width=1200"}')` }}
-          />
-          <div className="absolute inset-0 bg-black/50"></div>
+          <div className="absolute inset-0">
+            <Image
+              src={image || "/placeholder.svg?height=600&width=1200"}
+              alt={title}
+              fill
+              priority
+              className="object-cover"
+              sizes="100vw"
+            />
+            <div className="absolute inset-0 bg-black/50"></div>
+          </div>
           <div className="container mx-auto px-4 text-center text-white relative z-10">
             <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 leading-tight">{title}</h1>
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 mb-6 md:mb-8 max-w-3xl mx-auto px-2">{description}</p>

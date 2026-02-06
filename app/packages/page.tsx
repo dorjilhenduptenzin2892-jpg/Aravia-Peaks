@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useLanguage } from "@/lib/language-context"
 import Link from "next/link"
+import Image from "next/image"
 
 const packages = [
   // Cultural Festival Packages
@@ -225,11 +226,11 @@ export default function PackagesPage() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section
-          className="relative py-16 md:py-24 bg-cover bg-center"
-          style={{ backgroundImage: "url('/images/package-20bg.webp')" }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-background" />
+        <section className="relative py-16 md:py-24 overflow-hidden">
+          <div className="absolute inset-0">
+            <Image src="/images/package-bg.webp" alt="Bhutan packages" fill className="object-cover" priority />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-background" />
+          </div>
           <div className="container px-4 md:px-6 relative z-10">
             <div className="mx-auto max-w-3xl text-center">
               <h1 className="font-serif text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl mb-6 text-balance text-white">
@@ -308,13 +309,14 @@ function PackageGrid({ packages }: { packages: typeof packages }) {
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 justify-items-center place-items-start max-w-7xl mx-auto">
       {packages.map((pkg) => (
         <Link key={pkg.id} href={`/packages/${pkg.id}`} className="block w-full max-w-md">
-          <Card className="overflow-hidden group cursor-pointer hover:shadow-xl transition-all h-full">
+          <Card className="overflow-hidden group cursor-pointer hover:shadow-xl transition-all h-full border border-border/60">
             <div className="relative h-64 overflow-hidden">
-              <div
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-                style={{
-                  backgroundImage: `url('${pkg.image}')`,
-                }}
+              <Image
+                src={pkg.image}
+                alt={pkg.title}
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 
@@ -342,7 +344,9 @@ function PackageGrid({ packages }: { packages: typeof packages }) {
                 </div>
               </div>
 
-              <h3 className="font-semibold text-xl mb-2 group-hover:text-[#623c2b] transition-colors">{pkg.title}</h3>
+              <h3 className="font-semibold text-xl mb-2 group-hover:text-foreground transition-colors">
+                {pkg.title}
+              </h3>
               <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{pkg.description}</p>
 
               {/* Highlights */}

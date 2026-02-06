@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
+import Image from "next/image"
 
 const festivalSchedule2026 = [
   { festival: "Lhamoi Dromche", location: "Trongsa", date: "Feb 23-25" },
@@ -184,47 +185,50 @@ export default function FestivalsPage() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative py-16 md:py-24 bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 overflow-hidden">
-          <div
-            className="absolute inset-0 bg-cover bg-center opacity-70"
-            style={{
-              backgroundImage: `url('/bhutan-paro-taktsang-monastery-tiger-nest-mountain.jpg')`,
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-orange-50/30 via-amber-50/40 to-yellow-50/30" />
+        <section className="relative py-16 md:py-24 overflow-hidden">
+          <div className="absolute inset-0">
+            <Image
+              src="/bhutan-paro-taktsang-monastery-tiger-nest-mountain.jpg"
+              alt="Bhutan festivals"
+              fill
+              priority
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-background" />
+          </div>
           <div className="container px-4 md:px-6 relative z-10">
             <div className="mx-auto max-w-3xl text-center">
-              <Badge className="mb-4 bg-[#D9A05C] text-white shadow-md">{t("festivals_badge")}</Badge>
-              <h1 className="font-serif text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl mb-6 text-balance bg-gradient-to-r from-[#623c2b] to-[#8b5a3c] bg-clip-text text-transparent">
+              <Badge className="mb-4 bg-primary text-primary-foreground shadow-sm">{t("festivals_badge")}</Badge>
+              <h1 className="font-serif text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl mb-6 text-balance text-white">
                 {t("festivals_title")}
               </h1>
-              <p className="text-lg text-gray-700 text-balance">{t("festivals_description")}</p>
+              <p className="text-lg text-white/90 text-balance">{t("festivals_description")}</p>
             </div>
           </div>
         </section>
 
         {/* Bhutanese Festival Schedule */}
-        <section className="py-12 md:py-16 bg-white">
+        <section className="py-12 md:py-16 bg-background">
           <div className="container px-4 md:px-6">
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-8">
-                <h2 className="font-serif text-3xl font-bold mb-2 text-[#623c2b]">Bhutanese Festival Schedule 2026</h2>
-                <p className="text-gray-600">Complete list of festivals happening throughout the year</p>
+                <h2 className="font-serif text-3xl font-bold mb-2">Bhutanese Festival Schedule 2026</h2>
+                <p className="text-muted-foreground">Complete list of festivals happening throughout the year</p>
               </div>
 
-              <Card className="border-2 border-[#D9A05C]/30 shadow-lg">
+              <Card className="border border-border/60 shadow-sm">
                 <CardContent className="p-6">
                   <div className="overflow-x-auto">
                     <table className="w-full border-collapse">
                       <thead>
-                        <tr className="border-b-2 border-[#D9A05C]">
-                          <th className="text-left py-3 px-4 font-semibold bg-gradient-to-r from-[#D9A05C] to-[#C8944D] text-white">
+                        <tr className="border-b border-border">
+                          <th className="text-left py-3 px-4 font-semibold bg-muted">
                             Festival
                           </th>
-                          <th className="text-left py-3 px-4 font-semibold bg-gradient-to-r from-[#D9A05C] to-[#C8944D] text-white">
+                          <th className="text-left py-3 px-4 font-semibold bg-muted">
                             Location
                           </th>
-                          <th className="text-left py-3 px-4 font-semibold bg-gradient-to-r from-[#D9A05C] to-[#C8944D] text-white">
+                          <th className="text-left py-3 px-4 font-semibold bg-muted">
                             Date
                           </th>
                         </tr>
@@ -233,31 +237,31 @@ export default function FestivalsPage() {
                         {festivalSchedule2026.map((item, index) => (
                           <tr
                             key={index}
-                            className={`border-b border-gray-200 hover:bg-amber-50/50 transition-colors ${
-                              item.popular ? "bg-orange-50/50" : ""
+                            className={`border-b border-border/60 hover:bg-muted/40 transition-colors ${
+                              item.popular ? "bg-muted/30" : ""
                             }`}
                           >
                             <td className="py-3 px-4">
                               <div className="flex items-center gap-2">
-                                <span className="font-medium text-gray-900">{item.festival}</span>
+                                <span className="font-medium text-foreground">{item.festival}</span>
                                 {item.popular && (
-                                  <Badge className="text-xs bg-gradient-to-r from-[#D9A05C] to-[#C8944D] text-white border-0">
+                                  <Badge className="text-xs bg-primary text-primary-foreground border-0">
                                     Popular
                                   </Badge>
                                 )}
                               </div>
                             </td>
-                            <td className="py-3 px-4 text-gray-600">{item.location}</td>
-                            <td className="py-3 px-4 text-gray-600">{item.date}</td>
+                            <td className="py-3 px-4 text-muted-foreground">{item.location}</td>
+                            <td className="py-3 px-4 text-muted-foreground">{item.date}</td>
                           </tr>
                         ))}
                       </tbody>
                     </table>
                   </div>
 
-                  <div className="mt-6 p-4 bg-gradient-to-r from-amber-50 to-orange-50 rounded-lg border border-[#D9A05C]/30">
-                    <p className="text-sm text-gray-700">
-                      <strong className="text-[#623c2b]">Note:</strong> You may choose the festival of your interest
+                  <div className="mt-6 p-4 bg-muted/40 rounded-lg border border-border">
+                    <p className="text-sm text-muted-foreground">
+                      <strong className="text-foreground">Note:</strong> You may choose the festival of your interest
                       from the above list and contact us. We will provide more detailed information on your choice of
                       festivals.
                     </p>
@@ -269,48 +273,42 @@ export default function FestivalsPage() {
         </section>
 
         {/* About Festivals */}
-        <section className="relative py-12 md:py-16 overflow-hidden">
-          <div
-            className="absolute inset-0 bg-cover bg-center opacity-60"
-            style={{
-              backgroundImage: `url('/bhutan-colorful-prayer-flags-himalayan-mountains-b.jpg')`,
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-indigo-50/50 to-purple-50/50" />
+        <section className="relative py-12 md:py-16 bg-muted/30">
           <div className="container px-4 md:px-6 relative z-10">
             <div className="max-w-3xl mx-auto text-center mb-12">
-              <h2 className="font-serif text-2xl font-bold mb-4 text-[#623c2b]">{t("festivals_what_are")}</h2>
-              <p className="text-gray-700">{t("festivals_explanation")}</p>
+              <h2 className="font-serif text-2xl font-bold mb-4">{t("festivals_what_are")}</h2>
+              <p className="text-muted-foreground">{t("festivals_explanation")}</p>
             </div>
           </div>
         </section>
 
         {/* Featured Festivals Grid */}
-        <section className="py-12 md:py-16 bg-white">
+        <section className="py-12 md:py-16 bg-background">
           <div className="container px-4 md:px-6">
             <div className="text-center mb-12">
-              <h2 className="font-serif text-3xl font-bold mb-2 text-[#623c2b]">Featured Festivals</h2>
-              <p className="text-gray-600">Experience the most celebrated festivals in Bhutan</p>
+              <h2 className="font-serif text-3xl font-bold mb-2">Featured Festivals</h2>
+              <p className="text-muted-foreground">Experience the most celebrated festivals in Bhutan</p>
             </div>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {festivals.map((festival) => (
                 <Card
                   key={festival.id}
-                  className="overflow-hidden group hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-[#D9A05C]/30"
+                  className="overflow-hidden group hover:shadow-xl transition-all duration-300 border border-border/60"
                 >
                   <div className="relative h-56 overflow-hidden">
-                    <div
-                      className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-                      style={{
-                        backgroundImage: `url('${festival.image}')`,
-                      }}
+                    <Image
+                      src={festival.image}
+                      alt={festival.name}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
 
                     {festival.popular && (
                       <div className="absolute top-4 right-4">
-                        <Badge className="bg-gradient-to-r from-[#D9A05C] to-[#C8944D] text-white border-0 shadow-lg">
+                        <Badge className="bg-primary text-primary-foreground border-0 shadow-sm">
                           {t("festivals_most_popular")}
                         </Badge>
                       </div>
@@ -326,7 +324,7 @@ export default function FestivalsPage() {
                   </div>
 
                   <CardContent className="p-6">
-                    <div className="mb-3 flex items-center gap-4 text-sm text-gray-600">
+                    <div className="mb-3 flex items-center gap-4 text-sm text-muted-foreground">
                       <div className="flex items-center gap-1">
                         <span>📍</span>
                         <span>{festival.location}</span>
@@ -337,24 +335,21 @@ export default function FestivalsPage() {
                       </div>
                     </div>
 
-                    <p className="text-sm text-gray-600 mb-4 line-clamp-3">{festival.description}</p>
+                    <p className="text-sm text-muted-foreground mb-4 line-clamp-3">{festival.description}</p>
 
                     <div className="mb-4">
-                      <p className="text-xs font-semibold mb-2 text-[#623c2b]">{t("festivals_highlights")}</p>
+                      <p className="text-xs font-semibold mb-2">{t("festivals_highlights")}</p>
                       <div className="flex flex-wrap gap-1">
                         {festival.highlights.slice(0, 3).map((highlight, i) => (
-                          <Badge key={i} variant="outline" className="text-xs border-[#D9A05C]/50 text-gray-700">
+                          <Badge key={i} variant="outline" className="text-xs">
                             {highlight}
                           </Badge>
                         ))}
                       </div>
                     </div>
 
-                    <div className="pt-4 border-t border-gray-200">
-                      <Button
-                        className="w-full bg-gradient-to-r from-[#623c2b] to-[#8b5a3c] hover:from-[#4d2f21] hover:to-[#623c2b] text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105"
-                        asChild
-                      >
+                    <div className="pt-4 border-t border-border">
+                      <Button className="w-full" asChild>
                         <Link href={festival.packageLink}>{t("festivals_view_package")}</Link>
                       </Button>
                     </div>
@@ -366,47 +361,40 @@ export default function FestivalsPage() {
         </section>
 
         {/* Important Notes */}
-        <section className="relative py-16 md:py-24 overflow-hidden">
-          <div
-            className="absolute inset-0 bg-cover bg-center opacity-70"
-            style={{
-              backgroundImage: `url('/bhutan-punakha-dzong-fortress-river-valley-traditi.jpg')`,
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-green-50/40 via-emerald-50/40 to-teal-50/40" />
+        <section className="relative py-16 md:py-24 bg-muted/30">
           <div className="container px-4 md:px-6 relative z-10">
             <div className="max-w-3xl mx-auto">
-              <h2 className="font-serif text-3xl font-bold text-center mb-8 text-[#623c2b]">
+              <h2 className="font-serif text-3xl font-bold text-center mb-8">
                 {t("festivals_important_notes_title")}
               </h2>
               <div className="space-y-4">
-                <Card className="border-l-4 border-l-blue-500 shadow-md hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6 bg-gradient-to-r from-blue-50/50 to-transparent">
-                    <h3 className="font-semibold text-lg mb-2 text-[#623c2b]">{t("festivals_dates_vary")}</h3>
-                    <p className="text-sm text-gray-700">{t("festivals_dates_vary_description")}</p>
+                <Card className="border-l-4 border-l-primary shadow-sm hover:shadow-md transition-shadow">
+                  <CardContent className="p-6 bg-card">
+                    <h3 className="font-semibold text-lg mb-2">{t("festivals_dates_vary")}</h3>
+                    <p className="text-sm text-muted-foreground">{t("festivals_dates_vary_description")}</p>
                   </CardContent>
                 </Card>
 
-                <Card className="border-l-4 border-l-amber-500 shadow-md hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6 bg-gradient-to-r from-amber-50/50 to-transparent">
-                    <h3 className="font-semibold text-lg mb-2 text-[#623c2b]">{t("festivals_book_early")}</h3>
-                    <p className="text-sm text-gray-700">{t("festivals_book_early_description")}</p>
+                <Card className="border-l-4 border-l-primary shadow-sm hover:shadow-md transition-shadow">
+                  <CardContent className="p-6 bg-card">
+                    <h3 className="font-semibold text-lg mb-2">{t("festivals_book_early")}</h3>
+                    <p className="text-sm text-muted-foreground">{t("festivals_book_early_description")}</p>
                   </CardContent>
                 </Card>
 
-                <Card className="border-l-4 border-l-purple-500 shadow-md hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6 bg-gradient-to-r from-purple-50/50 to-transparent">
-                    <h3 className="font-semibold text-lg mb-2 text-[#623c2b]">{t("festivals_what_to_wear")}</h3>
-                    <p className="text-sm text-gray-700">{t("festivals_what_to_wear_description")}</p>
+                <Card className="border-l-4 border-l-primary shadow-sm hover:shadow-md transition-shadow">
+                  <CardContent className="p-6 bg-card">
+                    <h3 className="font-semibold text-lg mb-2">{t("festivals_what_to_wear")}</h3>
+                    <p className="text-sm text-muted-foreground">{t("festivals_what_to_wear_description")}</p>
                   </CardContent>
                 </Card>
 
-                <Card className="border-l-4 border-l-green-500 shadow-md hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6 bg-gradient-to-r from-green-50/50 to-transparent">
-                    <h3 className="font-semibold text-lg mb-2 text-[#623c2b]">
+                <Card className="border-l-4 border-l-primary shadow-sm hover:shadow-md transition-shadow">
+                  <CardContent className="p-6 bg-card">
+                    <h3 className="font-semibold text-lg mb-2">
                       {t("festivals_photography_etiquette")}
                     </h3>
-                    <p className="text-sm text-gray-700">{t("festivals_photography_etiquette_description")}</p>
+                    <p className="text-sm text-muted-foreground">{t("festivals_photography_etiquette_description")}</p>
                   </CardContent>
                 </Card>
               </div>
@@ -416,22 +404,20 @@ export default function FestivalsPage() {
 
         {/* CTA Section */}
         <section className="relative py-16 md:py-24 overflow-hidden">
-          <div
-            className="absolute inset-0 bg-cover bg-center opacity-65"
-            style={{
-              backgroundImage: `url('/bhutan-festival-masked-dancers-colorful-costumes-c.jpg')`,
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#623c2b]/70 via-[#7d4a2e]/70 to-[#4d2f21]/70" />
+          <div className="absolute inset-0">
+            <Image
+              src="/bhutan-festival-masked-dancers-colorful-costumes-c.jpg"
+              alt="Bhutan festival"
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/60 to-black/70" />
+          </div>
           <div className="container px-4 md:px-6 relative z-10">
             <div className="mx-auto max-w-2xl text-center">
               <h2 className="font-serif text-3xl font-bold text-white mb-4">{t("festivals_cta_title")}</h2>
               <p className="text-lg text-white/90 mb-8">{t("festivals_cta_description")}</p>
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-[#D9A05C] to-[#C8944D] hover:from-[#C8944D] hover:to-[#B7833C] text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-                asChild
-              >
+              <Button size="lg" className="font-semibold" asChild>
                 <Link href="/inquiry">{t("festivals_cta_button")}</Link>
               </Button>
             </div>
