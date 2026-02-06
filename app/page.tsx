@@ -14,14 +14,6 @@ import { TravelGuideSection } from "@/components/sections/travel-guide-section"
 import { TripBuilder } from "@/components/sections/trip-builder"
 import { Partners } from "@/components/sections/partners"
 import { ContactHub } from "@/components/sections/contact-hub"
-import { TrustBar } from "@/components/sections/trust-bar"
-import { ExperienceGallery } from "@/components/sections/experience-gallery"
-import { FAQSection } from "@/components/sections/faq-section"
-import { StatsSection } from "@/components/sections/stats-section"
-import { HowItWorks } from "@/components/sections/how-it-works"
-import { PressLogos } from "@/components/sections/press-logos"
-import { PaymentsSecurity } from "@/components/sections/payments-security"
-import { Newsletter } from "@/components/sections/newsletter"
 import { sendContactEmail } from "@/app/actions/send-contact"
 
 export default function Home() {
@@ -72,22 +64,14 @@ export default function Home() {
 
       <main className="flex-1">
         <HomeHero />
-        <TrustBar />
-        <PressLogos />
-        <StatsSection />
-        <HowItWorks />
         <WhyUs />
         <ExperienceGrid />
         <FeaturedTours />
         <BhutanMap />
         <FestivalSeason />
-        <ExperienceGallery />
         <Testimonials />
         <TravelGuideSection />
         <TripBuilder />
-        <FAQSection />
-        <PaymentsSecurity />
-        <Newsletter />
         <Partners />
         <ContactHub
           onSubmit={handleContactSubmit}
