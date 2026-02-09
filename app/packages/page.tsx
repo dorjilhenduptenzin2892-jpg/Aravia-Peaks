@@ -11,7 +11,7 @@ import { useLanguage } from "@/lib/language-context"
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
-import { useState } from "react"
+import { Suspense, useState } from "react"
 
 const packages = [
   // Cultural Festival Packages
@@ -268,7 +268,7 @@ const packages = [
   },
 ]
 
-export default function PackagesPage() {
+function PackagesPageContent() {
   const { t } = useLanguage()
   const searchParams = useSearchParams()
   const categoryParam = (searchParams.get("category") || "all").toLowerCase()
@@ -498,6 +498,30 @@ export default function PackagesPage() {
 
       <Footer />
     </div>
+  )
+}
+
+export default function PackagesPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen flex-col">
+          <Header />
+          <main className="flex-1">
+            <section className="py-16 md:py-24">
+              <div className="container px-4 md:px-6">
+                <div className="mx-auto max-w-3xl text-center">
+                  <p className="text-muted-foreground">Loading packages...</p>
+                </div>
+              </div>
+            </section>
+          </main>
+          <Footer />
+        </div>
+      }
+    >
+      <PackagesPageContent />
+    </Suspense>
   )
 }
 
