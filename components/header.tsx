@@ -76,28 +76,28 @@ export function Header() {
             </button>
             <div
               id="nav-tours"
-              className={`absolute left-0 top-full w-64 translate-y-2 rounded-xl border border-border bg-background p-4 shadow-lg ${
-                openMenu === "tours" ? "block" : "hidden"
-              }`}
+              className={`absolute left-0 top-full pt-2 ${openMenu === "tours" ? "block" : "hidden"}`}
             >
-              <Link href="/packages?category=cultural" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
-                Cultural Tours
-              </Link>
-              <Link href="/packages?category=festival" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
-                Festival Tours
-              </Link>
-              <Link href="/packages?category=trekking" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
-                Trekking Tours
-              </Link>
-              <Link href="/packages?category=luxury" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
-                Luxury Tours
-              </Link>
-              <Link href="/packages" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
-                Adventure Tours
-              </Link>
-              <Link href="/inquiry" className="block px-3 py-2 text-sm font-semibold hover:bg-muted" onClick={handleLinkClick}>
-                Custom/Bespoke Tours
-              </Link>
+              <div className="w-64 rounded-xl border border-border bg-background p-4 shadow-lg">
+                <Link href="/packages?category=cultural" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
+                  Cultural Tours
+                </Link>
+                <Link href="/packages?category=festival" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
+                  Festival Tours
+                </Link>
+                <Link href="/packages?category=trekking" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
+                  Trekking Tours
+                </Link>
+                <Link href="/packages?category=luxury" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
+                  Luxury Tours
+                </Link>
+                <Link href="/packages" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
+                  Adventure Tours
+                </Link>
+                <Link href="/inquiry" className="block px-3 py-2 text-sm font-semibold hover:bg-muted" onClick={handleLinkClick}>
+                  Custom/Bespoke Tours
+                </Link>
+              </div>
             </div>
           </div>
 
@@ -117,25 +117,25 @@ export function Header() {
             </button>
             <div
               id="nav-guide"
-              className={`absolute left-0 top-full w-60 translate-y-2 rounded-xl border border-border bg-background p-4 shadow-lg ${
-                openMenu === "guide" ? "block" : "hidden"
-              }`}
+              className={`absolute left-0 top-full pt-2 ${openMenu === "guide" ? "block" : "hidden"}`}
             >
-              <Link href="/travel-guide" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
-                Bhutan Visa Guide
-              </Link>
-              <Link href="/travel-guide" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
-                Best Time to Visit
-              </Link>
-              <Link href="/festivals" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
-                Festivals Calendar
-              </Link>
-              <Link href="/travel-guide" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
-                Top Attractions
-              </Link>
-              <Link href="/travel-guide" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
-                Travel Tips & FAQs
-              </Link>
+              <div className="w-60 rounded-xl border border-border bg-background p-4 shadow-lg">
+                <Link href="/travel-guide" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
+                  Bhutan Visa Guide
+                </Link>
+                <Link href="/travel-guide" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
+                  Best Time to Visit
+                </Link>
+                <Link href="/festivals" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
+                  Festivals Calendar
+                </Link>
+                <Link href="/travel-guide" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
+                  Top Attractions
+                </Link>
+                <Link href="/travel-guide" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
+                  Travel Tips & FAQs
+                </Link>
+              </div>
             </div>
           </div>
 
