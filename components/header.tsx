@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { LanguageSelector } from "@/components/language-selector"
@@ -8,6 +8,7 @@ import { LanguageSelector } from "@/components/language-selector"
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openMenu, setOpenMenu] = useState<"tours" | "guide" | null>(null)
+  const navRef = useRef<HTMLDivElement | null>(null)
 
   const handleLinkClick = () => {
     setMobileMenuOpen(false)
@@ -16,6 +17,17 @@ export function Header() {
       window.scrollTo({ top: 0, behavior: "instant" })
     }, 0)
   }
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setOpenMenu(null)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/90 backdrop-blur-lg">
@@ -39,7 +51,7 @@ export function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-6 md:flex">
+        <nav ref={navRef} className="hidden items-center gap-6 md:flex">
           <Link
             href="/"
             className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
@@ -64,7 +76,7 @@ export function Header() {
             </button>
             <div
               id="nav-tours"
-              className={`absolute left-0 top-full mt-3 w-64 rounded-xl border border-border bg-background p-4 shadow-lg ${
+              className={`absolute left-0 top-full w-64 translate-y-2 rounded-xl border border-border bg-background p-4 shadow-lg ${
                 openMenu === "tours" ? "block" : "hidden"
               }`}
             >
@@ -105,7 +117,7 @@ export function Header() {
             </button>
             <div
               id="nav-guide"
-              className={`absolute left-0 top-full mt-3 w-60 rounded-xl border border-border bg-background p-4 shadow-lg ${
+              className={`absolute left-0 top-full w-60 translate-y-2 rounded-xl border border-border bg-background p-4 shadow-lg ${
                 openMenu === "guide" ? "block" : "hidden"
               }`}
             >
