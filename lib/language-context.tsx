@@ -353,6 +353,13 @@ const translations: Record<string, Record<string, string>> = {
     inquiry_budget_3000_5000: "$3,000 - $5,000",
     inquiry_budget_5000plus: "$5,000+",
     request_quote: "Request Quote",
+    sending_message: "Sending message...",
+    package_not_found: "Package Not Found",
+    package_not_found_description: "The package you are looking for could not be found.",
+    best_time: "Best Time",
+    group_size: "Group Size",
+    duration: "Duration",
+    difficulty: "Difficulty",
     contact_travel_agents: "Contact our licensed travel agent partners for pricing and bookings",
     // ADDED FAQ SECTIONS
     faq_title: "Frequently Asked Questions",
