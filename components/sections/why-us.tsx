@@ -5,34 +5,34 @@ import { SectionHeader } from "@/components/sections/section-header"
 
 const trustItems = [
   {
-    icon: "🏆",
-    titleKey: "licensed_trusted",
-    descKey: "licensed_trusted_description",
-  },
-  {
-    icon: "❤️",
-    titleKey: "authentic_experiences",
-    descKey: "authentic_experiences_description",
-  },
-  {
-    icon: "👥",
-    titleKey: "expert_guides",
-    descKey: "expert_guides_description",
+    icon: "🇧🇹",
+    title: "Local Bhutanese expertise",
+    description: "Guided by locals who live the culture, landscapes, and traditions.",
   },
   {
     icon: "🧭",
-    titleKey: "tailored_itineraries",
-    descKey: "tailored_itineraries_description",
+    title: "Personalized itineraries",
+    description: "Each journey is tailored to your pace, interests, and travel style.",
   },
   {
-    icon: "📅",
-    titleKey: "festival_access",
-    descKey: "festival_access_description",
+    icon: "🏯",
+    title: "Authentic cultural immersion",
+    description: "Meaningful encounters with Bhutan’s people and sacred places.",
   },
   {
-    icon: "⛰️",
-    titleKey: "sustainable_tourism",
-    descKey: "sustainable_tourism_description",
+    icon: "🌿",
+    title: "Responsible tourism",
+    description: "Sustainable practices that protect Bhutan’s environment and heritage.",
+  },
+  {
+    icon: "✨",
+    title: "Seamless travel planning",
+    description: "Every detail coordinated with care from arrival to departure.",
+  },
+  {
+    icon: "🕊️",
+    title: "24/7 traveler support",
+    description: "Reliable assistance before, during, and after your journey.",
   },
 ]
 
@@ -43,20 +43,20 @@ export function WhyUs() {
     <section className="py-16 md:py-24 section-tint">
       <div className="container mx-auto px-4 md:px-6">
         <SectionHeader
-          eyebrow={<Badge variant="secondary">Trusted Bhutan Experts</Badge>}
-          title={t("why_choose_drukvista")}
-          description={t("why_choose_description")}
+          eyebrow={<Badge variant="secondary">Why Aravia Peaks</Badge>}
+          title="Crafted by Bhutanese experts"
+          description="Premium service, local insight, and authentic experiences built for global travelers."
         />
 
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {trustItems.map((item) => (
-            <Card key={item.titleKey} className="card-premium border border-border/60 bg-card">
+            <Card key={item.title} className="card-premium border border-border/60 bg-card">
               <CardContent className="p-6">
                 <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-accent/20 text-2xl">
                   {item.icon}
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{t(item.titleKey)}</h3>
-                <p className="text-muted-foreground">{t(item.descKey)}</p>
+                <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+                <p className="text-muted-foreground">{item.description}</p>
               </CardContent>
             </Card>
           ))}

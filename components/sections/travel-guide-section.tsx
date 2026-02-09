@@ -7,17 +7,22 @@ import { SectionHeader } from "@/components/sections/section-header"
 const articles = [
   {
     title: "Best time to visit Bhutan",
-    description: "Seasonal insights for festivals, trekking, and cultural tours.",
+    description: "Seasonal guidance for festivals, skies, and trekking conditions.",
     href: "/travel-guide",
   },
   {
-    title: "Visa & SDF requirements",
-    description: "What you need to know before you travel.",
+    title: "Bhutan cultural guide",
+    description: "Understand etiquette, sacred sites, and living traditions.",
     href: "/travel-guide",
   },
   {
-    title: "Cultural etiquette",
-    description: "Respectful travel tips from local experts.",
+    title: "Hidden gems of Bhutan",
+    description: "Quiet valleys and local encounters beyond the usual paths.",
+    href: "/travel-guide",
+  },
+  {
+    title: "Himalayan adventure stories",
+    description: "Inspiration from trails, passes, and high-altitude journeys.",
     href: "/travel-guide",
   },
 ]
@@ -27,12 +32,12 @@ export function TravelGuideSection() {
     <section className="py-16 md:py-24 section-tint">
       <div className="container mx-auto px-4 md:px-6">
         <SectionHeader
-          eyebrow={<Badge variant="secondary">Travel Guide & Blog</Badge>}
-          title="Plan with confidence"
-          description="Practical guidance and insider tips from Bhutan-based experts."
+          eyebrow={<Badge variant="secondary">Travel Inspiration</Badge>}
+          title="Stories and insights to shape your journey"
+          description="Curated knowledge from Bhutan-based experts and local storytellers."
         />
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {articles.map((article) => (
             <Card key={article.title} className="card-premium border border-border/60 bg-card">
               <CardContent className="p-6">

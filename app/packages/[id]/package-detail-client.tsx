@@ -2139,7 +2139,6 @@ export default function PackageDetailClient({ id }: { id: string }) {
     description,
     longDescription,
     duration,
-    price,
     image,
     gallery,
     rating,
@@ -2154,6 +2153,19 @@ export default function PackageDetailClient({ id }: { id: string }) {
     excluded,
     whatToBring,
   } = packageData
+
+  const sanitizeItem = (text: string) =>
+    text
+      .replace(/\$\s*\d[\d,]*/g, "")
+      .replace(/\(\s*\)/g, "")
+      .replace(/\s+-\s+per\s+\w+/gi, "")
+      .replace(/\s{2,}/g, " ")
+      .replace(/-\s*$/g, "")
+      .trim()
+
+  const safeIncluded = included.map(sanitizeItem).filter(Boolean)
+  const safeExcluded = excluded.map(sanitizeItem).filter(Boolean)
+  const safeWhatToBring = whatToBring.map(sanitizeItem).filter(Boolean)
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -2318,7 +2330,7 @@ export default function PackageDetailClient({ id }: { id: string }) {
                 <div className="text-center mb-4 md:mb-6">
                   <h3 className="font-serif text-xl md:text-2xl font-bold mb-2">Ready to Book?</h3>
                   <p className="text-white/90 text-xs sm:text-sm">
-                    Contact our authorized travel agent partners for customized pricing and bookings
+                    Contact our authorized travel agent partners for tailored trip planning and bookings
                   </p>
                 </div>
 
@@ -2331,7 +2343,7 @@ export default function PackageDetailClient({ id }: { id: string }) {
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-green-300 mt-0.5">✓</span>
-                      <span>Competitive pricing with transparent costs</span>
+                      <span>Clear trip planning with transparent guidance</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-green-300 mt-0.5">✓</span>
@@ -2358,7 +2370,7 @@ export default function PackageDetailClient({ id }: { id: string }) {
                   </span>
                 </Link>
                 <p className="text-xs text-white/70 text-center mt-4">
-                  Get personalized pricing based on group size, season, and accommodation preferences
+                  Receive a personalized proposal based on your group size, season, and preferences
                 </p>
               </section>
 
@@ -2381,7 +2393,7 @@ export default function PackageDetailClient({ id }: { id: string }) {
               <section className="bg-background shadow-xl rounded-xl p-4 sm:p-6 border border-border">
                 <h3 className="font-serif text-xl md:text-2xl font-bold mb-3 md:mb-4">{t("whats_included")}</h3>
                 <ul className="list-none text-muted-foreground space-y-2 text-xs sm:text-sm">
-                  {included.map((item, index) => (
+                  {safeIncluded.map((item, index) => (
                     <li key={index} className="flex items-start gap-2">
                       <CheckIcon className="h-4 w-4 sm:h-5 sm:w-5 shrink-0 text-green-500 mt-0.5" />
                       <span>{item}</span>
@@ -2392,7 +2404,7 @@ export default function PackageDetailClient({ id }: { id: string }) {
               <section className="bg-background shadow-xl rounded-xl p-4 sm:p-6 border border-border">
                 <h3 className="font-serif text-xl md:text-2xl font-bold mb-3 md:mb-4">{t("whats_excluded")}</h3>
                 <ul className="list-none text-muted-foreground space-y-2 text-xs sm:text-sm">
-                  {excluded.map((item, index) => (
+                  {safeExcluded.map((item, index) => (
                     <li key={index} className="flex items-start gap-2">
                       <XIcon className="h-4 w-4 sm:h-5 sm:w-5 shrink-0 text-red-500 mt-0.5" />
                       <span>{item}</span>
@@ -2405,7 +2417,7 @@ export default function PackageDetailClient({ id }: { id: string }) {
               <section className="bg-background shadow-xl rounded-xl p-4 sm:p-6 border border-border">
                 <h3 className="font-serif text-xl md:text-2xl font-bold mb-3 md:mb-4">{t("what_to_bring")}</h3>
                 <ul className="list-none text-muted-foreground space-y-2 text-xs sm:text-sm">
-                  {whatToBring.map((item, index) => (
+                  {safeWhatToBring.map((item, index) => (
                     <li key={index} className="flex items-start gap-2">
                       <span className="text-base sm:text-lg">🎒</span>
                       <span>{item}</span>

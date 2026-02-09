@@ -11,9 +11,11 @@ import { BhutanMap } from "@/components/sections/bhutan-map"
 import { FestivalSeason } from "@/components/sections/festival-season"
 import { Testimonials } from "@/components/sections/testimonials"
 import { TravelGuideSection } from "@/components/sections/travel-guide-section"
+import { AboutAravia } from "@/components/sections/about-aravia"
 import { CustomTourBuilder } from "@/components/sections/custom-tour-builder"
 import { Partners } from "@/components/sections/partners"
 import { ContactHub } from "@/components/sections/contact-hub"
+import { StrongCTA } from "@/components/sections/strong-cta"
 import { sendContactEmail } from "@/app/actions/send-contact"
 
 export default function Home() {
@@ -67,12 +69,14 @@ export default function Home() {
         <WhyUs />
         <ExperienceGrid />
         <FeaturedTours />
+        <AboutAravia />
         <BhutanMap />
         <FestivalSeason />
         <Testimonials />
         <TravelGuideSection />
         <CustomTourBuilder />
         <Partners />
+        <StrongCTA />
         <ContactHub
           onSubmit={handleContactSubmit}
           onChange={handleContactChange}

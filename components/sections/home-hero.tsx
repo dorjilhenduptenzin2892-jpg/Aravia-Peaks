@@ -29,17 +29,18 @@ export function HomeHero() {
           {t("licensed_tour_operator")}
         </Badge>
         <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white text-balance mb-6">
-          {t("hero_title")} <span className="text-gradient block mt-2">{t("thunder_dragon")}</span>
+          Experience Bhutan Beyond Travel
         </h1>
         <p className="mx-auto max-w-3xl text-lg md:text-xl text-white/90 text-balance mb-10">
-          {t("hero_description")}
+          Curated cultural journeys, Himalayan adventures, and authentic local experiences designed by Bhutanese
+          experts.
         </p>
         <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
           <Button size="lg" className="btn-premium hover-glow" asChild>
-            <Link href="/packages">Explore Bhutan Tours</Link>
+            <Link href="/packages">Explore Journeys</Link>
           </Button>
           <Button size="lg" variant="secondary" className="hover-glow" asChild>
-            <Link href="/inquiry">Plan Your Trip</Link>
+            <Link href="/inquiry">Plan Custom Journey</Link>
           </Button>
           <Button size="lg" variant="outline" className="hover-glow" asChild>
             <Link href="/contact">Talk to Expert</Link>

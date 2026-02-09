@@ -9,15 +9,14 @@ import { Textarea } from "@/components/ui/textarea"
 import { SectionHeader } from "@/components/sections/section-header"
 import { sendInquiryEmail } from "@/app/actions/send-inquiry"
 
-const travelTypes = ["Solo", "Couple", "Family", "Group"]
+const travelStyles = ["Luxury", "Adventure", "Cultural", "Mixed"]
 const durations = ["4–6 Days", "7–10 Days", "11–14 Days", "15+ Days"]
-const interests = ["Culture", "Trekking", "Luxury", "Festivals", "Wellness", "Photography"]
-const budgets = ["Standard", "Premium", "Luxury"]
+const interests = ["Culture", "Trekking", "Nature", "Festivals", "Spirituality"]
+const groupSizes = ["1–2", "3–5", "6–9", "10+"]
 
 export function CustomTourBuilder() {
   const [selectedType, setSelectedType] = useState("")
   const [selectedDuration, setSelectedDuration] = useState("")
-  const [selectedBudget, setSelectedBudget] = useState("")
   const [selectedInterests, setSelectedInterests] = useState<string[]>([])
   const [travelDates, setTravelDates] = useState("")
   const [groupSize, setGroupSize] = useState("")
@@ -54,7 +53,7 @@ export function CustomTourBuilder() {
         travelMonth: travelDates || "Flexible",
         groupSize: groupSize || "Not specified",
         duration: selectedDuration || "Flexible",
-        budget: selectedBudget || "Flexible",
+        budget: "Flexible",
         message: details || "No additional details provided",
       })
 
@@ -83,38 +82,36 @@ export function CustomTourBuilder() {
   }
 
   return (
-    <section id="custom-tour" className="py-16 md:py-24 bg-muted/30">
+    <section id="custom-tour" className="py-16 md:py-24 section-tint">
       <div className="container mx-auto px-4 md:px-6">
         <SectionHeader
-          eyebrow={<Badge variant="secondary">Custom Tour Builder</Badge>}
-          title="Design a bespoke Bhutan journey"
-          description="Tell us your style, dates, and interests. Our experts will craft a personalized itinerary."
+          eyebrow={<Badge variant="secondary">Custom Journey Builder</Badge>}
+          title="Design Your Personalized Bhutan Journey"
+          description="Tell us your travel style, timing, and interests. Our Bhutanese experts will craft your journey."
         />
 
         <form onSubmit={handleSubmit} className="mt-10 grid gap-8 lg:grid-cols-2">
-          <div className="rounded-2xl border border-border/60 bg-card p-6 space-y-6">
+          <div className="rounded-2xl border border-border/60 bg-card p-6 space-y-6 card-premium">
             <div>
-              <Label className="text-sm font-semibold">Travel Type</Label>
-              <div className="mt-2 flex flex-wrap gap-2">
-                {travelTypes.map((type) => (
-                  <button
-                    key={type}
-                    type="button"
-                    onClick={() => setSelectedType(type)}
-                    className={`rounded-full px-4 py-2 text-sm border transition-colors ${
-                      selectedType === type
-                        ? "bg-primary text-primary-foreground border-primary"
-                        : "border-border text-foreground/80 hover:text-foreground"
-                    }`}
-                  >
-                    {type}
-                  </button>
-                ))}
+              <Label className="text-sm font-semibold">Travel Style</Label>
+              <div className="mt-2">
+                <select
+                  className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm"
+                  value={selectedType}
+                  onChange={(e) => setSelectedType(e.target.value)}
+                >
+                  <option value="">Select style</option>
+                  {travelStyles.map((type) => (
+                    <option key={type} value={type}>
+                      {type}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
 
             <div>
-              <Label className="text-sm font-semibold">Duration</Label>
+              <Label className="text-sm font-semibold">Preferred Travel Period</Label>
               <div className="mt-2 flex flex-wrap gap-2">
                 {durations.map((item) => (
                   <button
@@ -175,7 +172,7 @@ export function CustomTourBuilder() {
 
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="travel-dates">Preferred Travel Dates</Label>
+                <Label htmlFor="travel-dates">Preferred Month / Season</Label>
                 <Input
                   id="travel-dates"
                   placeholder="March 2026"
@@ -185,20 +182,27 @@ export function CustomTourBuilder() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="group-size">Group Size</Label>
-                <Input
+                <select
                   id="group-size"
-                  placeholder="2 Adults"
+                  className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm"
                   value={groupSize}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => setGroupSize(e.target.value)}
-                />
+                  onChange={(e) => setGroupSize(e.target.value)}
+                >
+                  <option value="">Select group size</option>
+                  {groupSizes.map((size) => (
+                    <option key={size} value={size}>
+                      {size}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="details">Additional Details</Label>
+              <Label htmlFor="details">Message</Label>
               <Textarea
                 id="details"
-                placeholder="Tell us about preferences, pace, hotels, or special occasions."
+                placeholder="Share your travel goals, preferred pace, and any special requests."
                 value={details}
                 onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setDetails(e.target.value)}
                 className="min-h-[120px]"
@@ -206,7 +210,7 @@ export function CustomTourBuilder() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-border/60 bg-card p-6 space-y-5">
+          <div className="rounded-2xl border border-border/60 bg-card p-6 space-y-5 card-premium">
             <h3 className="text-lg font-semibold">Contact Details</h3>
 
             {success && reference ? (
@@ -261,8 +265,8 @@ export function CustomTourBuilder() {
               </div>
             </div>
 
-            <Button type="submit" disabled={isSubmitting} className="w-full">
-              {isSubmitting ? "Submitting..." : "Request Custom Itinerary"}
+            <Button type="submit" disabled={isSubmitting} className="w-full btn-premium hover-glow">
+              {isSubmitting ? "Submitting..." : "Send Journey Request"}
             </Button>
           </div>
         </form>
