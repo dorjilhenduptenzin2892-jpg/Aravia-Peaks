@@ -53,7 +53,6 @@ export function CustomTourBuilder() {
         travelMonth: travelDates || "Flexible",
         groupSize: groupSize || "Not specified",
         duration: selectedDuration || "Flexible",
-        budget: "Flexible",
         message: details || "No additional details provided",
       })
 
@@ -66,7 +65,6 @@ export function CustomTourBuilder() {
         setCountry("")
         setSelectedType("")
         setSelectedDuration("")
-        setSelectedBudget("")
         setSelectedInterests([])
         setTravelDates("")
         setGroupSize("")
@@ -140,26 +138,6 @@ export function CustomTourBuilder() {
                     onClick={() => toggleInterest(item)}
                     className={`rounded-full px-4 py-2 text-sm border transition-colors ${
                       selectedInterests.includes(item)
-                        ? "bg-primary text-primary-foreground border-primary"
-                        : "border-border text-foreground/80 hover:text-foreground"
-                    }`}
-                  >
-                    {item}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <Label className="text-sm font-semibold">Budget Range</Label>
-              <div className="mt-2 flex flex-wrap gap-2">
-                {budgets.map((item) => (
-                  <button
-                    key={item}
-                    type="button"
-                    onClick={() => setSelectedBudget(item)}
-                    className={`rounded-full px-4 py-2 text-sm border transition-colors ${
-                      selectedBudget === item
                         ? "bg-primary text-primary-foreground border-primary"
                         : "border-border text-foreground/80 hover:text-foreground"
                     }`}
