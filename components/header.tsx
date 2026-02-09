@@ -7,9 +7,11 @@ import { LanguageSelector } from "@/components/language-selector"
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [openMenu, setOpenMenu] = useState<"tours" | "guide" | null>(null)
 
   const handleLinkClick = () => {
     setMobileMenuOpen(false)
+    setOpenMenu(null)
     setTimeout(() => {
       window.scrollTo({ top: 0, behavior: "instant" })
     }, 0)
@@ -46,11 +48,26 @@ export function Header() {
             Home
           </Link>
 
-          <div className="relative group">
-            <button className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground">
+          <div
+            className="relative"
+            onMouseEnter={() => setOpenMenu("tours")}
+            onMouseLeave={() => setOpenMenu(null)}
+          >
+            <button
+              type="button"
+              className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
+              aria-expanded={openMenu === "tours"}
+              aria-controls="nav-tours"
+              onClick={() => setOpenMenu(openMenu === "tours" ? null : "tours")}
+            >
               Bhutan Tours
             </button>
-            <div className="absolute left-0 top-full mt-3 hidden w-64 rounded-xl border border-border bg-background p-4 shadow-lg group-hover:block">
+            <div
+              id="nav-tours"
+              className={`absolute left-0 top-full mt-3 w-64 rounded-xl border border-border bg-background p-4 shadow-lg ${
+                openMenu === "tours" ? "block" : "hidden"
+              }`}
+            >
               <Link href="/packages?category=cultural" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
                 Cultural Tours
               </Link>
@@ -72,11 +89,26 @@ export function Header() {
             </div>
           </div>
 
-          <div className="relative group">
-            <button className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground">
+          <div
+            className="relative"
+            onMouseEnter={() => setOpenMenu("guide")}
+            onMouseLeave={() => setOpenMenu(null)}
+          >
+            <button
+              type="button"
+              className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
+              aria-expanded={openMenu === "guide"}
+              aria-controls="nav-guide"
+              onClick={() => setOpenMenu(openMenu === "guide" ? null : "guide")}
+            >
               Travel Guide
             </button>
-            <div className="absolute left-0 top-full mt-3 hidden w-60 rounded-xl border border-border bg-background p-4 shadow-lg group-hover:block">
+            <div
+              id="nav-guide"
+              className={`absolute left-0 top-full mt-3 w-60 rounded-xl border border-border bg-background p-4 shadow-lg ${
+                openMenu === "guide" ? "block" : "hidden"
+              }`}
+            >
               <Link href="/travel-guide" className="block px-3 py-2 text-sm hover:bg-muted" onClick={handleLinkClick}>
                 Bhutan Visa Guide
               </Link>
