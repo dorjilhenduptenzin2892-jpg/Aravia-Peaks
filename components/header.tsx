@@ -3,12 +3,15 @@
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
+import { usePathname } from "next/navigation"
 import { LanguageSelector } from "@/components/language-selector"
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openMenu, setOpenMenu] = useState<"tours" | "guide" | null>(null)
   const navRef = useRef<HTMLDivElement | null>(null)
+  const pathname = usePathname()
+  const [isScrolled, setIsScrolled] = useState(false)
 
   const handleLinkClick = () => {
     setMobileMenuOpen(false)
@@ -29,8 +32,24 @@ export function Header() {
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20)
+    handleScroll()
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  const linkClass = (href: string) =>
+    `text-sm font-medium transition-colors ${
+      pathname === href ? "text-secondary" : "text-foreground/80 hover:text-foreground"
+    }`
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/90 backdrop-blur-lg">
+    <header
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+        isScrolled ? "bg-background/95 shadow-lg border-b" : "bg-transparent border-transparent"
+      } backdrop-blur-lg`}
+    >
       <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
         <Link
           href="/"
@@ -52,11 +71,7 @@ export function Header() {
 
         {/* Desktop Navigation */}
         <nav ref={navRef} className="hidden items-center gap-6 md:flex">
-          <Link
-            href="/"
-            className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
-            onClick={handleLinkClick}
-          >
+          <Link href="/" className={linkClass("/")} onClick={handleLinkClick}>
             Home
           </Link>
 
@@ -139,32 +154,16 @@ export function Header() {
             </div>
           </div>
 
-          <Link
-            href="/bhutan/farmhouses-homestays"
-            className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
-            onClick={handleLinkClick}
-          >
+          <Link href="/bhutan/farmhouses-homestays" className={linkClass("/bhutan/farmhouses-homestays")} onClick={handleLinkClick}>
             Hotels & Homestays
           </Link>
-          <Link
-            href="/#experiences"
-            className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
-            onClick={handleLinkClick}
-          >
+          <Link href="/#experiences" className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground" onClick={handleLinkClick}>
             Bhutan Experiences
           </Link>
-          <Link
-            href="/#testimonials"
-            className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
-            onClick={handleLinkClick}
-          >
+          <Link href="/#testimonials" className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground" onClick={handleLinkClick}>
             Testimonials & Reviews
           </Link>
-          <Link
-            href="/about"
-            className="text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
-            onClick={handleLinkClick}
-          >
+          <Link href="/about" className={linkClass("/about")} onClick={handleLinkClick}>
             About Us
           </Link>
           <Link
@@ -179,7 +178,7 @@ export function Header() {
         <div className="hidden items-center gap-3 md:flex">
           <Link
             href="/inquiry"
-            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-md bg-primary text-primary-foreground shadow-sm hover:shadow-md transition-shadow"
+            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-md btn-premium hover-glow"
             onClick={handleLinkClick}
           >
             Book Custom Tour

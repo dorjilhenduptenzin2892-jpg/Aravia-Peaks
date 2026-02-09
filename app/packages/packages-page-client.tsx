@@ -512,11 +512,26 @@ function PackageGrid({
 }) {
   const { t } = useLanguage()
 
+  const categoryClass = (category: string) => {
+    switch (category) {
+      case "cultural":
+        return "bg-[#1E3A8A]/10 text-[#1E3A8A] border-[#1E3A8A]/30"
+      case "trekking":
+        return "bg-[#1F7A63]/10 text-[#1F7A63] border-[#1F7A63]/30"
+      case "luxury":
+        return "bg-[#C9A227]/15 text-[#8a6a12] border-[#C9A227]/40"
+      case "festival":
+        return "bg-rose-500/10 text-rose-600 border-rose-500/30"
+      default:
+        return "bg-slate-500/10 text-slate-600 border-slate-500/30"
+    }
+  }
+
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 justify-items-center place-items-start max-w-7xl mx-auto">
       {packages.map((pkg) => (
         <Link key={pkg.id} href={`/packages/${pkg.id}`} className="block w-full max-w-md">
-          <Card className="overflow-hidden group cursor-pointer hover:shadow-xl transition-all h-full border border-border/60">
+          <Card className="card-premium overflow-hidden group cursor-pointer h-full border border-border/60">
             <div className="relative h-64 overflow-hidden">
               <Image
                 src={pkg.image}
@@ -529,8 +544,8 @@ function PackageGrid({
 
               {/* Badges */}
               <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
-                {pkg.popular && <Badge className="bg-accent text-accent-foreground">{t("popular")}</Badge>}
-                <Badge variant="secondary" className="ml-auto bg-white/90 text-foreground">
+                {pkg.popular && <Badge className="bg-secondary text-secondary-foreground gold-glow">{t("popular")}</Badge>}
+                <Badge variant="secondary" className={`ml-auto border ${categoryClass(pkg.category)}`}>
                   {pkg.category.charAt(0).toUpperCase() + pkg.category.slice(1)}
                 </Badge>
               </div>
@@ -544,10 +559,22 @@ function PackageGrid({
             </div>
 
             <CardContent className="p-6">
-              <div className="mb-2 flex items-center gap-4 text-sm text-muted-foreground">
-                <div className="flex items-center gap-1">
+              <div className="mb-3 grid grid-cols-2 gap-2 text-xs text-muted-foreground">
+                <div className="flex items-center gap-2 rounded-full bg-muted/70 px-3 py-1">
                   <span>📅</span>
                   <span>{pkg.duration}</span>
+                </div>
+                <div className="flex items-center gap-2 rounded-full bg-muted/70 px-3 py-1">
+                  <span>🏔️</span>
+                  <span>{pkg.region}</span>
+                </div>
+                <div className="flex items-center gap-2 rounded-full bg-muted/70 px-3 py-1">
+                  <span>⚡</span>
+                  <span>{pkg.difficulty}</span>
+                </div>
+                <div className="flex items-center gap-2 rounded-full bg-muted/70 px-3 py-1">
+                  <span>💰</span>
+                  <span>{pkg.budget}</span>
                 </div>
               </div>
               <div className="mb-3 flex flex-wrap gap-2 text-xs">
@@ -577,7 +604,7 @@ function PackageGrid({
                 <p className="text-sm text-center text-muted-foreground">
                   Contact our licensed travel agent partners for pricing and bookings
                 </p>
-                <Button variant="outline" className="w-full bg-transparent">
+                <Button variant="outline" className="w-full bg-transparent hover-glow">
                   {t("view_details")}
                 </Button>
                 <label className="flex items-center justify-center gap-2 text-xs text-muted-foreground">

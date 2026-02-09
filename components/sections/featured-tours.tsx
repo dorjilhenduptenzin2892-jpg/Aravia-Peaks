@@ -37,7 +37,7 @@ const featuredTours = [
 
 export function FeaturedTours() {
   return (
-    <section className="py-16 md:py-24 bg-background">
+    <section className="py-16 md:py-24 section-tint">
       <div className="container mx-auto px-4 md:px-6">
         <SectionHeader
           eyebrow={<Badge variant="secondary">Featured Tours</Badge>}
@@ -47,10 +47,7 @@ export function FeaturedTours() {
 
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {featuredTours.map((tour) => (
-            <Card
-              key={tour.id}
-              className="overflow-hidden border border-border/60 bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-            >
+            <Card key={tour.id} className="card-premium overflow-hidden border border-border/60 bg-card">
               <div className="relative h-56">
                 <Image
                   src={tour.image}
@@ -69,8 +66,8 @@ export function FeaturedTours() {
                   <Badge variant="outline">{tour.difficulty}</Badge>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-semibold text-primary">{tour.price}</span>
-                  <Button size="sm" variant="outline" asChild>
+                  <span className="text-sm font-semibold text-secondary">{tour.price}</span>
+                  <Button size="sm" variant="outline" className="hover-glow" asChild>
                     <Link href={`/packages/${tour.id}`}>View Details</Link>
                   </Button>
                 </div>

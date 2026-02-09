@@ -28,7 +28,7 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section id="testimonials" className="py-16 md:py-24 bg-muted/30">
+    <section id="testimonials" className="py-16 md:py-24 section-tint">
       <div className="container mx-auto px-4 md:px-6">
         <SectionHeader
           eyebrow={<Badge variant="secondary">Testimonials</Badge>}
@@ -41,7 +41,7 @@ export function Testimonials() {
             <CarouselContent>
               {testimonials.map((item) => (
                 <CarouselItem key={item.name} className="md:basis-1/2 lg:basis-1/3">
-                  <Card className="border border-border/60 bg-card h-full">
+                  <Card className="card-premium border border-border/60 bg-card h-full">
                     <CardContent className="p-6">
                       <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
                         <span>{"★".repeat(item.rating)}</span>

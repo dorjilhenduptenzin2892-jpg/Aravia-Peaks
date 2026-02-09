@@ -13,7 +13,7 @@ const seasons = [
 
 export function FestivalSeason() {
   return (
-    <section className="py-16 md:py-24 bg-background">
+    <section className="py-16 md:py-24 section-tint">
       <div className="container mx-auto px-4 md:px-6">
         <SectionHeader
           eyebrow={<Badge variant="secondary">Festival & Seasonal Travel</Badge>}
@@ -23,7 +23,7 @@ export function FestivalSeason() {
 
         <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {seasons.map((item) => (
-            <Card key={item.season} className="border border-border/60 bg-card">
+            <Card key={item.season} className="card-premium border border-border/60 bg-card">
               <CardContent className="p-6">
                 <h3 className="text-lg font-semibold mb-1">{item.season}</h3>
                 <p className="text-sm text-muted-foreground mb-2">{item.months}</p>

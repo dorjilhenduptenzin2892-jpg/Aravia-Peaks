@@ -45,7 +45,7 @@ const experiences = [
 
 export function ExperienceGrid() {
   return (
-    <section id="experiences" className="py-16 md:py-24 bg-muted/30">
+    <section id="experiences" className="py-16 md:py-24 section-tint">
       <div className="container mx-auto px-4 md:px-6">
         <SectionHeader
           eyebrow={<Badge variant="secondary">Explore Bhutan by Experience</Badge>}
@@ -56,7 +56,7 @@ export function ExperienceGrid() {
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {experiences.map((item) => (
             <Link key={item.title} href={item.href} className="group block">
-              <Card className="overflow-hidden border border-border/60 bg-card transition-all duration-300 hover:shadow-xl">
+              <Card className="card-premium overflow-hidden border border-border/60 bg-card">
                 <div className="relative h-48">
                   <Image
                     src={item.image}

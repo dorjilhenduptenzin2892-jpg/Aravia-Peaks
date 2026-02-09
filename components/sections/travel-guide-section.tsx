@@ -24,7 +24,7 @@ const articles = [
 
 export function TravelGuideSection() {
   return (
-    <section className="py-16 md:py-24 bg-background">
+    <section className="py-16 md:py-24 section-tint">
       <div className="container mx-auto px-4 md:px-6">
         <SectionHeader
           eyebrow={<Badge variant="secondary">Travel Guide & Blog</Badge>}
@@ -34,11 +34,11 @@ export function TravelGuideSection() {
 
         <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {articles.map((article) => (
-            <Card key={article.title} className="border border-border/60 bg-card">
+            <Card key={article.title} className="card-premium border border-border/60 bg-card">
               <CardContent className="p-6">
                 <h3 className="text-lg font-semibold mb-2">{article.title}</h3>
                 <p className="text-sm text-muted-foreground mb-4">{article.description}</p>
-                <Button variant="outline" size="sm" asChild>
+                <Button variant="outline" size="sm" className="hover-glow" asChild>
                   <Link href={article.href}>Read More</Link>
                 </Button>
               </CardContent>
