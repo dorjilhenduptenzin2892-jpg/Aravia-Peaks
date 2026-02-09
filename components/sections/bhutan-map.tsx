@@ -1,14 +1,14 @@
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import { SectionHeader } from "@/components/sections/section-header"
 
 const regions = [
-  { name: "Paro", description: "Tiger’s Nest & heritage" },
-  { name: "Thimphu", description: "Capital culture & arts" },
-  { name: "Punakha", description: "Dzongs & rivers" },
-  { name: "Bumthang", description: "Spiritual heartland" },
-  { name: "Haa Valley", description: "Alpine scenery" },
-  { name: "Phobjikha", description: "Black-necked cranes" },
+  { name: "Paro", description: "Tiger’s Nest & heritage", region: "western" },
+  { name: "Thimphu", description: "Capital culture & arts", region: "western" },
+  { name: "Punakha", description: "Dzongs & rivers", region: "western" },
+  { name: "Bumthang", description: "Spiritual heartland", region: "central" },
+  { name: "Haa Valley", description: "Alpine scenery", region: "western" },
+  { name: "Phobjikha", description: "Black-necked cranes", region: "central" },
 ]
 
 export function BhutanMap() {
@@ -34,14 +34,15 @@ export function BhutanMap() {
 
           <div className="grid gap-4 sm:grid-cols-2">
             {regions.map((region) => (
-              <div
+              <Link
                 key={region.name}
+                href={`/packages?region=${region.region}`}
                 className="rounded-xl border border-border/60 bg-card p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
               >
                 <h3 className="font-semibold text-lg">{region.name}</h3>
-                <p className="text-sm text-muted-foreground mb-3">{region.description}</p>
-                <Button variant="outline" size="sm">Explore {region.name}</Button>
-              </div>
+                <p className="text-sm text-muted-foreground">{region.description}</p>
+                <span className="mt-3 inline-flex text-sm font-semibold text-primary">Explore tours →</span>
+              </Link>
             ))}
           </div>
         </div>
