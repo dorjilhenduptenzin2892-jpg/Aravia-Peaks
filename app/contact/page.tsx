@@ -95,7 +95,7 @@ export default function ContactPage() {
                   </div>
                   <h3 className="font-semibold text-xl mb-2">{t("contact_email_us")}</h3>
                   <p className="text-sm text-muted-foreground mb-4">{t("contact_email_description")}</p>
-                  <p className="text-foreground font-semibold">dorjicrypto1995@gmail.com</p>
+                  <p className="text-foreground font-semibold">bhutanaraviapeaks@gmail.com</p>
                 </CardContent>
               </Card>
 

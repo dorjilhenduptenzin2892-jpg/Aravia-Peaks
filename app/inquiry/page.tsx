@@ -348,7 +348,7 @@ function InquiryForm() {
                       </div>
                       <div className="space-y-2">
                         <p className="font-semibold text-sm text-muted-foreground">{t("inquiry_email")}</p>
-                        <p className="text-lg font-bold">dorjicrypto1995@gmail.com</p>
+                        <p className="text-lg font-bold">bhutanaraviapeaks@gmail.com</p>
                       </div>
                       <div className="space-y-2">
                         <p className="font-semibold text-sm text-muted-foreground">{t("inquiry_office_location")}</p>

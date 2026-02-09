@@ -17,8 +17,8 @@ function generateReferenceNumber(): string {
 async function sendAutoReply(toEmail: string, fullName: string, referenceNumber: string) {
   const apiKey = "re_VFsGpfzm_KNuiPMJtgkhYatZVDv81dsrS"
 
-  // Resend testing mode only allows emails to dorjicrypto1995@gmail.com
-  if (toEmail !== "dorjicrypto1995@gmail.com") {
+  // Resend testing mode only allows emails to bhutanaraviapeaks@gmail.com
+  if (toEmail !== "bhutanaraviapeaks@gmail.com") {
     console.log("[v0] Skipping auto-reply in testing mode. Verify domain at resend.com to enable.")
     return
   }
@@ -65,7 +65,7 @@ async function sendAutoReply(toEmail: string, fullName: string, referenceNumber:
           </div>
           <div class="footer">
             <p><strong>CloudKingdom Travel Services</strong></p>
-            <p>Email: dorjicrypto1995@gmail.com</p>
+            <p>Email: bhutanaraviapeaks@gmail.com</p>
             <p style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd;">Experience the Kingdom of Happiness with CloudKingdom</p>
           </div>
         </div>
@@ -95,7 +95,7 @@ async function sendAutoReply(toEmail: string, fullName: string, referenceNumber:
 export async function sendContactEmail(data: ContactData) {
   try {
     const apiKey = "re_VFsGpfzm_KNuiPMJtgkhYatZVDv81dsrS"
-    const toEmail = "dorjicrypto1995@gmail.com"
+    const toEmail = "bhutanaraviapeaks@gmail.com"
 
     const referenceNumber = generateReferenceNumber()
 

@@ -134,7 +134,7 @@ export function ContactHub({
                 </p>
                 <div className="space-y-2 text-sm">
                   <p>📞 +975 17565604</p>
-                  <p>✉️ dorjicrypto1995@gmail.com</p>
+                  <p>✉️ bhutanaraviapeaks@gmail.com</p>
                   <Button variant="outline" size="sm" asChild>
                     <a href="https://wa.me/97517565604" target="_blank" rel="noopener noreferrer">
                       WhatsApp Chat
