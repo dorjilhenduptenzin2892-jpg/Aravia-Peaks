@@ -2154,14 +2154,30 @@ export default function PackageDetailClient({ id }: { id: string }) {
     whatToBring,
   } = packageData
 
-  const sanitizeItem = (text: string) =>
-    text
+  const sanitizeItem = (text: string) => {
+    const normalized = text.toLowerCase()
+
+    if (normalized.includes("sustainable development fee") || normalized.includes("sdf")) {
+      return "Sustainable Development Contribution (SDF)"
+    }
+
+    if (normalized.includes("visa fee")) {
+      return "Visa assistance"
+    }
+
+    if (normalized.includes("single room supplement")) {
+      return "Single room option"
+    }
+
+    return text
       .replace(/\$\s*\d[\d,]*/g, "")
       .replace(/\(\s*\)/g, "")
       .replace(/\s+-\s+per\s+\w+/gi, "")
+      .replace(/entrance fees?/gi, "entry access")
       .replace(/\s{2,}/g, " ")
       .replace(/-\s*$/g, "")
       .trim()
+  }
 
   const safeIncluded = included.map(sanitizeItem).filter(Boolean)
   const safeExcluded = excluded.map(sanitizeItem).filter(Boolean)
@@ -2326,7 +2342,7 @@ export default function PackageDetailClient({ id }: { id: string }) {
             {/* Sidebar */}
             <aside className="lg:col-span-1 space-y-6 md:space-y-8 lg:space-y-12 order-1 lg:order-2">
               {/* Price and Booking */}
-              <section className="bg-gradient-to-br from-[#623c2b] to-[#4d2f21] shadow-xl rounded-xl p-4 sm:p-6 md:p-8 border border-[#3d2318] text-white">
+              <section className="card-premium glass-card bg-gradient-to-br from-primary via-primary/90 to-secondary shadow-xl rounded-xl p-4 sm:p-6 md:p-8 border border-primary/40 text-white">
                 <div className="text-center mb-4 md:mb-6">
                   <h3 className="font-serif text-xl md:text-2xl font-bold mb-2">Ready to Book?</h3>
                   <p className="text-white/90 text-xs sm:text-sm">
@@ -2362,7 +2378,7 @@ export default function PackageDetailClient({ id }: { id: string }) {
 
                 <Link
                   href={`/inquiry?package=${packageData.id}&name=${encodeURIComponent(title)}&category=${encodeURIComponent(category)}&duration=${encodeURIComponent(duration)}`}
-                  className="group relative overflow-hidden inline-flex items-center justify-center gap-2 w-full py-4 text-base font-bold rounded-lg uppercase tracking-wide shadow-lg hover:shadow-2xl transition-all duration-300 border-2 bg-white hover:bg-gray-50 text-[#623c2b] border-white/20 hover:scale-105 active:scale-95"
+                  className="btn-premium hover-glow inline-flex items-center justify-center gap-2 w-full h-12 text-base font-semibold rounded-lg"
                 >
                   <span className="relative z-10">{t("request_quote")}</span>
                   <span className="relative z-10 inline-block transition-transform group-hover:translate-x-1 duration-300">

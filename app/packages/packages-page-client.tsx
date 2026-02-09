@@ -275,7 +275,6 @@ export default function PackagesPageClient() {
   const regionParam = (searchParams.get("region") || "all").toLowerCase()
   const [regionFilter, setRegionFilter] = useState(regionParam)
   const [difficultyFilter, setDifficultyFilter] = useState("all")
-  const [budgetFilter, setBudgetFilter] = useState("all")
   const [durationFilter, setDurationFilter] = useState("all")
   const [compare, setCompare] = useState<string[]>([])
   const [activeTab, setActiveTab] = useState(
@@ -294,9 +293,8 @@ export default function PackagesPageClient() {
     list.filter((pkg) => {
       const regionMatch = regionFilter === "all" || pkg.region.toLowerCase() === regionFilter
       const difficultyMatch = difficultyFilter === "all" || pkg.difficulty.toLowerCase() === difficultyFilter
-      const budgetMatch = budgetFilter === "all" || pkg.budget.toLowerCase() === budgetFilter
       const durationMatch = filterByDuration(pkg.duration)
-      return regionMatch && difficultyMatch && budgetMatch && durationMatch
+      return regionMatch && difficultyMatch && durationMatch
     })
 
   const toggleCompare = (id: string) => {
@@ -312,6 +310,7 @@ export default function PackagesPageClient() {
         <section className="relative py-16 md:py-24 overflow-hidden">
           <div className="absolute inset-0">
             <Image src="/images/package-bg.webp" alt="Bhutan packages" fill className="object-cover" priority />
+            <div className="absolute inset-0 hero-gradient" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-background" />
           </div>
           <div className="container px-4 md:px-6 relative z-10">
@@ -325,9 +324,9 @@ export default function PackagesPageClient() {
         </section>
 
         {/* Packages Grid with Tabs */}
-        <section className="py-12 md:py-16">
+        <section className="py-12 md:py-16 section-tint">
           <div className="container px-4 md:px-6">
-            <div className="mb-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <div className="mb-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               <Select value={regionFilter} onValueChange={setRegionFilter}>
                 <SelectTrigger>
                   <SelectValue placeholder="Region" />
@@ -352,18 +351,6 @@ export default function PackagesPageClient() {
                   <SelectItem value="moderate">Moderate</SelectItem>
                   <SelectItem value="challenging">Challenging</SelectItem>
                   <SelectItem value="extreme">Extreme</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Select value={budgetFilter} onValueChange={setBudgetFilter}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Budget" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Budgets</SelectItem>
-                  <SelectItem value="standard">Standard</SelectItem>
-                  <SelectItem value="premium">Premium</SelectItem>
-                  <SelectItem value="luxury">Luxury</SelectItem>
                 </SelectContent>
               </Select>
 
@@ -462,7 +449,7 @@ export default function PackagesPageClient() {
                         </tr>
                       </thead>
                       <tbody>
-                        {["duration", "region", "difficulty", "budget"].map((key) => {
+                        {["duration", "region", "difficulty"].map((key) => {
                           const left = packages.find((p) => p.id === compare[0])
                           const right = packages.find((p) => p.id === compare[1])
                           return (
@@ -515,9 +502,9 @@ function PackageGrid({
   const categoryClass = (category: string) => {
     switch (category) {
       case "cultural":
-        return "bg-[#1E3A8A]/10 text-[#1E3A8A] border-[#1E3A8A]/30"
+        return "bg-[#0F2A44]/10 text-[#0F2A44] border-[#0F2A44]/30"
       case "trekking":
-        return "bg-[#1F7A63]/10 text-[#1F7A63] border-[#1F7A63]/30"
+        return "bg-[#2E6F40]/10 text-[#2E6F40] border-[#2E6F40]/30"
       case "luxury":
         return "bg-[#C9A227]/15 text-[#8a6a12] border-[#C9A227]/40"
       case "festival":
@@ -531,7 +518,7 @@ function PackageGrid({
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 justify-items-center place-items-start max-w-7xl mx-auto">
       {packages.map((pkg) => (
         <Link key={pkg.id} href={`/packages/${pkg.id}`} className="block w-full max-w-md">
-          <Card className="card-premium overflow-hidden group cursor-pointer h-full border border-border/60">
+          <Card className="card-premium glass-card overflow-hidden group cursor-pointer h-full border border-border/60">
             <div className="relative h-64 overflow-hidden">
               <Image
                 src={pkg.image}
@@ -572,15 +559,10 @@ function PackageGrid({
                   <span>⚡</span>
                   <span>{pkg.difficulty}</span>
                 </div>
-                <div className="flex items-center gap-2 rounded-full bg-muted/70 px-3 py-1">
-                  <span>💰</span>
-                  <span>{pkg.budget}</span>
-                </div>
               </div>
               <div className="mb-3 flex flex-wrap gap-2 text-xs">
                 <Badge variant="outline">{pkg.region}</Badge>
                 <Badge variant="outline">{pkg.difficulty}</Badge>
-                <Badge variant="outline">{pkg.budget}</Badge>
               </div>
 
               <h3 className="font-semibold text-xl mb-2 group-hover:text-foreground transition-colors">{pkg.title}</h3>
@@ -602,7 +584,7 @@ function PackageGrid({
 
               <div className="flex flex-col gap-3 pt-4 border-t">
                 <p className="text-sm text-center text-muted-foreground">
-                  Contact our licensed travel agent partners for pricing and bookings
+                  Contact our licensed travel agent partners for tailored planning and bookings
                 </p>
                 <Button variant="outline" className="w-full bg-transparent hover-glow">
                   {t("view_details")}

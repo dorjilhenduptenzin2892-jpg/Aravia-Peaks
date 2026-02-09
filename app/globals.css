@@ -163,6 +163,12 @@
     background-clip: text;
     color: transparent;
   }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(14px);
+  }
 }
 
 @keyframes fade-in-up {

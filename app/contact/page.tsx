@@ -73,7 +73,7 @@ export default function ContactPage() {
       <Header />
 
       <main className="flex-1">
-        <section className="relative py-16 md:py-24 bg-muted/30">
+        <section className="relative py-16 md:py-24 section-tint">
           <div className="container px-4 md:px-6">
             <div className="mx-auto max-w-3xl text-center">
               <Badge className="mb-4 bg-primary text-primary-foreground">{t("contact_get_in_touch")}</Badge>
@@ -85,10 +85,10 @@ export default function ContactPage() {
           </div>
         </section>
 
-        <section className="py-16 md:py-24 bg-background">
+        <section className="py-16 md:py-24 section-tint">
           <div className="container px-4 md:px-6">
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mb-16">
-              <Card className="text-center hover:shadow-md transition-shadow border border-border/60 bg-card">
+              <Card className="card-premium glass-card text-center border border-border/60 bg-card">
                 <CardContent className="pt-8 pb-8">
                   <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary text-3xl">
                     📧
@@ -99,7 +99,7 @@ export default function ContactPage() {
                 </CardContent>
               </Card>
 
-              <Card className="text-center hover:shadow-md transition-shadow border border-border/60 bg-card">
+              <Card className="card-premium glass-card text-center border border-border/60 bg-card">
                 <CardContent className="pt-8 pb-8">
                   <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary text-3xl">
                     📞
@@ -110,7 +110,7 @@ export default function ContactPage() {
                 </CardContent>
               </Card>
 
-              <Card className="text-center hover:shadow-md transition-shadow border border-border/60 bg-card">
+              <Card className="card-premium glass-card text-center border border-border/60 bg-card">
                 <CardContent className="pt-8 pb-8">
                   <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary text-3xl">
                     💬
@@ -130,7 +130,7 @@ export default function ContactPage() {
             </div>
 
             <div className="grid gap-12 lg:grid-cols-2">
-              <Card className="relative border border-border bg-card shadow-lg overflow-hidden">
+              <Card className="relative border border-border bg-card shadow-lg overflow-hidden card-premium glass-card">
                 {/* Decorative background pattern */}
                 <div className="absolute inset-0 opacity-0 pointer-events-none">
                   <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-orange-400 to-amber-400 rounded-full blur-3xl transform translate-x-32 -translate-y-32"></div>
@@ -274,7 +274,7 @@ export default function ContactPage() {
                       </div>
                     </div>
 
-                    <Button type="submit" disabled={isSubmitting} className="w-full h-14 text-base font-semibold">
+                    <Button type="submit" disabled={isSubmitting} className="w-full h-14 text-base font-semibold btn-premium hover-glow">
                       {isSubmitting ? (
                         <span className="flex items-center gap-3">
                           <span className="animate-spin text-xl">⏳</span>
@@ -292,7 +292,7 @@ export default function ContactPage() {
               </Card>
 
               <div className="space-y-6">
-                <Card className="border border-border/60 shadow-sm">
+                <Card className="card-premium glass-card border border-border/60 shadow-sm">
                   <CardContent className="p-6">
                     <div className="flex gap-4">
                       <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary text-2xl">
@@ -306,7 +306,7 @@ export default function ContactPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border border-border/60 shadow-sm">
+                <Card className="card-premium glass-card border border-border/60 shadow-sm">
                   <CardContent className="p-6">
                     <div className="flex gap-4">
                       <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary text-2xl">
@@ -326,7 +326,7 @@ export default function ContactPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-muted/40 border border-border/60 shadow-sm">
+                <Card className="card-premium glass-card bg-muted/40 border border-border/60 shadow-sm">
                   <CardContent className="p-6">
                     <h3 className="font-semibold text-lg mb-3">{t("contact_why_contact")}</h3>
                     <ul className="space-y-2 text-sm text-muted-foreground">
@@ -358,7 +358,7 @@ export default function ContactPage() {
           </div>
         </section>
 
-        <section className="py-16 md:py-24 bg-muted/30">
+        <section className="py-16 md:py-24 section-tint">
           <div className="container px-4 md:px-6">
             <div className="text-center mb-12">
               <h2 className="font-serif text-3xl font-bold tracking-tight sm:text-4xl mb-4">
@@ -368,28 +368,28 @@ export default function ContactPage() {
             </div>
 
             <div className="max-w-3xl mx-auto space-y-4">
-              <Card className="border-l-4 border-l-primary hover:shadow-md transition-shadow bg-card">
+              <Card className="card-premium border-l-4 border-l-primary hover:shadow-md transition-shadow bg-card">
                 <CardContent className="p-6">
                   <h3 className="font-semibold text-lg mb-2">{t("faq_question_1")}</h3>
                   <p className="text-sm text-muted-foreground">{t("faq_answer_1")}</p>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-primary hover:shadow-md transition-shadow bg-card">
+              <Card className="card-premium border-l-4 border-l-primary hover:shadow-md transition-shadow bg-card">
                 <CardContent className="p-6">
                   <h3 className="font-semibold text-lg mb-2">{t("faq_question_2")}</h3>
                   <p className="text-sm text-muted-foreground">{t("faq_answer_2")}</p>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-primary hover:shadow-md transition-shadow bg-card">
+              <Card className="card-premium border-l-4 border-l-primary hover:shadow-md transition-shadow bg-card">
                 <CardContent className="p-6">
                   <h3 className="font-semibold text-lg mb-2">{t("faq_question_3")}</h3>
                   <p className="text-sm text-muted-foreground">{t("faq_answer_3")}</p>
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-primary hover:shadow-md transition-shadow bg-card">
+              <Card className="card-premium border-l-4 border-l-primary hover:shadow-md transition-shadow bg-card">
                 <CardContent className="p-6">
                   <h3 className="font-semibold text-lg mb-2">{t("faq_question_4")}</h3>
                   <p className="text-sm text-muted-foreground">{t("faq_answer_4")}</p>
@@ -399,10 +399,7 @@ export default function ContactPage() {
 
             <div className="text-center mt-8">
               <p className="text-muted-foreground mb-4">{t("faq_more_questions")}</p>
-              <Button
-                variant="outline"
-                asChild
-              >
+              <Button variant="outline" className="hover-glow" asChild>
                 <Link href="/travel-guide">{t("faq_view_travel_guide")}</Link>
               </Button>
             </div>
@@ -415,11 +412,7 @@ export default function ContactPage() {
               {t("contact_ready_planning")}
             </h2>
             <p className="mx-auto max-w-2xl text-lg opacity-90 mb-8 text-balance">{t("contact_ready_description")}</p>
-            <Button
-              size="lg"
-              variant="secondary"
-              asChild
-            >
+            <Button size="lg" className="btn-premium hover-glow" asChild>
               <Link href="/inquiry">{t("get_consultation")}</Link>
             </Button>
           </div>

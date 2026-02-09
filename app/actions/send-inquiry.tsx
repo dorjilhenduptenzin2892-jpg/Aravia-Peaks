@@ -9,7 +9,6 @@ type InquiryData = {
   travelMonth: string
   groupSize: string
   duration: string
-  budget: string
   message: string
 }
 
@@ -54,7 +53,7 @@ async function sendAutoReply(toEmail: string, fullName: string, referenceNumber:
             <div class="message-box">
               <h2 style="color: #8b5a3c; margin-top: 0;">Dear ${fullName},</h2>
               <p>Thank you for your travel inquiry with CloudKingdom! We are thrilled that you're interested in experiencing the Kingdom of Happiness.</p>
-              <p>Our travel specialists have received your inquiry and will contact you within <span class="highlight">24 hours</span> with a customized itinerary and pricing details.</p>
+              <p>Our travel specialists have received your inquiry and will contact you within <span class="highlight">24 hours</span> with a customized itinerary and curated options.</p>
               <div class="ref-box">
                 <div style="color: #8b5a3c; font-weight: 600;">Your Inquiry Reference</div>
                 <strong>${referenceNumber}</strong>
@@ -178,10 +177,6 @@ export async function sendInquiryEmail(data: InquiryData) {
                   <div class="info-row">
                     <div class="label">Duration</div>
                     <div class="value">${data.duration}</div>
-                  </div>
-                  <div class="info-row">
-                    <div class="label">Budget</div>
-                    <div class="value"><span class="highlight">${data.budget}</span></div>
                   </div>
                 </div>
               </div>

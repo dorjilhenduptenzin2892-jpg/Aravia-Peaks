@@ -25,7 +25,8 @@ export default function AboutPage() {
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70" />
+          <div className="absolute inset-0 hero-gradient" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-background" />
           <div className="container px-4 md:px-6 relative z-10 max-w-7xl mx-auto">
             <div className="mx-auto max-w-3xl text-center">
               <p className="text-xl md:text-2xl text-white font-medium text-balance mb-6 drop-shadow-lg">
@@ -37,10 +38,10 @@ export default function AboutPage() {
         </section>
 
         {/* Who We Are */}
-        <section className="py-16 md:py-24">
+        <section className="py-16 md:py-24 section-tint">
           <div className="container px-4 md:px-6 max-w-7xl mx-auto">
             <div className="grid gap-12 lg:grid-cols-2 items-center">
-              <div className="relative h-96 rounded-lg overflow-hidden order-2 lg:order-1">
+              <div className="relative h-96 rounded-2xl overflow-hidden order-2 lg:order-1 shadow-lg">
                 <Image
                   src="/bhutan-local-bhutanese-guides-traditional-dress-mo.jpg"
                   alt="Bhutanese Landscape"
@@ -60,7 +61,7 @@ export default function AboutPage() {
         </section>
 
         {/* Our Mission */}
-        <section className="py-16 md:py-24 bg-muted/30">
+        <section className="py-16 md:py-24">
           <div className="container px-4 md:px-6 max-w-7xl mx-auto text-center">
             <h2 className="font-serif text-3xl font-bold tracking-tight sm:text-4xl mb-6">{t("our_mission")}</h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">{t("our_mission_text")}</p>
@@ -68,7 +69,7 @@ export default function AboutPage() {
         </section>
 
         {/* What Makes Us Different */}
-        <section className="py-16 md:py-24">
+        <section className="py-16 md:py-24 section-tint">
           <div className="container px-4 md:px-6 max-w-7xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="font-serif text-3xl font-bold tracking-tight sm:text-4xl mb-4">
@@ -78,7 +79,7 @@ export default function AboutPage() {
             </div>
 
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-              <Card>
+              <Card className="card-premium glass-card border border-border/60">
                 <CardContent className="pt-6">
                   <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-accent/10 text-2xl">
                     🏠
@@ -88,7 +89,7 @@ export default function AboutPage() {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="card-premium glass-card border border-border/60">
                 <CardContent className="pt-6">
                   <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-accent/10 text-2xl">
                     ✨
@@ -98,7 +99,7 @@ export default function AboutPage() {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="card-premium glass-card border border-border/60">
                 <CardContent className="pt-6">
                   <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-accent/10 text-2xl">
                     🎯
@@ -108,7 +109,7 @@ export default function AboutPage() {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="card-premium glass-card border border-border/60">
                 <CardContent className="pt-6">
                   <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-accent/10 text-2xl">
                     🛡️
@@ -122,7 +123,7 @@ export default function AboutPage() {
         </section>
 
         {/* Discover Bhutan With Heart */}
-        <section className="py-16 md:py-24 bg-muted/30">
+        <section className="py-16 md:py-24">
           <div className="container px-4 md:px-6 max-w-7xl mx-auto">
             <div className="max-w-4xl mx-auto text-center space-y-6">
               <h2 className="font-serif text-3xl font-bold tracking-tight sm:text-4xl">{t("discover_with_heart")}</h2>
@@ -142,7 +143,7 @@ export default function AboutPage() {
               {t("ready_adventure")}
             </h2>
             <p className="mx-auto max-w-2xl text-lg opacity-90 mb-8 text-balance">{t("ready_adventure_description")}</p>
-            <Button size="lg" variant="secondary" asChild>
+            <Button size="lg" className="btn-premium hover-glow" asChild>
               <Link href="/inquiry">{t("plan_journey")}</Link>
             </Button>
           </div>

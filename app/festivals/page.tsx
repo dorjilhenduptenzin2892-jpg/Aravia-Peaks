@@ -194,6 +194,7 @@ export default function FestivalsPage() {
               priority
               className="object-cover"
             />
+            <div className="absolute inset-0 hero-gradient" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-background" />
           </div>
           <div className="container px-4 md:px-6 relative z-10">
@@ -208,7 +209,7 @@ export default function FestivalsPage() {
         </section>
 
         {/* Bhutanese Festival Schedule */}
-        <section className="py-12 md:py-16 bg-background">
+        <section className="py-12 md:py-16 section-tint">
           <div className="container px-4 md:px-6">
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-8">
@@ -216,7 +217,7 @@ export default function FestivalsPage() {
                 <p className="text-muted-foreground">Complete list of festivals happening throughout the year</p>
               </div>
 
-              <Card className="border border-border/60 shadow-sm">
+              <Card className="card-premium glass-card border border-border/60 shadow-sm">
                 <CardContent className="p-6">
                   <div className="overflow-x-auto">
                     <table className="w-full border-collapse">
@@ -273,7 +274,7 @@ export default function FestivalsPage() {
         </section>
 
         {/* About Festivals */}
-        <section className="relative py-12 md:py-16 bg-muted/30">
+        <section className="relative py-12 md:py-16 section-tint">
           <div className="container px-4 md:px-6 relative z-10">
             <div className="max-w-3xl mx-auto text-center mb-12">
               <h2 className="font-serif text-2xl font-bold mb-4">{t("festivals_what_are")}</h2>
@@ -283,7 +284,7 @@ export default function FestivalsPage() {
         </section>
 
         {/* Featured Festivals Grid */}
-        <section className="py-12 md:py-16 bg-background">
+        <section className="py-12 md:py-16 section-tint">
           <div className="container px-4 md:px-6">
             <div className="text-center mb-12">
               <h2 className="font-serif text-3xl font-bold mb-2">Featured Festivals</h2>
@@ -294,7 +295,7 @@ export default function FestivalsPage() {
               {festivals.map((festival) => (
                 <Card
                   key={festival.id}
-                  className="overflow-hidden group hover:shadow-xl transition-all duration-300 border border-border/60"
+                  className="card-premium glass-card overflow-hidden group transition-all duration-300 border border-border/60"
                 >
                   <div className="relative h-56 overflow-hidden">
                     <Image
@@ -349,7 +350,7 @@ export default function FestivalsPage() {
                     </div>
 
                     <div className="pt-4 border-t border-border">
-                      <Button className="w-full" asChild>
+                      <Button className="w-full btn-premium hover-glow" asChild>
                         <Link href={festival.packageLink}>{t("festivals_view_package")}</Link>
                       </Button>
                     </div>
@@ -361,35 +362,35 @@ export default function FestivalsPage() {
         </section>
 
         {/* Important Notes */}
-        <section className="relative py-16 md:py-24 bg-muted/30">
+        <section className="relative py-16 md:py-24 section-tint">
           <div className="container px-4 md:px-6 relative z-10">
             <div className="max-w-3xl mx-auto">
               <h2 className="font-serif text-3xl font-bold text-center mb-8">
                 {t("festivals_important_notes_title")}
               </h2>
               <div className="space-y-4">
-                <Card className="border-l-4 border-l-primary shadow-sm hover:shadow-md transition-shadow">
+                <Card className="card-premium border-l-4 border-l-primary shadow-sm hover:shadow-md transition-shadow">
                   <CardContent className="p-6 bg-card">
                     <h3 className="font-semibold text-lg mb-2">{t("festivals_dates_vary")}</h3>
                     <p className="text-sm text-muted-foreground">{t("festivals_dates_vary_description")}</p>
                   </CardContent>
                 </Card>
 
-                <Card className="border-l-4 border-l-primary shadow-sm hover:shadow-md transition-shadow">
+                <Card className="card-premium border-l-4 border-l-primary shadow-sm hover:shadow-md transition-shadow">
                   <CardContent className="p-6 bg-card">
                     <h3 className="font-semibold text-lg mb-2">{t("festivals_book_early")}</h3>
                     <p className="text-sm text-muted-foreground">{t("festivals_book_early_description")}</p>
                   </CardContent>
                 </Card>
 
-                <Card className="border-l-4 border-l-primary shadow-sm hover:shadow-md transition-shadow">
+                <Card className="card-premium border-l-4 border-l-primary shadow-sm hover:shadow-md transition-shadow">
                   <CardContent className="p-6 bg-card">
                     <h3 className="font-semibold text-lg mb-2">{t("festivals_what_to_wear")}</h3>
                     <p className="text-sm text-muted-foreground">{t("festivals_what_to_wear_description")}</p>
                   </CardContent>
                 </Card>
 
-                <Card className="border-l-4 border-l-primary shadow-sm hover:shadow-md transition-shadow">
+                <Card className="card-premium border-l-4 border-l-primary shadow-sm hover:shadow-md transition-shadow">
                   <CardContent className="p-6 bg-card">
                     <h3 className="font-semibold text-lg mb-2">
                       {t("festivals_photography_etiquette")}
@@ -417,7 +418,7 @@ export default function FestivalsPage() {
             <div className="mx-auto max-w-2xl text-center">
               <h2 className="font-serif text-3xl font-bold text-white mb-4">{t("festivals_cta_title")}</h2>
               <p className="text-lg text-white/90 mb-8">{t("festivals_cta_description")}</p>
-              <Button size="lg" className="font-semibold" asChild>
+              <Button size="lg" className="btn-premium hover-glow" asChild>
                 <Link href="/inquiry">{t("festivals_cta_button")}</Link>
               </Button>
             </div>

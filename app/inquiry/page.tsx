@@ -30,7 +30,6 @@ function InquiryForm() {
     travelMonth: "",
     groupSize: "",
     duration: "",
-    budget: "",
     message: "",
   })
 
@@ -38,7 +37,6 @@ function InquiryForm() {
     const packageId = searchParams.get("package")
     const packageName = searchParams.get("name")
     const packageCategory = searchParams.get("category")
-    const packagePrice = searchParams.get("price")
     const packageDuration = searchParams.get("duration")
 
     if (packageId) {
@@ -63,15 +61,6 @@ function InquiryForm() {
           : packageDuration?.includes("13-15")
           ? "13-15"
           : prev.duration,
-        budget: packagePrice
-          ? Number.parseInt(packagePrice) < 2000
-            ? "1000-2000"
-            : Number.parseInt(packagePrice) < 3000
-            ? "2000-3000"
-            : Number.parseInt(packagePrice) < 4000
-            ? "3000-4000"
-            : "4000+"
-          : prev.budget,
         message: packageName ? `I am interested in the ${packageName} package.` : prev.message,
       }))
     }
@@ -107,18 +96,18 @@ function InquiryForm() {
 
       {submitted ? (
         // ------------------- Submitted UI -------------------
-        <main className="min-h-screen bg-gradient-to-b from-background to-muted pt-24 pb-16">
+        <main className="min-h-screen bg-gradient-to-b from-background to-muted/40 pt-24 pb-16">
           <div className="container px-4 mx-auto max-w-2xl">
-            <Card className="border-2 border-accent/20 shadow-xl">
-              <CardHeader className="text-center bg-gradient-to-r from-primary/5 to-accent/5 border-b">
-                <div className="mx-auto mb-4 w-20 h-20 bg-accent/10 rounded-full flex items-center justify-center text-4xl">
+            <Card className="card-premium glass-card border border-border/60 shadow-xl">
+              <CardHeader className="text-center bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 border-b">
+                <div className="mx-auto mb-4 w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center text-4xl">
                   <span aria-hidden="true">✓</span>
                 </div>
                 <CardTitle className="text-3xl">{t("inquiry_success_title")}</CardTitle>
                 <CardDescription className="text-lg">{t("inquiry_success_description")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6 pt-8">
-                <div className="p-8 bg-gradient-to-br from-[#623c2b] via-[#7a4d38] to-[#623c2b] rounded-xl border-2 border-[#4d2f21] shadow-2xl">
+                <div className="p-8 bg-gradient-to-br from-primary via-primary/90 to-secondary rounded-xl border border-primary/40 shadow-2xl">
                   <p className="text-sm text-white/90 font-bold mb-3 uppercase tracking-wider">
                     {t("inquiry_reference_number")}
                   </p>
@@ -130,10 +119,10 @@ function InquiryForm() {
                 </div>
 
                 <div className="flex gap-4 justify-center pt-4">
-                  <Button onClick={() => (window.location.href = "/")} variant="outline" className="gap-2">
+                  <Button onClick={() => (window.location.href = "/")} variant="outline" className="gap-2 hover-glow">
                     <span aria-hidden="true">←</span> {t("inquiry_back_home")}
                   </Button>
-                  <Button onClick={() => (window.location.href = "/packages")} className="gap-2">
+                  <Button onClick={() => (window.location.href = "/packages")} className="gap-2 btn-premium hover-glow">
                     {t("inquiry_explore_packages")} <span aria-hidden="true">→</span>
                   </Button>
                 </div>
@@ -143,36 +132,36 @@ function InquiryForm() {
         </main>
       ) : (
         // ------------------- Form UI -------------------
-        <main className="min-h-screen bg-gradient-to-b from-background to-muted/50 pt-24 pb-16">
+        <main className="min-h-screen bg-gradient-to-b from-background to-muted/40 pt-24 pb-16">
           <div className="container px-4 mx-auto">
             <div className="text-center mb-12 max-w-3xl mx-auto">
               <Badge
-                className="mb-4 bg-[#623c2b]/10 text-[#623c2b] border-[#623c2b]/30 px-4 py-2 text-base"
+                className="mb-4 bg-primary/10 text-primary border-primary/30 px-4 py-2 text-base"
                 variant="outline"
               >
                 🏔️ {t("inquiry_plan_journey")}
               </Badge>
               <h1 className="text-4xl md:text-5xl font-bold mb-4 text-balance">
                 {t("inquiry_start_adventure")}{" "}
-                <span className="text-[#623c2b]">{t("inquiry_bhutan_adventure")}</span>
+                <span className="text-primary">{t("inquiry_bhutan_adventure")}</span>
               </h1>
-              <p className="text-lg text-gray-600">{t("inquiry_share_dreams")}</p>
+              <p className="text-lg text-muted-foreground">{t("inquiry_share_dreams")}</p>
             </div>
 
             <div className="max-w-6xl mx-auto">
               <div className="grid gap-8 lg:grid-cols-3">
                 {/* Left Column: Form */}
                 <div className="lg:col-span-2">
-                  <Card className="border-2 border-[#623c2b]/20 shadow-xl">
-                    <CardHeader className="bg-gradient-to-r from-[#623c2b]/10 via-[#D9A05C]/10 to-[#623c2b]/10 border-b-2 border-[#623c2b]/20">
-                      <CardTitle className="text-2xl text-[#623c2b]">{t("inquiry_form_title")}</CardTitle>
-                      <CardDescription className="text-gray-700">{t("inquiry_form_description")}</CardDescription>
+                  <Card className="card-premium glass-card border border-border/60 shadow-xl">
+                    <CardHeader className="bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 border-b border-border/60">
+                      <CardTitle className="text-2xl text-primary">{t("inquiry_form_title")}</CardTitle>
+                      <CardDescription className="text-muted-foreground">{t("inquiry_form_description")}</CardDescription>
                     </CardHeader>
                     <CardContent className="pt-8">
                       <form onSubmit={handleSubmit} className="space-y-8">
                         {/* Personal Information */}
                         <div className="space-y-6">
-                          <h3 className="text-lg font-semibold text-[#623c2b] border-b pb-2">{t("inquiry_personal_info")}</h3>
+                          <h3 className="text-lg font-semibold text-primary border-b pb-2">{t("inquiry_personal_info")}</h3>
                           <div className="grid gap-6 md:grid-cols-2">
                             <div className="space-y-2">
                               <Label htmlFor="fullName">{t("inquiry_full_name")} *</Label>
@@ -182,7 +171,7 @@ function InquiryForm() {
                                 value={formData.fullName}
                                 onChange={(e) => handleChange("fullName", e.target.value)}
                                 required
-                                className="border-2 focus:border-[#623c2b]"
+                                className="border border-border/60 focus:border-primary"
                               />
                             </div>
                             <div className="space-y-2">
@@ -194,7 +183,7 @@ function InquiryForm() {
                                 value={formData.email}
                                 onChange={(e) => handleChange("email", e.target.value)}
                                 required
-                                className="border-2 focus:border-[#623c2b]"
+                                className="border border-border/60 focus:border-primary"
                               />
                             </div>
                             <div className="space-y-2">
@@ -205,7 +194,7 @@ function InquiryForm() {
                                 placeholder={t("inquiry_phone_placeholder")}
                                 value={formData.phone}
                                 onChange={(e) => handleChange("phone", e.target.value)}
-                                className="border-2 focus:border-[#623c2b]"
+                                className="border border-border/60 focus:border-primary"
                               />
                             </div>
                             <div className="space-y-2">
@@ -216,7 +205,7 @@ function InquiryForm() {
                                 value={formData.country}
                                 onChange={(e) => handleChange("country", e.target.value)}
                                 required
-                                className="border-2 focus:border-[#623c2b]"
+                                className="border border-border/60 focus:border-primary"
                               />
                             </div>
                           </div>
@@ -224,12 +213,12 @@ function InquiryForm() {
 
                         {/* Trip Details */}
                         <div className="space-y-6">
-                          <h3 className="text-lg font-semibold text-[#623c2b] border-b pb-2">{t("inquiry_trip_details")}</h3>
+                          <h3 className="text-lg font-semibold text-primary border-b pb-2">{t("inquiry_trip_details")}</h3>
                           <div className="grid gap-6 md:grid-cols-2">
                             <div className="space-y-2">
                               <Label htmlFor="packageType">{t("inquiry_package_type")} *</Label>
                               <Select value={formData.packageType} onValueChange={(value) => handleChange("packageType", value)}>
-                                <SelectTrigger className="border-2 focus:border-[#623c2b]">
+                                <SelectTrigger className="border border-border/60 focus:border-primary">
                                   <SelectValue placeholder={t("inquiry_select_package")} />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -244,7 +233,7 @@ function InquiryForm() {
                             <div className="space-y-2">
                               <Label htmlFor="travelMonth">{t("inquiry_travel_month")} *</Label>
                               <Select value={formData.travelMonth} onValueChange={(value) => handleChange("travelMonth", value)}>
-                                <SelectTrigger className="border-2 focus:border-[#623c2b]">
+                                <SelectTrigger className="border border-border/60 focus:border-primary">
                                   <SelectValue placeholder={t("inquiry_select_month")} />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -266,7 +255,7 @@ function InquiryForm() {
                             <div className="space-y-2">
                               <Label htmlFor="groupSize">{t("inquiry_group_size")} *</Label>
                               <Select value={formData.groupSize} onValueChange={(value) => handleChange("groupSize", value)}>
-                                <SelectTrigger className="border-2 focus:border-[#623c2b]">
+                                <SelectTrigger className="border border-border/60 focus:border-primary">
                                   <SelectValue placeholder={t("inquiry_select_group_size")} />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -281,7 +270,7 @@ function InquiryForm() {
                             <div className="space-y-2">
                               <Label htmlFor="duration">{t("inquiry_duration")} *</Label>
                               <Select value={formData.duration} onValueChange={(value) => handleChange("duration", value)}>
-                                <SelectTrigger className="border-2 focus:border-[#623c2b]">
+                                <SelectTrigger className="border border-border/60 focus:border-primary">
                                   <SelectValue placeholder={t("inquiry_select_duration")} />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -298,7 +287,7 @@ function InquiryForm() {
 
                         {/* Additional Information */}
                         <div className="space-y-6">
-                          <h3 className="text-lg font-semibold text-[#623c2b] border-b pb-2">{t("inquiry_additional_info")}</h3>
+                          <h3 className="text-lg font-semibold text-primary border-b pb-2">{t("inquiry_additional_info")}</h3>
                           <div className="space-y-2">
                             <Label htmlFor="message">{t("inquiry_message")}</Label>
                             <Textarea
@@ -306,7 +295,7 @@ function InquiryForm() {
                               placeholder={t("inquiry_message_placeholder")}
                               value={formData.message}
                               onChange={(e) => handleChange("message", e.target.value)}
-                              className="min-h-[120px] border-2 focus:border-[#623c2b]"
+                              className="min-h-[120px] border border-border/60 focus:border-primary"
                             />
                           </div>
                         </div>
@@ -318,13 +307,11 @@ function InquiryForm() {
                         <button
                           type="submit"
                           disabled={isLoading}
-                          className="group relative overflow-hidden w-full inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-bold rounded-lg uppercase tracking-wider shadow-lg hover:shadow-2xl transition-all duration-300 border-2 bg-[#623c2b] hover:bg-[#4d2f21] text-white border-[#4d2f21] hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed before:absolute before:inset-0 before:bg-white/10 before:translate-y-full hover:before:translate-y-0 before:transition-transform before:duration-300"
+                          className="btn-premium hover-glow w-full h-14 text-base font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                          <span className="relative z-10 flex items-center gap-2">
+                          <span className="inline-flex items-center gap-2">
                             {isLoading ? t("inquiry_sending") : t("inquiry_submit")}
-                            {!isLoading && (
-                              <span className="group-hover:translate-x-1 transition-transform duration-300" aria-hidden="true">→</span>
-                            )}
+                            {!isLoading && <span className="transition-transform duration-300" aria-hidden="true">→</span>}
                           </span>
                         </button>
                       </form>
@@ -335,7 +322,7 @@ function InquiryForm() {
                 {/* Right Column: Info Cards */}
                 <div className="space-y-6">
                   {/* Contact Info Card */}
-                  <Card className="border-2 border-accent/20 shadow-lg bg-gradient-to-br from-primary/5 to-accent/5">
+                  <Card className="card-premium glass-card border border-border/60 shadow-lg bg-gradient-to-br from-primary/5 to-accent/5">
                     <CardHeader>
                       <CardTitle className="flex gap-2">
                         <span>📞</span> {t("inquiry_contact_info")}
