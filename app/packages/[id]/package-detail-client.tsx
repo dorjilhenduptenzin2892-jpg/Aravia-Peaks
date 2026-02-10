@@ -13,6 +13,7 @@ import {
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+import { PackageGallery } from "@/components/packages/package-gallery"
 
 import Header from "@/components/header"
 import Footer from "@/components/footer"
@@ -2253,21 +2254,7 @@ export default function PackageDetailClient({ id }: { id: string }) {
               {/* Gallery Section */}
               <section>
                 <h2 className="font-serif text-2xl md:text-3xl font-bold mb-4 md:mb-6">{t("gallery")}</h2>
-                <ScrollArea>
-                  <div className="flex space-x-3 md:space-x-4 pb-4">
-                    {galleryImages.map((imgSrc, index) => (
-                      <div key={index} className="relative h-48 w-64 sm:h-56 sm:w-72 md:h-64 md:w-80 flex-shrink-0 overflow-hidden rounded-xl shadow-lg">
-                        <ImageLoader
-                          src={imgSrc || "/placeholder.svg"}
-                          alt={`Gallery image ${index + 1}`}
-                          fill
-                          className="rounded-xl object-cover"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                  <ScrollBar orientation="horizontal" />
-                </ScrollArea>
+                <PackageGallery slug={packageData.id} title={title} />
               </section>
 
               {/* Itinerary Section */}
