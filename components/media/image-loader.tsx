@@ -19,6 +19,7 @@ export function ImageLoader({
   fallbackSrcs = [],
   blurDataURL = DEFAULT_BLUR,
   alt,
+  quality = 75,
   unoptimized,
   ...props
 }: ImageLoaderProps) {
@@ -60,6 +61,7 @@ export function ImageLoader({
       {...props}
       src={finalSrc}
       alt={alt}
+      quality={quality}
       unoptimized={unoptimized ?? false}
       placeholder="blur"
       blurDataURL={blurDataURL}

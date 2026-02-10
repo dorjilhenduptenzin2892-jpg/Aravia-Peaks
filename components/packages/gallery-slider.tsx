@@ -31,6 +31,9 @@ export function GallerySlider({ images, title }: { images: string[]; title: stri
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              loading={index < 3 ? "eager" : "lazy"}
+              priority={index < 3}
+              fetchPriority={index < 3 ? "high" : "auto"}
             />
           </div>
         </SwiperSlide>
