@@ -54,14 +54,13 @@ export function ImageLoader({
   }, [extensionCandidates])
 
   const finalSrc = useMemo(() => (imgSrc?.trim() ? imgSrc : fallbackSrc), [imgSrc, fallbackSrc])
-  const isLocal = finalSrc.startsWith("/")
 
   return (
     <Image
       {...props}
       src={finalSrc}
       alt={alt}
-      unoptimized={unoptimized ?? isLocal}
+      unoptimized={unoptimized ?? false}
       placeholder="blur"
       blurDataURL={blurDataURL}
       onError={() => {
