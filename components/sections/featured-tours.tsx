@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { SectionHeader } from "@/components/sections/section-header"
-import { ImageLoader } from "@/components/media/image-loader"
+import SmartImage from "@/components/SmartImage"
 import { getPackageBySlug, getPackagePath, type TourPackage } from "@/lib/data/packages"
 
 const featuredTours = [
@@ -26,13 +26,7 @@ export function FeaturedTours() {
           {featuredTours.map((tour) => (
             <Card key={tour.slug} className="card-premium overflow-hidden border border-border/60 bg-card">
               <div className="relative h-56">
-                <ImageLoader
-                  src={tour.heroImage}
-                  alt={tour.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
+                <SmartImage src={tour.heroImage} alt={tour.title} className="h-full w-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               </div>
               <CardContent className="p-6">

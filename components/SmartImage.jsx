@@ -1,0 +1,50 @@
+import { useEffect, useMemo, useState } from "react"
+
+export default function SmartImage({
+  src,
+  alt,
+  className,
+  fallback = "/images/fallback.png",
+  loading = "lazy",
+  ...props
+}) {
+  const candidatePaths = useMemo(() => {
+    if (!src) return [fallback]
+    const normalized = src.startsWith("/") ? src : `/${src}`
+    const variants = new Set([normalized])
+
+    if (normalized.startsWith("/images/")) {
+      variants.add(normalized.replace(/^\/images/, ""))
+    } else {
+      variants.add(`/images${normalized}`)
+    }
+
+    variants.add(fallback)
+    return Array.from(variants)
+  }, [src, fallback])
+
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentSrc, setCurrentSrc] = useState(candidatePaths[0])
+
+  useEffect(() => {
+    setCurrentIndex(0)
+    setCurrentSrc(candidatePaths[0])
+  }, [candidatePaths])
+
+  return (
+    <img
+      src={currentSrc}
+      alt={alt}
+      loading={loading}
+      className={className}
+      onError={() => {
+        const nextIndex = currentIndex + 1
+        if (nextIndex < candidatePaths.length) {
+          setCurrentIndex(nextIndex)
+          setCurrentSrc(candidatePaths[nextIndex])
+        }
+      }}
+      {...props}
+    />
+  )
+}
