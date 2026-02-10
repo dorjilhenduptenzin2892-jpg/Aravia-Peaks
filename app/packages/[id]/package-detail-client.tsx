@@ -149,9 +149,9 @@ const packagesData: Record<string, any> = {
       "This carefully crafted itinerary takes you through the heart of Bhutan's cultural treasures. From the dramatic Tiger's Nest monastery to ancient fortress-dzongs and vibrant local markets, experience the essence of Bhutanese heritage in just five days.",
     duration: "5 Days / 4 Nights",
     price: 1850,
-    image: "/tigers-nest-monastery-bhutan.jpg",
+    image: "/tigers-nest-monastery-bhutan-cliff-mountain.jpg",
     gallery: [
-      "/tigers-nest-monastery-bhutan.jpg",
+      "/tigers-nest-monastery-bhutan-cliff-mountain.jpg",
       "/placeholder.svg?height=800&width=1200",
       "/placeholder.svg?height=800&width=1200",
       "/placeholder.svg?height=800&width=1200",

@@ -73,7 +73,7 @@ const festivals = [
       "Traditional music",
     ],
     duration: "5 days",
-    image: "/paro-tshechu-festival-bhutan-colorful-masks.jpg",
+    image: "/paro-tshechu-festival-bhutan-colorful-masks-dancin.jpg",
     packageLink: "/packages/festival/paro-tshechu",
     popular: true,
   },
@@ -106,7 +106,7 @@ const festivals = [
       "Unique festival featuring dramatic reenactments of historic battles, followed by traditional tshechu dances in one of Bhutan's most beautiful dzongs.",
     highlights: ["Battle reenactments", "Warrior dances", "Punakha Dzong setting", "Spring blooms"],
     duration: "4 days",
-    image: "/punakha-dzong-festival-bhutan.jpg",
+    image: "/punakha-dzong-festival-bhutan-fortress.jpg",
     packageLink: "/packages/festival/punakha-drubchen",
   },
   {
@@ -119,7 +119,7 @@ const festivals = [
       "One of the most unique festivals featuring the sacred fire ceremony and midnight naked dance, performed to bless infertile women.",
     highlights: ["Fire ceremony", "Midnight naked dance", "Ancient temple setting", "Spiritual blessings"],
     duration: "3 days",
-    image: "/jambay-lhakhang-fire-ceremony-bhutan.jpg",
+    image: "/jambay-lhakhang-fire-ceremony-bhutan-temple.jpg",
     packageLink: "/packages/festival/jambay-lhakhang",
   },
   {

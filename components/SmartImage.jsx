@@ -4,7 +4,7 @@ export default function SmartImage({
   src,
   alt,
   className,
-  fallback = "/images/fallback.png",
+  fallback = "/images/package-bg.webp",
   loading = "lazy",
   ...props
 }) {
