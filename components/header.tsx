@@ -57,7 +57,7 @@ export function Header() {
           onClick={handleLinkClick}
         >
           <Image
-            src="/images/logofinal.png"
+            src="/images/logo.png"
             alt="Bhutan Aravia Peaks"
             width={180}
             height={60}

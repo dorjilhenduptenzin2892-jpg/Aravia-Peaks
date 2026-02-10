@@ -77,17 +77,17 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/packages/paro-tshechu" className="text-white/80 hover:text-white transition-colors">
+                <Link href="/packages/festival/paro-tshechu" className="text-white/80 hover:text-white transition-colors">
                   Festival Tours
                 </Link>
               </li>
               <li>
-                <Link href="/packages/druk-path-trek" className="text-white/80 hover:text-white transition-colors">
+                <Link href="/packages/trekking/druk-path-trek" className="text-white/80 hover:text-white transition-colors">
                   Trekking Adventures
                 </Link>
               </li>
               <li>
-                <Link href="/packages/luxury-bhutan" className="text-white/80 hover:text-white transition-colors">
+                <Link href="/packages/luxury/luxury-bhutan" className="text-white/80 hover:text-white transition-colors">
                   Luxury Escapes
                 </Link>
               </li>

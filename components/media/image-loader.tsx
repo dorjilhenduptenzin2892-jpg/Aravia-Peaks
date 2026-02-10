@@ -1,0 +1,65 @@
+"use client"
+
+import Image, { type ImageProps } from "next/image"
+import { useEffect, useMemo, useState } from "react"
+
+const DEFAULT_BLUR =
+  "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjYwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAiIHgyPSIxIiB5MT0iMCIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiMwZjJhNDQiIG9mZnNldD0iMCIvPjxzdG9wIHN0b3AtY29sb3I9IiNmN2Y5ZmMiIG9mZnNldD0iMSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iNjAiIGZpbGw9InVybCgjZykiLz48L3N2Zz4="
+
+type ImageLoaderProps = Omit<ImageProps, "src"> & {
+  src: string
+  fallbackSrc?: string
+  fallbackSrcs?: string[]
+  blurDataURL?: string
+}
+
+export function ImageLoader({
+  src,
+  fallbackSrc = "/images/package-bg.webp",
+  fallbackSrcs = [],
+  blurDataURL = DEFAULT_BLUR,
+  alt,
+  ...props
+}: ImageLoaderProps) {
+  const extensionCandidates = useMemo(() => {
+    const extMatch = src.match(/\.(webp|jpg|jpeg|png|avif)$/i)
+    if (!extMatch) return [src, ...fallbackSrcs, fallbackSrc]
+
+    const base = src.replace(/\.(webp|jpg|jpeg|png|avif)$/i, "")
+    const extensions = ["webp", "jpg", "jpeg", "png", "avif"]
+    return [
+      ...extensions.map((ext) => `${base}.${ext}`),
+      ...fallbackSrcs,
+      fallbackSrc,
+    ]
+  }, [src, fallbackSrcs, fallbackSrc])
+
+  const [imgSrc, setImgSrc] = useState(extensionCandidates[0])
+  const [attemptIndex, setAttemptIndex] = useState(0)
+
+  useEffect(() => {
+    setAttemptIndex(0)
+    setImgSrc(extensionCandidates[0])
+  }, [extensionCandidates])
+
+  const finalSrc = useMemo(() => (imgSrc?.trim() ? imgSrc : fallbackSrc), [imgSrc, fallbackSrc])
+
+  return (
+    <Image
+      {...props}
+      src={finalSrc}
+      alt={alt}
+      placeholder="blur"
+      blurDataURL={blurDataURL}
+      onError={() => {
+        const nextIndex = attemptIndex + 1
+        if (nextIndex < extensionCandidates.length) {
+          setAttemptIndex(nextIndex)
+          setImgSrc(extensionCandidates[nextIndex])
+        } else {
+          setImgSrc(fallbackSrc)
+        }
+      }}
+    />
+  )
+}

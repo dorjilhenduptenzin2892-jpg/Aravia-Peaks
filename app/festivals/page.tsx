@@ -74,7 +74,7 @@ const festivals = [
     ],
     duration: "5 days",
     image: "/paro-tshechu-festival-bhutan-colorful-masks.jpg",
-    packageLink: "/packages/paro-tshechu",
+    packageLink: "/packages/festival/paro-tshechu",
     popular: true,
   },
   {
@@ -93,7 +93,7 @@ const festivals = [
     ],
     duration: "3 days",
     image: "/thimphu-tshechu-festival-dancers-masks.jpg",
-    packageLink: "/packages/thimphu-tshechu",
+    packageLink: "/packages/festival/thimphu-tshechu",
     popular: true,
   },
   {
@@ -107,7 +107,7 @@ const festivals = [
     highlights: ["Battle reenactments", "Warrior dances", "Punakha Dzong setting", "Spring blooms"],
     duration: "4 days",
     image: "/punakha-dzong-festival-bhutan.jpg",
-    packageLink: "/packages/punakha-drubchen",
+    packageLink: "/packages/festival/punakha-drubchen",
   },
   {
     id: "jambay-lhakhang",
@@ -120,7 +120,7 @@ const festivals = [
     highlights: ["Fire ceremony", "Midnight naked dance", "Ancient temple setting", "Spiritual blessings"],
     duration: "3 days",
     image: "/jambay-lhakhang-fire-ceremony-bhutan.jpg",
-    packageLink: "/packages/jambay-lhakhang",
+    packageLink: "/packages/festival/jambay-lhakhang",
   },
   {
     id: "black-necked-crane",

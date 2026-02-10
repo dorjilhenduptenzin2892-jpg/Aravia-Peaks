@@ -1,42 +1,16 @@
-import Image from "next/image"
 import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { SectionHeader } from "@/components/sections/section-header"
+import { ImageLoader } from "@/components/media/image-loader"
+import { getPackageBySlug, getPackagePath, type TourPackage } from "@/lib/data/packages"
 
 const featuredTours = [
-  {
-    id: "paro-tshechu",
-    title: "Paro Tshechu Festival Tour",
-    description: "Witness sacred mask dances and Bhutan’s most iconic cultural celebrations.",
-    duration: "7 Days / 6 Nights",
-    region: "Paro",
-    difficulty: "Easy",
-    highlights: ["Sacred festivals", "Tiger’s Nest", "Cultural immersion"],
-    image: "/paro-tshechu-festival-bhutan-colorful-masks-dancin.jpg",
-  },
-  {
-    id: "druk-path-trek",
-    title: "Druk Path Trek",
-    description: "A classic Himalayan crossing with alpine lakes and panoramic passes.",
-    duration: "8 Days / 7 Nights",
-    region: "Paro–Thimphu",
-    difficulty: "Moderate",
-    highlights: ["High passes", "Sacred lakes", "Remote camps"],
-    image: "/druk-path-trek-alpine-lakes-mountains-bhutan.jpg",
-  },
-  {
-    id: "luxury-bhutan",
-    title: "Luxury Bhutan Experience",
-    description: "Refined stays, private guiding, and serene wellness rituals.",
-    duration: "7 Days / 6 Nights",
-    region: "Western Bhutan",
-    difficulty: "Easy",
-    highlights: ["Boutique lodges", "Wellness", "Private experiences"],
-    image: "/luxury-resort-bhutan-mountains-spa-five-star-hotel.jpg",
-  },
-]
+  getPackageBySlug("paro-tshechu"),
+  getPackageBySlug("druk-path-trek"),
+  getPackageBySlug("luxury-bhutan"),
+].filter((tour): tour is TourPackage => Boolean(tour))
 
 export function FeaturedTours() {
   return (
@@ -50,10 +24,10 @@ export function FeaturedTours() {
 
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {featuredTours.map((tour) => (
-            <Card key={tour.id} className="card-premium overflow-hidden border border-border/60 bg-card">
+            <Card key={tour.slug} className="card-premium overflow-hidden border border-border/60 bg-card">
               <div className="relative h-56">
-                <Image
-                  src={tour.image}
+                <ImageLoader
+                  src={tour.heroImage}
                   alt={tour.title}
                   fill
                   className="object-cover"
@@ -63,14 +37,14 @@ export function FeaturedTours() {
               </div>
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold mb-2">{tour.title}</h3>
-                <p className="text-sm text-muted-foreground mb-4">{tour.description}</p>
+                <p className="text-sm text-muted-foreground mb-4">{tour.summary}</p>
                 <div className="flex flex-wrap gap-2 text-xs text-muted-foreground mb-4">
-                  <Badge variant="outline">{tour.duration}</Badge>
+                  <Badge variant="outline">{tour.durationLabel}</Badge>
                   <Badge variant="outline">{tour.region}</Badge>
                   <Badge variant="outline">{tour.difficulty}</Badge>
                 </div>
                 <div className="flex flex-wrap gap-2 text-xs mb-5">
-                  {tour.highlights.map((item) => (
+                  {tour.highlights.slice(0, 3).map((item) => (
                     <Badge key={item} className="bg-accent/10 text-accent border border-accent/30">
                       {item}
                     </Badge>
@@ -78,7 +52,7 @@ export function FeaturedTours() {
                 </div>
                 <div className="flex items-center justify-between">
                   <Button size="sm" variant="outline" className="hover-glow" asChild>
-                    <Link href={`/packages/${tour.id}`}>View Itinerary</Link>
+                    <Link href={getPackagePath(tour)}>View Itinerary</Link>
                   </Button>
                 </div>
               </CardContent>
