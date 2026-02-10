@@ -207,7 +207,7 @@ export const packages: TourPackage[] = [
     comfortLevel: "Comfort",
     heroImage: "/punakha-dzong-festival-bhutan-fortress.jpg",
     gallery: [
-      "/punakha-dzong-fortress-river-valley-traditi.jpg",
+      "/bhutan-punakha-dzong-fortress-river-valley-traditi.jpg",
       "/punakha-dzong-fortress-rivers-confluence-bhutan-re.jpg",
       "/punakha-dzong-fortress-mo-chhu-pho-chhu-rivers-con.jpg",
       ...fallbackGallery,
