@@ -22,13 +22,23 @@ export function ImageLoader({
   ...props
 }: ImageLoaderProps) {
   const extensionCandidates = useMemo(() => {
-    const extMatch = src.match(/\.(webp|jpg|jpeg|png|avif)$/i)
-    if (!extMatch) return [src, ...fallbackSrcs, fallbackSrc]
+    const pathVariants = new Set<string>()
+    const normalized = src.startsWith("/") ? src : `/${src}`
 
-    const base = src.replace(/\.(webp|jpg|jpeg|png|avif)$/i, "")
+    pathVariants.add(normalized)
+    if (normalized.startsWith("/images/")) {
+      pathVariants.add(normalized.replace(/^\/images/, ""))
+    } else {
+      pathVariants.add(`/images${normalized}`)
+    }
+
+    const extMatch = src.match(/\.(webp|jpg|jpeg|png|avif)$/i)
+    if (!extMatch) return [...pathVariants, ...fallbackSrcs, fallbackSrc]
+
+    const basePaths = Array.from(pathVariants).map((variant) => variant.replace(/\.(webp|jpg|jpeg|png|avif)$/i, ""))
     const extensions = ["webp", "jpg", "jpeg", "png", "avif"]
     return [
-      ...extensions.map((ext) => `${base}.${ext}`),
+      ...basePaths.flatMap((base) => extensions.map((ext) => `${base}.${ext}`)),
       ...fallbackSrcs,
       fallbackSrc,
     ]
