@@ -1,6 +1,6 @@
 "use client"
 
-import Image from "next/image"
+import { ImageLoader } from "@/components/media/image-loader"
 import {
   MapPin as MapPinIcon,
   Calendar as CalendarIcon,
@@ -19,6 +19,7 @@ import Footer from "@/components/footer"
 import Link from "next/link" // Added import for Link
 import { useEffect } from "react"
 import { useLanguage } from "@/lib/language-context"
+import packages from "@/data/packages"
 
 // Package data (in a real app, this would come from a database)
 const packagesData: Record<string, any> = {
@@ -2154,6 +2155,15 @@ export default function PackageDetailClient({ id }: { id: string }) {
     whatToBring,
   } = packageData
 
+  const mappedPackage = packages.find((item) => item.id === packageData.id)
+  const heroImage = mappedPackage?.imagePath || image
+  const galleryImages = Array.from(
+    new Set([
+      mappedPackage?.imagePath,
+      ...(Array.isArray(gallery) ? gallery : []),
+    ].filter(Boolean) as string[]),
+  )
+
   const sanitizeItem = (text: string) => {
     const normalized = text.toLowerCase()
 
@@ -2190,8 +2200,8 @@ export default function PackageDetailClient({ id }: { id: string }) {
         {/* Hero Section */}
         <section className="relative min-h-[50vh] md:h-[60vh] flex items-center justify-center overflow-hidden py-8 md:py-0">
           <div className="absolute inset-0">
-            <Image
-              src={image || "/placeholder.svg?height=600&width=1200"}
+            <ImageLoader
+              src={heroImage || "/placeholder.svg?height=600&width=1200"}
               alt={title}
               fill
               priority
@@ -2241,9 +2251,9 @@ export default function PackageDetailClient({ id }: { id: string }) {
                 <h2 className="font-serif text-2xl md:text-3xl font-bold mb-4 md:mb-6">{t("gallery")}</h2>
                 <ScrollArea>
                   <div className="flex space-x-3 md:space-x-4 pb-4">
-                    {gallery.map((imgSrc, index) => (
+                    {galleryImages.map((imgSrc, index) => (
                       <div key={index} className="relative h-48 w-64 sm:h-56 sm:w-72 md:h-64 md:w-80 flex-shrink-0 overflow-hidden rounded-xl shadow-lg">
-                        <Image
+                        <ImageLoader
                           src={imgSrc || "/placeholder.svg"}
                           alt={`Gallery image ${index + 1}`}
                           fill
