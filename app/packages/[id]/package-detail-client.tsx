@@ -2157,11 +2157,15 @@ export default function PackageDetailClient({ id }: { id: string }) {
 
   const mappedPackage = packages.find((item) => item.id === packageData.id)
   const heroImage = mappedPackage?.imagePath || image
+  const fallbackGallery = ["/images/package-bg.webp", "/images/tshechu.webp", "/images/bhutan-festival.jpg"]
   const galleryImages = Array.from(
-    new Set([
-      mappedPackage?.imagePath,
-      ...(Array.isArray(gallery) ? gallery : []),
-    ].filter(Boolean) as string[]),
+    new Set(
+      [
+        mappedPackage?.imagePath,
+        ...(Array.isArray(gallery) ? gallery : []),
+        ...fallbackGallery,
+      ].filter(Boolean) as string[],
+    ),
   )
 
   const sanitizeItem = (text: string) => {
