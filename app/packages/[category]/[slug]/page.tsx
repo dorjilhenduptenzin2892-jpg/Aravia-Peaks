@@ -1,8 +1,6 @@
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { PackageDetails } from "@/components/packages/package-details"
+import PackageDetailClient from "@/app/packages/[id]/package-detail-client"
 import { getAllPackages, getPackageByCategoryAndSlug } from "@/lib/data/packages"
 
 export function generateStaticParams() {
@@ -45,28 +43,5 @@ export default async function PackagePage({
     notFound()
   }
 
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "TouristTrip",
-    name: pkg.title,
-    description: pkg.summary,
-    itinerary: pkg.itinerary.map((item) => ({
-      "@type": "TouristAttraction",
-      name: item.title,
-      description: item.description,
-    })),
-    tourType: pkg.category,
-    areaServed: pkg.region,
-  }
-
-  return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-1">
-        <PackageDetails pkg={pkg} />
-      </main>
-      <Footer />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-    </div>
-  )
+  return <PackageDetailClient id={slug} />
 }
