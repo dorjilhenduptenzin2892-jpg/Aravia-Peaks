@@ -14,7 +14,7 @@ const readImageDir = async (dirPath: string, baseUrl: string) => {
     const entries = await fs.readdir(dirPath, { withFileTypes: true })
     return entries
       .filter((entry) => entry.isFile() && isImageFile(entry.name))
-      .map((entry) => `${baseUrl}/${entry.name}`)
+      .map((entry) => `${baseUrl}/${encodeURIComponent(entry.name)}`)
       .sort()
   } catch {
     return []
