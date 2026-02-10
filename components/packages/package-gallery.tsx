@@ -11,7 +11,7 @@ const normalizeList = (list: string[]) => {
   return Array.from(
     new Set(
       clean.filter((item) => {
-        const ext = item.split(".").pop()?.toLowerCase()
+        const ext = item.split("?")[0]?.split(".").pop()?.toLowerCase()
         return !ext || allowedExtensions.includes(ext)
       }),
     ),
@@ -27,7 +27,7 @@ export function PackageGallery({
   title: string
   fallbackImages?: string[]
 }) {
-  const [images, setImages] = useState<string[]>([])
+  const [images, setImages] = useState<string[]>(() => normalizeList(fallbackImages))
   const [selected, setSelected] = useState<string | null>(null)
 
   useEffect(() => {
@@ -35,13 +35,9 @@ export function PackageGallery({
     getPackageImages(slug).then((list) => {
       if (!isMounted) return
       const normalized = normalizeList(list)
-      if (normalized.length) {
-        setImages(normalized)
-        return
-      }
-
       const fallback = normalizeList(fallbackImages)
-      setImages(fallback)
+      const merged = normalized.length ? Array.from(new Set([...normalized, ...fallback])) : fallback
+      setImages(merged)
     })
     return () => {
       isMounted = false
