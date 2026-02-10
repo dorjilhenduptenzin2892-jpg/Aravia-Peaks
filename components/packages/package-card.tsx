@@ -9,8 +9,8 @@ export function PackageCard({ pkg }: { pkg: TourPackage }) {
 
   return (
     <Link href={getPackagePath(pkg)} className="block w-full">
-      <Card className="card-premium glass-card overflow-hidden h-full border border-border/60">
-        <div className="relative h-56">
+      <Card className="card-premium glass-card overflow-hidden h-full border border-border/60 transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl">
+        <div className="relative overflow-hidden aspect-[4/3]">
           <ImageLoader
             src={pkg.heroImage}
             alt={pkg.title}
@@ -19,13 +19,13 @@ export function PackageCard({ pkg }: { pkg: TourPackage }) {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-          <div className="absolute top-4 left-4 flex gap-2">
-            <Badge className="bg-secondary text-secondary-foreground">{categoryLabel}</Badge>
+          <div className="absolute bottom-4 left-4 text-xs uppercase tracking-widest text-white/80">
+            {pkg.durationLabel}
           </div>
         </div>
         <CardContent className="p-5 space-y-3">
           <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">
-            <span className="rounded-full bg-muted/70 px-3 py-1">{pkg.durationLabel}</span>
+            <span className="rounded-full bg-muted/70 px-3 py-1">{categoryLabel}</span>
             <span className="rounded-full bg-muted/70 px-3 py-1">{pkg.difficulty}</span>
             <span className="rounded-full bg-muted/70 px-3 py-1">{pkg.region}</span>
           </div>
