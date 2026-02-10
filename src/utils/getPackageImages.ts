@@ -11,6 +11,16 @@ const normalizeImages = (base: string, images: string[]) =>
   images.map((img) => (img.startsWith("/") ? img : `${base}/${img}`))
 
 export async function getPackageImages(slug: string): Promise<string[]> {
+  try {
+    const apiRes = await fetch(`/api/package-images/${slug}`, { cache: "no-store" })
+    if (apiRes.ok) {
+      const apiImages = (await apiRes.json()) as string[]
+      if (apiImages?.length) return apiImages
+    }
+  } catch {
+    // ignore and fall through
+  }
+
   for (const manifestUrl of manifestCandidates(slug)) {
     try {
       const res = await fetch(manifestUrl, { cache: "no-store" })
