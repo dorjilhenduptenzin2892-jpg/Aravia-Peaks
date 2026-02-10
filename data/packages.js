@@ -1,6 +1,9 @@
 const packages = [
   {
     id: "paro-tshechu",
+    slug: "paro-tshechu",
+    category: "festival",
+    difficulty: "Easy",
     title: "Paro Tshechu Festival Tour",
     duration: "7 Days / 6 Nights",
     description: "Witness sacred mask dances and Bhutan’s most iconic cultural celebrations.",
@@ -9,6 +12,9 @@ const packages = [
   },
   {
     id: "thimphu-tshechu",
+    slug: "thimphu-tshechu",
+    category: "festival",
+    difficulty: "Easy",
     title: "Thimphu Tshechu Festival",
     duration: "6 Days / 5 Nights",
     description: "Grand celebrations in the capital with vibrant dances and rituals.",
@@ -17,6 +23,9 @@ const packages = [
   },
   {
     id: "punakha-drubchen",
+    slug: "punakha-drubchen",
+    category: "festival",
+    difficulty: "Easy",
     title: "Punakha Drubchen & Tshechu",
     duration: "8 Days / 7 Nights",
     description: "Two consecutive festivals with dramatic reenactments and sacred dances.",
@@ -25,6 +34,9 @@ const packages = [
   },
   {
     id: "jambay-lhakhang",
+    slug: "jambay-lhakhang",
+    category: "festival",
+    difficulty: "Easy",
     title: "Jambay Lhakhang Festival",
     duration: "9 Days / 8 Nights",
     description: "Central Bhutan festival with fire rituals and ancient temples.",
@@ -33,6 +45,9 @@ const packages = [
   },
   {
     id: "cultural-heritage",
+    slug: "cultural-heritage",
+    category: "cultural",
+    difficulty: "Moderate",
     title: "Cultural Heritage Explorer",
     duration: "5 Days / 4 Nights",
     description: "Discover Bhutan’s iconic monasteries, dzongs, and living heritage.",
@@ -41,6 +56,9 @@ const packages = [
   },
   {
     id: "spiritual-journey",
+    slug: "spiritual-journey",
+    category: "cultural",
+    difficulty: "Easy",
     title: "Spiritual Journey",
     duration: "7 Days / 6 Nights",
     description: "Meditation retreats and sacred sites across Bhutan’s valleys.",
@@ -49,6 +67,9 @@ const packages = [
   },
   {
     id: "western-highlights",
+    slug: "western-highlights",
+    category: "cultural",
+    difficulty: "Easy",
     title: "Western Bhutan Highlights",
     duration: "6 Days / 5 Nights",
     description: "Experience Paro, Thimphu, and Punakha with curated cultural stops.",
@@ -57,6 +78,9 @@ const packages = [
   },
   {
     id: "eastern-bhutan",
+    slug: "eastern-bhutan",
+    category: "cultural",
+    difficulty: "Moderate",
     title: "Eastern Bhutan Discovery",
     duration: "10 Days / 9 Nights",
     description: "Explore remote eastern districts with authentic village life.",
@@ -65,6 +89,9 @@ const packages = [
   },
   {
     id: "druk-path-trek",
+    slug: "druk-path-trek",
+    category: "trekking",
+    difficulty: "Moderate",
     title: "Druk Path Trek",
     duration: "8 Days / 7 Nights",
     description: "Classic trek between Paro and Thimphu via alpine lakes.",
@@ -73,6 +100,9 @@ const packages = [
   },
   {
     id: "jomolhari-trek",
+    slug: "jomolhari-trek",
+    category: "trekking",
+    difficulty: "Challenging",
     title: "Jomolhari Base Camp Trek",
     duration: "11 Days / 10 Nights",
     description: "High-altitude trek to the base of sacred Mt. Jomolhari.",
@@ -81,6 +111,9 @@ const packages = [
   },
   {
     id: "snowman-trek",
+    slug: "snowman-trek",
+    category: "trekking",
+    difficulty: "Extreme",
     title: "Snowman Trek",
     duration: "25 Days / 24 Nights",
     description: "One of the world’s most demanding Himalayan treks.",
@@ -89,6 +122,9 @@ const packages = [
   },
   {
     id: "dagala-thousand-lakes",
+    slug: "dagala-thousand-lakes",
+    category: "trekking",
+    difficulty: "Moderate",
     title: "Dagala Thousand Lakes Trek",
     duration: "9 Days / 8 Nights",
     description: "Moderate trek through pristine alpine landscapes and lakes.",
@@ -97,6 +133,9 @@ const packages = [
   },
   {
     id: "luxury-bhutan",
+    slug: "luxury-bhutan",
+    category: "luxury",
+    difficulty: "Easy",
     title: "Luxury Bhutan Experience",
     duration: "7 Days / 6 Nights",
     description: "Refined stays, private guiding, and serene wellness rituals.",
@@ -105,6 +144,9 @@ const packages = [
   },
   {
     id: "luxury-wellness",
+    slug: "luxury-wellness",
+    category: "luxury",
+    difficulty: "Easy",
     title: "Wellness & Rejuvenation Retreat",
     duration: "6 Days / 5 Nights",
     description: "Holistic wellness with hot stone baths and mindful rituals.",
@@ -113,6 +155,9 @@ const packages = [
   },
   {
     id: "photography-tour",
+    slug: "photography-tour",
+    category: "adventure",
+    difficulty: "Easy",
     title: "Photography Expedition",
     duration: "8 Days / 7 Nights",
     description: "Capture Bhutan’s landscapes with expert guidance.",
@@ -121,6 +166,9 @@ const packages = [
   },
   {
     id: "birdwatching",
+    slug: "birdwatching",
+    category: "adventure",
+    difficulty: "Easy",
     title: "Birdwatching Paradise",
     duration: "9 Days / 8 Nights",
     description: "Spot rare Himalayan birds across forested valleys.",
