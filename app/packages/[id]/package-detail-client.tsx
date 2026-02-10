@@ -2254,7 +2254,7 @@ export default function PackageDetailClient({ id }: { id: string }) {
               {/* Gallery Section */}
               <section>
                 <h2 className="font-serif text-2xl md:text-3xl font-bold mb-4 md:mb-6">{t("gallery")}</h2>
-                <PackageGallery slug={packageData.id} title={title} />
+                <PackageGallery slug={packageData.id} title={title} fallbackImages={galleryImages} />
               </section>
 
               {/* Itinerary Section */}

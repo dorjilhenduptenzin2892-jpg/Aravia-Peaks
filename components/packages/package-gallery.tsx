@@ -4,19 +4,49 @@ import Image from "next/image"
 import { useEffect, useState } from "react"
 import { getPackageImages } from "@/src/utils/getPackageImages"
 
-export function PackageGallery({ slug, title }: { slug: string; title: string }) {
+const allowedExtensions = ["jpg", "jpeg", "png", "webp", "gif", "svg", "avif"]
+
+const normalizeList = (list: string[]) => {
+  const clean = list.filter(Boolean).map((item) => (item.startsWith("/") ? item : `/${item}`))
+  return Array.from(
+    new Set(
+      clean.filter((item) => {
+        const ext = item.split(".").pop()?.toLowerCase()
+        return !ext || allowedExtensions.includes(ext)
+      }),
+    ),
+  )
+}
+
+export function PackageGallery({
+  slug,
+  title,
+  fallbackImages = [],
+}: {
+  slug: string
+  title: string
+  fallbackImages?: string[]
+}) {
   const [images, setImages] = useState<string[]>([])
   const [selected, setSelected] = useState<string | null>(null)
 
   useEffect(() => {
     let isMounted = true
     getPackageImages(slug).then((list) => {
-      if (isMounted) setImages(list)
+      if (!isMounted) return
+      const normalized = normalizeList(list)
+      if (normalized.length) {
+        setImages(normalized)
+        return
+      }
+
+      const fallback = normalizeList(fallbackImages)
+      setImages(fallback)
     })
     return () => {
       isMounted = false
     }
-  }, [slug])
+  }, [slug, fallbackImages])
 
   if (!images.length) {
     return (
