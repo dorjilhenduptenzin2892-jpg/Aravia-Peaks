@@ -39,6 +39,18 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMobileMenuOpen(false)
+        setOpenMenu(null)
+      }
+    }
+
+    document.addEventListener("keydown", handleEscape)
+    return () => document.removeEventListener("keydown", handleEscape)
+  }, [])
+
   const linkClass = (href: string) =>
     `text-sm font-medium transition-colors ${
       pathname === href ? "text-secondary" : "text-foreground/80 hover:text-foreground"
@@ -50,6 +62,12 @@ export function Header() {
         isScrolled ? "bg-background/95 shadow-lg border-b" : "bg-transparent border-transparent"
       } backdrop-blur-lg`}
     >
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:font-semibold"
+      >
+        Skip to content
+      </a>
       <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
         <Link
           href="/"
@@ -193,6 +211,8 @@ export function Header() {
           className="md:hidden text-foreground"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle menu"
+          aria-expanded={mobileMenuOpen}
+          aria-controls="mobile-menu"
         >
           <span className="text-2xl">{mobileMenuOpen ? "✕" : "☰"}</span>
         </button>
@@ -200,7 +220,7 @@ export function Header() {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="border-t bg-background/95 backdrop-blur-md md:hidden">
+        <div id="mobile-menu" className="border-t bg-background/95 backdrop-blur-md md:hidden" role="dialog" aria-modal="true">
           {/* Removed max-w-7xl mx-auto from mobile menu */}
           <nav className="flex flex-col gap-4 px-4 py-6">
             <Link href="/" className="text-sm font-medium text-foreground/80 hover:text-foreground" onClick={handleLinkClick}>

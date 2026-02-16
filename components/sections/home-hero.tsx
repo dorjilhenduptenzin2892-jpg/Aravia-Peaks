@@ -29,21 +29,26 @@ export function HomeHero() {
           {t("licensed_tour_operator")}
         </Badge>
         <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white text-balance mb-6">
-          Experience Bhutan Beyond Travel
+          Bhutan, curated by local experts who live here
         </h1>
-        <p className="mx-auto max-w-3xl text-lg md:text-xl text-white/90 text-balance mb-10">
-          Curated cultural journeys, Himalayan adventures, and authentic local experiences designed by Bhutanese
-          experts.
+        <p className="mx-auto max-w-3xl text-lg md:text-xl text-white/90 text-balance mb-8">
+          Custom cultural journeys, Himalayan treks, and mindful retreats with a dedicated Bhutan specialist and
+          seamless permits, logistics, and guides.
         </p>
-        <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
+        <div className="flex flex-wrap items-center justify-center gap-3 text-xs uppercase tracking-[0.25em] text-white/70">
+          <span className="rounded-full border border-white/20 px-4 py-2">Local Bhutanese operator</span>
+          <span className="rounded-full border border-white/20 px-4 py-2">24-hour response</span>
+          <span className="rounded-full border border-white/20 px-4 py-2">Trusted festival access</span>
+        </div>
+        <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
           <Button size="lg" className="btn-premium hover-glow" asChild>
-            <Link href="/packages">Explore Journeys</Link>
+            <Link href="/inquiry">Request a quote</Link>
           </Button>
           <Button size="lg" variant="secondary" className="hover-glow" asChild>
-            <Link href="/inquiry">Plan Custom Journey</Link>
+            <Link href="/packages">Explore journeys</Link>
           </Button>
           <Button size="lg" variant="outline" className="hover-glow" asChild>
-            <Link href="/contact">Talk to Expert</Link>
+            <Link href="/contact">Talk to a specialist</Link>
           </Button>
         </div>
 

@@ -53,7 +53,7 @@ export default async function RootLayout({
         <NextIntlClientProvider locale={locale} messages={messages}>
           <LanguageProvider>
             <ScrollToTop />
-            {children}
+            <div id="main-content">{children}</div>
             <StickyCTA />
             <WhatsAppFloat />
           </LanguageProvider>

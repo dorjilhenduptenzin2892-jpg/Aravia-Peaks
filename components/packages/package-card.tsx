@@ -6,6 +6,7 @@ import { getPackagePath, packageCategories, type TourPackage } from "@/lib/data/
 
 export function PackageCard({ pkg }: { pkg: TourPackage }) {
   const categoryLabel = packageCategories.find((cat) => cat.slug === pkg.category)?.label ?? pkg.category
+  const priceLabel = pkg.startingFrom ? `From $${pkg.startingFrom.toLocaleString()}` : null
 
   return (
     <Link href={getPackagePath(pkg)} className="block w-full">
@@ -23,7 +24,7 @@ export function PackageCard({ pkg }: { pkg: TourPackage }) {
             {pkg.durationLabel}
           </div>
         </div>
-        <CardContent className="p-5 space-y-3">
+        <CardContent className="p-5 space-y-4">
           <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">
             <span className="rounded-full bg-muted/70 px-3 py-1">{categoryLabel}</span>
             <span className="rounded-full bg-muted/70 px-3 py-1">{pkg.difficulty}</span>
@@ -32,6 +33,16 @@ export function PackageCard({ pkg }: { pkg: TourPackage }) {
           <div>
             <h3 className="text-lg font-semibold text-foreground">{pkg.title}</h3>
             <p className="text-sm text-muted-foreground line-clamp-2">{pkg.summary}</p>
+          </div>
+          <div className="grid gap-2 text-xs text-muted-foreground">
+            <div className="flex items-center justify-between">
+              <span>{pkg.durationLabel}</span>
+              <span>Best time: {pkg.bestTime}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span>Group size: {pkg.groupSize}</span>
+              {priceLabel ? <span className="font-semibold text-foreground">{priceLabel}</span> : null}
+            </div>
           </div>
           <div className="flex flex-wrap gap-2">
             {pkg.highlights.slice(0, 3).map((item) => (

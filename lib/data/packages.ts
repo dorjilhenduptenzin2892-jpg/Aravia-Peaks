@@ -27,6 +27,7 @@ export interface TourPackage {
   difficulty: PackageDifficulty
   bestTime: string
   groupSize: string
+  startingFrom?: number
   comfortLevel: "Essential" | "Comfort" | "Premium" | "Luxury"
   heroImage: string
   gallery: string[]
