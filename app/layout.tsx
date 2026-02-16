@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { cookies } from "next/headers"
 import { Playfair_Display, Inter } from "next/font/google"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { NextIntlClientProvider } from "next-intl"
 import { defaultLocale, locales } from "@/i18n/config"
 import { LanguageProvider } from "@/lib/language-context"
@@ -80,6 +81,7 @@ export default async function RootLayout({
             <StickyCTA />
             <WhatsAppFloat />
           </LanguageProvider>
+          <SpeedInsights />
         </NextIntlClientProvider>
 
       <script
