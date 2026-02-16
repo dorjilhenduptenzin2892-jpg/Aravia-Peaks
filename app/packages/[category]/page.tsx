@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { PackageCard } from "@/components/packages/package-card"
@@ -5,6 +6,11 @@ import { packages, packageCategories, type PackageCategory } from "@/lib/data/pa
 
 type PackagesSearchParams = {
   [key: string]: string | string[] | undefined
+}
+
+type CategoryPageProps = {
+  params: { category: string }
+  searchParams?: PackagesSearchParams
 }
 
 const getStringValue = (value: string | string[] | undefined) =>
@@ -16,19 +22,29 @@ const durationBucket = (days: number) => {
   return "long"
 }
 
-export default function PackagesPage({ searchParams }: { searchParams?: PackagesSearchParams }) {
-  const params = searchParams ?? {}
-  const searchTerm = getStringValue(params.q)
-  const categoryFilter = getStringValue(params.category)
-  const difficultyFilter = getStringValue(params.difficulty)
-  const durationFilter = getStringValue(params.duration)
-  const regionFilter = getStringValue(params.region)
+export function generateStaticParams() {
+  return packageCategories.map((category) => ({ category: category.slug }))
+}
+
+export default function PackagesCategoryPage({ params, searchParams }: CategoryPageProps) {
+  const category = params.category as PackageCategory
+  const categoryInfo = packageCategories.find((item) => item.slug === category)
+
+  if (!categoryInfo) {
+    notFound()
+  }
+
+  const paramsSearch = searchParams ?? {}
+  const searchTerm = getStringValue(paramsSearch.q)
+  const difficultyFilter = getStringValue(paramsSearch.difficulty)
+  const durationFilter = getStringValue(paramsSearch.duration)
+  const regionFilter = getStringValue(paramsSearch.region)
 
   const regions = Array.from(new Set(packages.map((pkg) => pkg.region))).sort()
 
   const filteredPackages = packages.filter((pkg) => {
-    const categoryMatch =
-      !categoryFilter || categoryFilter === "all" || pkg.category === (categoryFilter as PackageCategory)
+    if (pkg.category !== category) return false
+
     const difficultyMatch =
       !difficultyFilter || difficultyFilter === "all" || pkg.difficulty.toLowerCase() === difficultyFilter
     const durationMatch =
@@ -41,7 +57,7 @@ export default function PackagesPage({ searchParams }: { searchParams?: Packages
         .toLowerCase()
         .includes(searchTerm.toLowerCase())
 
-    return categoryMatch && difficultyMatch && durationMatch && regionMatch && searchMatch
+    return difficultyMatch && durationMatch && regionMatch && searchMatch
   })
 
   return (
@@ -55,11 +71,12 @@ export default function PackagesPage({ searchParams }: { searchParams?: Packages
           </div>
           <div className="container px-4 md:px-6 relative z-10">
             <div className="mx-auto max-w-3xl text-center text-white">
+              <p className="text-sm uppercase tracking-[0.3em] text-white/70">{categoryInfo.label}</p>
               <h1 className="font-serif text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl mb-6 text-balance">
-                Curated Bhutan Journeys
+                {categoryInfo.label}
               </h1>
               <p className="text-lg text-white/90 text-balance">
-                Explore handcrafted itineraries across Bhutan’s festivals, mountains, and cultural heartland.
+                Browse curated {categoryInfo.label.toLowerCase()} with trusted local guides and seamless planning.
               </p>
             </div>
           </div>
@@ -67,25 +84,13 @@ export default function PackagesPage({ searchParams }: { searchParams?: Packages
 
         <section className="py-12 md:py-16 section-tint">
           <div className="container px-4 md:px-6 space-y-8">
-            <form className="grid gap-4 md:grid-cols-2 lg:grid-cols-5" method="get">
+            <form className="grid gap-4 md:grid-cols-2 lg:grid-cols-4" method="get">
               <input
                 name="q"
-                placeholder="Search by region, theme, or experience"
+                placeholder="Search within this category"
                 defaultValue={searchTerm}
                 className="flex h-10 w-full rounded-md border border-border/60 bg-background px-3 py-2 text-sm focus:border-primary focus:outline-none"
               />
-              <select
-                name="category"
-                defaultValue={categoryFilter || "all"}
-                className="flex h-10 w-full rounded-md border border-border/60 bg-background px-3 py-2 text-sm focus:border-primary focus:outline-none"
-              >
-                <option value="all">All Categories</option>
-                {packageCategories.map((category) => (
-                  <option key={category.slug} value={category.slug}>
-                    {category.label}
-                  </option>
-                ))}
-              </select>
               <select
                 name="difficulty"
                 defaultValue={difficultyFilter || "all"}
@@ -119,14 +124,14 @@ export default function PackagesPage({ searchParams }: { searchParams?: Packages
                   </option>
                 ))}
               </select>
-              <button type="submit" className="btn-premium hover-glow w-full h-10 text-sm font-semibold lg:col-span-5">
+              <button type="submit" className="btn-premium hover-glow w-full h-10 text-sm font-semibold lg:col-span-4">
                 Update results
               </button>
             </form>
 
             <div className="flex items-center justify-between text-sm text-muted-foreground">
-              <span>{filteredPackages.length} tours found</span>
-              <span>Showing curated itineraries and custom options</span>
+              <span>{filteredPackages.length} tours found in {categoryInfo.label}</span>
+              <span>Need a custom itinerary? We tailor every journey.</span>
             </div>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
