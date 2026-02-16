@@ -1,4 +1,6 @@
-"use client"
+export { metadata } from "./page.server"
+export { default } from "./page.server"
+const _legacy = String.raw`
 
 import { useState, useEffect, type FormEvent, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
@@ -24,53 +26,8 @@ function InquiryForm() {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
-    phone: "",
-    country: "",
-    packageType: "",
-    travelMonth: "",
-    groupSize: "",
-    duration: "",
-    message: "",
-  })
-
-  useEffect(() => {
-    const packageId = searchParams.get("package")
-    const packageName = searchParams.get("name")
-    const packageCategory = searchParams.get("category")
-    const packageDuration = searchParams.get("duration")
-
-    if (packageId) {
-      setFormData((prev) => ({
-        ...prev,
-        packageType:
-          packageCategory === "Festival Tour"
-            ? "festival"
-            : packageCategory === "Cultural Tour"
-            ? "cultural"
-            : packageCategory === "Trekking"
-            ? "trekking"
-            : packageCategory === "Luxury"
-            ? "luxury"
-            : prev.packageType,
-        duration: packageDuration?.includes("10")
-          ? "9-12"
-          : packageDuration?.includes("7") || packageDuration?.includes("8")
-          ? "6-8"
-          : packageDuration?.includes("5")
-          ? "3-5"
-          : packageDuration?.includes("13-15")
-          ? "13-15"
-          : prev.duration,
-        message: packageName ? `I am interested in the ${packageName} package.` : prev.message,
-      }))
+      message: getStringValue(params.message) || prefillMessage,
     }
-  }, [])
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setError(null)
-
     try {
       const result = await sendInquiryEmail(formData)
       if (result.success) {
@@ -362,3 +319,5 @@ export default function InquiryPage() {
     </Suspense>
   )
 }
+
+`
