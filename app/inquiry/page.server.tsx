@@ -37,8 +37,12 @@ const mapDuration = (durationLabel: string) => {
   return ""
 }
 
-export default function InquiryPage({ searchParams }: { searchParams?: InquirySearchParams }) {
-  const params = searchParams ?? {}
+export default async function InquiryPage({
+  searchParams,
+}: {
+  searchParams?: Promise<InquirySearchParams>
+}) {
+  const params = (await searchParams) ?? {}
   const status = getStringValue(params.status)
   const errorMessage = getStringValue(params.errorMessage)
   const errorFields = new Set(getStringValue(params.errorFields).split(",").filter(Boolean))
@@ -774,8 +778,12 @@ const mapDuration = (durationLabel: string) => {
   return ""
 }
 
-export default function InquiryPage({ searchParams }: { searchParams?: InquirySearchParams }) {
-  const params = searchParams ?? {}
+export default async function InquiryPage({
+  searchParams,
+}: {
+  searchParams?: Promise<InquirySearchParams>
+}) {
+  const params = (await searchParams) ?? {}
   const status = getStringValue(params.status)
   const errorMessage = getStringValue(params.errorMessage)
   const errorFields = new Set(getStringValue(params.errorFields).split(",").filter(Boolean))

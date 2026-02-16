@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
-import PackageDetailClient from "@/app/packages/[id]/package-detail-client"
+import { PackageDetails } from "@/components/packages/package-details"
 import { getAllPackages, getPackageByCategoryAndSlug } from "@/lib/data/packages"
 
 export function generateStaticParams() {
@@ -83,7 +83,7 @@ export default async function PackagePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <PackageDetailClient id={slug} />
+      <PackageDetails pkg={pkg} />
     </>
   )
 }

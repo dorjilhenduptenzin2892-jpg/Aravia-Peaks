@@ -42,7 +42,7 @@ export default function PackagesPageClient() {
 
       return categoryMatch && difficultyMatch && durationMatch && searchMatch
     })
-  }, [packages, searchTerm, categoryFilter, difficultyFilter, durationFilter])
+  }, [searchTerm, categoryFilter, difficultyFilter, durationFilter])
 
   return (
     <div className="flex min-h-screen flex-col">

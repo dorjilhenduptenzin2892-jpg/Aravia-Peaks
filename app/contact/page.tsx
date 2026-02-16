@@ -83,7 +83,9 @@ export default function ContactPage() {
 
       if (result.success) {
         setSubmitSuccess(true)
-        setContactReferenceNumber(result.referenceNumber)
+        if (result.referenceNumber) {
+          setContactReferenceNumber(result.referenceNumber)
+        }
         setContactForm({
           fullName: "",
           email: "",
@@ -97,7 +99,7 @@ export default function ContactPage() {
           setContactReferenceNumber("")
         }, 10000)
       } else {
-        setSubmitError(result.error || "Failed to send message. Please try again.")
+        setSubmitError(result.message || "Failed to send message. Please try again.")
       }
     } catch (error) {
       setSubmitError("An error occurred. Please try again later.")

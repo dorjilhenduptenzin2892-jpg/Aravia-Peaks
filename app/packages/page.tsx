@@ -38,8 +38,12 @@ const durationBucket = (days: number) => {
   return "long"
 }
 
-export default function PackagesPage({ searchParams }: { searchParams?: PackagesSearchParams }) {
-  const params = searchParams ?? {}
+export default async function PackagesPage({
+  searchParams,
+}: {
+  searchParams?: Promise<PackagesSearchParams>
+}) {
+  const params = (await searchParams) ?? {}
   const searchTerm = getStringValue(params.q)
   const categoryFilter = getStringValue(params.category)
   const difficultyFilter = getStringValue(params.difficulty)

@@ -1,5 +1,6 @@
 import Image from "next/image"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
+import { resolveImagePath } from "@/src/utils/imageResolver"
 
 export default function SmartImage({
   src,
@@ -9,29 +10,22 @@ export default function SmartImage({
   loading = "lazy",
   ...props
 }) {
-  const candidatePaths = useMemo(() => {
-    if (!src) return [fallback]
-    const normalized = src.startsWith("/") ? src : `/${src}`
-    const variants = new Set([normalized])
-
-    if (normalized.startsWith("/images/")) {
-      variants.add(normalized.replace(/^\/images/, ""))
-    } else {
-      variants.add(`/images${normalized}`)
-    }
-
-    variants.add(fallback)
-    return Array.from(variants)
-  }, [src, fallback])
-
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [currentSrc, setCurrentSrc] = useState(candidatePaths[0])
+  const [currentSrc, setCurrentSrc] = useState(fallback)
   const shouldFill = props.fill ?? (!props.width && !props.height)
 
   useEffect(() => {
-    setCurrentIndex(0)
-    setCurrentSrc(candidatePaths[0])
-  }, [candidatePaths])
+    let isActive = true
+
+    resolveImagePath(src, fallback).then((resolved) => {
+      if (isActive) {
+        setCurrentSrc(resolved)
+      }
+    })
+
+    return () => {
+      isActive = false
+    }
+  }, [src, fallback])
 
   return (
     <Image
@@ -41,13 +35,7 @@ export default function SmartImage({
       className={className}
       fill={shouldFill}
       sizes={props.sizes ?? (shouldFill ? "100vw" : undefined)}
-      onError={() => {
-        const nextIndex = currentIndex + 1
-        if (nextIndex < candidatePaths.length) {
-          setCurrentIndex(nextIndex)
-          setCurrentSrc(candidatePaths[nextIndex])
-        }
-      }}
+      onError={() => setCurrentSrc(fallback)}
       {...props}
     />
   )

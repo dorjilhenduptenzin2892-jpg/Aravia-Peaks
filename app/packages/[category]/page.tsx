@@ -10,8 +10,8 @@ type PackagesSearchParams = {
 }
 
 type CategoryPageProps = {
-  params: { category: string }
-  searchParams?: PackagesSearchParams
+  params: Promise<{ category: string }>
+  searchParams?: Promise<PackagesSearchParams>
 }
 
 const getStringValue = (value: string | string[] | undefined) =>
@@ -27,9 +27,14 @@ export function generateStaticParams() {
   return packageCategories.map((category) => ({ category: category.slug }))
 }
 
-export function generateMetadata({ params }: { params: { category: string } }): Metadata {
-  const category = params.category as PackageCategory
-  const categoryInfo = packageCategories.find((item) => item.slug === category)
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string }>
+}): Promise<Metadata> {
+  const { category } = await params
+  const categorySlug = category as PackageCategory
+  const categoryInfo = packageCategories.find((item) => item.slug === categorySlug)
 
   if (!categoryInfo) {
     return { title: "Package Category Not Found" }
@@ -42,33 +47,37 @@ export function generateMetadata({ params }: { params: { category: string } }): 
     title,
     description,
     alternates: {
-      canonical: `/packages/${category}`,
+      canonical: `/packages/${categorySlug}`,
       languages: {
-        en: `/en/packages/${category}`,
-        es: `/es/packages/${category}`,
-        fr: `/fr/packages/${category}`,
-        de: `/de/packages/${category}`,
-        zh: `/zh/packages/${category}`,
+        en: `/en/packages/${categorySlug}`,
+        es: `/es/packages/${categorySlug}`,
+        fr: `/fr/packages/${categorySlug}`,
+        de: `/de/packages/${categorySlug}`,
+        zh: `/zh/packages/${categorySlug}`,
       },
     },
     openGraph: {
       title,
       description,
-      url: `/packages/${category}`,
+      url: `/packages/${categorySlug}`,
       type: "website",
     },
   }
 }
 
-export default function PackagesCategoryPage({ params, searchParams }: CategoryPageProps) {
-  const category = params.category as PackageCategory
-  const categoryInfo = packageCategories.find((item) => item.slug === category)
+export default async function PackagesCategoryPage({
+  params,
+  searchParams,
+}: CategoryPageProps) {
+  const { category } = await params
+  const categorySlug = category as PackageCategory
+  const categoryInfo = packageCategories.find((item) => item.slug === categorySlug)
 
   if (!categoryInfo) {
     notFound()
   }
 
-  const paramsSearch = searchParams ?? {}
+  const paramsSearch = (await searchParams) ?? {}
   const searchTerm = getStringValue(paramsSearch.q)
   const difficultyFilter = getStringValue(paramsSearch.difficulty)
   const durationFilter = getStringValue(paramsSearch.duration)
@@ -77,7 +86,7 @@ export default function PackagesCategoryPage({ params, searchParams }: CategoryP
   const regions = Array.from(new Set(packages.map((pkg) => pkg.region))).sort()
 
   const filteredPackages = packages.filter((pkg) => {
-    if (pkg.category !== category) return false
+    if (pkg.category !== categorySlug) return false
 
     const difficultyMatch =
       !difficultyFilter || difficultyFilter === "all" || pkg.difficulty.toLowerCase() === difficultyFilter

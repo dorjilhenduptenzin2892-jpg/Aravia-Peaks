@@ -67,7 +67,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const localeCookie = cookies().get("NEXT_LOCALE")?.value
+  const cookieStore = await cookies()
+  const localeCookie = cookieStore.get("NEXT_LOCALE")?.value
   const locale = locales.includes(localeCookie as (typeof locales)[number]) ? localeCookie : defaultLocale
   const messages = (await import(`../messages/${locale}.json`)).default
 

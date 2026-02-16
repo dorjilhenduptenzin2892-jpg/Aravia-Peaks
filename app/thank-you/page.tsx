@@ -17,8 +17,12 @@ export const metadata: Metadata = {
 const getStringValue = (value: string | string[] | undefined) =>
   Array.isArray(value) ? value[0] ?? "" : value ?? ""
 
-export default function ThankYouPage({ searchParams }: { searchParams?: ThankYouSearchParams }) {
-  const params = searchParams ?? {}
+export default async function ThankYouPage({
+  searchParams,
+}: {
+  searchParams?: Promise<ThankYouSearchParams>
+}) {
+  const params = (await searchParams) ?? {}
   const referenceNumber = getStringValue(params.ref)
   const name = getStringValue(params.name)
 

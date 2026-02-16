@@ -1,4 +1,5 @@
-type ClassValue = string | number | boolean | undefined | null | ClassValue[]
+type ClassDictionary = Record<string, boolean | undefined | null>
+type ClassValue = string | number | boolean | undefined | null | ClassDictionary | ClassValue[]
 
 function clsx(...inputs: ClassValue[]): string {
   const classes: string[] = []
