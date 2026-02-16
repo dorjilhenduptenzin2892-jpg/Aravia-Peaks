@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { PackageCard } from "@/components/packages/package-card"
@@ -5,6 +6,27 @@ import { packages, packageCategories, type PackageCategory } from "@/lib/data/pa
 
 type PackagesSearchParams = {
   [key: string]: string | string[] | undefined
+}
+
+export const metadata: Metadata = {
+  title: "Bhutan Tour Packages | Bhutan Aravia Peaks",
+  description: "Explore curated Bhutan tour packages across festivals, trekking, culture, and luxury journeys.",
+  alternates: {
+    canonical: "/packages",
+    languages: {
+      en: "/en/packages",
+      es: "/es/packages",
+      fr: "/fr/packages",
+      de: "/de/packages",
+      zh: "/zh/packages",
+    },
+  },
+  openGraph: {
+    title: "Bhutan Tour Packages | Bhutan Aravia Peaks",
+    description: "Explore curated Bhutan tour packages across festivals, trekking, culture, and luxury journeys.",
+    url: "/packages",
+    type: "website",
+  },
 }
 
 const getStringValue = (value: string | string[] | undefined) =>

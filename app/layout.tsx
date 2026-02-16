@@ -30,10 +30,33 @@ export const metadata: Metadata = {
   keywords:
     "Bhutan tours, Bhutan travel, cultural festivals, Paro Tshechu, Thimphu festival, Bhutan packages, trekking Bhutan, authentic Bhutan, luxury Bhutan, Bhutan Aravia Peaks",
   metadataBase: new URL("https://aravia-peaks.vercel.app"),
+  alternates: {
+    canonical: "/",
+    languages: {
+      en: "/en",
+      es: "/es",
+      fr: "/fr",
+      de: "/de",
+      zh: "/zh",
+    },
+  },
   icons: {
     icon: "/images/logo.png",
     shortcut: "/images/logo.png",
     apple: "/images/logo.png",
+  },
+  openGraph: {
+    title: "Bhutan Aravia Peaks Tours and Travels | Authentic Bhutan Experiences",
+    description:
+      "Discover the magic of Bhutan with Bhutan Aravia Peaks Tours and Travels, your locally-owned gateway to authentic cultural festivals, Himalayan treks, and transformative journeys in the Land of the Thunder Dragon.",
+    url: "/",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bhutan Aravia Peaks Tours and Travels | Authentic Bhutan Experiences",
+    description:
+      "Discover the magic of Bhutan with Bhutan Aravia Peaks Tours and Travels, your locally-owned gateway to authentic cultural festivals, Himalayan treks, and transformative journeys in the Land of the Thunder Dragon.",
   },
   generator: "v0.app",
 }

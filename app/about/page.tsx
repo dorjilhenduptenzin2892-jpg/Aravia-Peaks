@@ -10,10 +10,19 @@ import Image from "next/image"
 
 export default function AboutPage() {
   const { t } = useLanguage()
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TravelAgency",
+    name: "Bhutan Aravia Peaks",
+    url: "https://aravia-peaks.vercel.app/about",
+    description: t("about_intro"),
+    areaServed: "Bhutan",
+  }
 
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <main className="flex-1">
         {/* Hero Section */}

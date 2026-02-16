@@ -17,6 +17,44 @@ import { useState } from "react"
 
 export default function ContactPage() {
   const { t } = useLanguage()
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: t("faq_question_1"),
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: t("faq_answer_1"),
+        },
+      },
+      {
+        "@type": "Question",
+        name: t("faq_question_2"),
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: t("faq_answer_2"),
+        },
+      },
+      {
+        "@type": "Question",
+        name: t("faq_question_3"),
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: t("faq_answer_3"),
+        },
+      },
+      {
+        "@type": "Question",
+        name: t("faq_question_4"),
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: t("faq_answer_4"),
+        },
+      },
+    ],
+  }
 
   const [contactForm, setContactForm] = useState({
     fullName: "",
@@ -71,6 +109,7 @@ export default function ContactPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
 
       <main className="flex-1">
         <section className="relative py-16 md:py-24 section-tint">

@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
@@ -24,6 +25,39 @@ const durationBucket = (days: number) => {
 
 export function generateStaticParams() {
   return packageCategories.map((category) => ({ category: category.slug }))
+}
+
+export function generateMetadata({ params }: { params: { category: string } }): Metadata {
+  const category = params.category as PackageCategory
+  const categoryInfo = packageCategories.find((item) => item.slug === category)
+
+  if (!categoryInfo) {
+    return { title: "Package Category Not Found" }
+  }
+
+  const title = `${categoryInfo.label} | Bhutan Aravia Peaks`
+  const description = `Browse curated ${categoryInfo.label.toLowerCase()} with trusted Bhutanese guides.`
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `/packages/${category}`,
+      languages: {
+        en: `/en/packages/${category}`,
+        es: `/es/packages/${category}`,
+        fr: `/fr/packages/${category}`,
+        de: `/de/packages/${category}`,
+        zh: `/zh/packages/${category}`,
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url: `/packages/${category}`,
+      type: "website",
+    },
+  }
 }
 
 export default function PackagesCategoryPage({ params, searchParams }: CategoryPageProps) {

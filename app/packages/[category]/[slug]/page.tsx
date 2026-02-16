@@ -22,11 +22,27 @@ export async function generateMetadata({
   return {
     title: `${pkg.title} | Bhutan Aravia Peaks`,
     description: pkg.summary,
+    alternates: {
+      canonical: `/packages/${pkg.category}/${pkg.slug}`,
+      languages: {
+        en: `/en/packages/${pkg.category}/${pkg.slug}`,
+        es: `/es/packages/${pkg.category}/${pkg.slug}`,
+        fr: `/fr/packages/${pkg.category}/${pkg.slug}`,
+        de: `/de/packages/${pkg.category}/${pkg.slug}`,
+        zh: `/zh/packages/${pkg.category}/${pkg.slug}`,
+      },
+    },
     openGraph: {
       title: pkg.title,
       description: pkg.summary,
       images: [{ url: pkg.heroImage, alt: pkg.title }],
       type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: pkg.title,
+      description: pkg.summary,
+      images: [pkg.heroImage],
     },
   }
 }
@@ -43,5 +59,31 @@ export default async function PackagePage({
     notFound()
   }
 
-  return <PackageDetailClient id={slug} />
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TouristTrip",
+    name: pkg.title,
+    description: pkg.summary,
+    touristType: pkg.category,
+    itinerary: pkg.itinerary.map((item) => ({
+      "@type": "TouristTrip",
+      name: `Day ${item.day}: ${item.title}`,
+      description: item.description,
+    })),
+    provider: {
+      "@type": "TravelAgency",
+      name: "Bhutan Aravia Peaks",
+      url: "https://aravia-peaks.vercel.app",
+    },
+  }
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <PackageDetailClient id={slug} />
+    </>
+  )
 }

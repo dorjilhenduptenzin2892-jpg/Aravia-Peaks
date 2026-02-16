@@ -19,6 +19,22 @@ import { StrongCTA } from "@/components/sections/strong-cta"
 import { sendContactEmail } from "@/app/actions/send-contact"
 
 export default function Home() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TravelAgency",
+    name: "Bhutan Aravia Peaks",
+    url: "https://aravia-peaks.vercel.app",
+    description:
+      "Locally owned Bhutan travel specialists offering custom cultural tours, treks, and festival journeys.",
+    areaServed: "Bhutan",
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "Customer Service",
+      email: "bhutanaraviapeaks@gmail.com",
+      telephone: "+975 17565604",
+    },
+  }
+
   const [contactForm, setContactForm] = useState({
     fullName: "",
     email: "",
@@ -63,6 +79,7 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <main className="flex-1">
         <HomeHero />
