@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import heroImage from "@/public/bhutan-himalayan-mountain-landscape-kingdom-thunde.jpg"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -13,7 +14,7 @@ export function HomeHero() {
     <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
         <Image
-          src="/bhutan-himalayan-mountain-landscape-kingdom-thunde.jpg"
+          src={heroImage}
           alt="Bhutan Himalayas"
           fill
           priority
