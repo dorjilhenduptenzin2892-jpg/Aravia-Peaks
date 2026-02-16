@@ -1,11 +1,30 @@
 "use client"
 
+import { usePathname, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { useLanguage } from "@/lib/language-context"
+import { locales } from "@/i18n/config"
 
 export function LanguageSelector() {
   const { language, setLanguage, languages } = useLanguage()
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const stripLocale = (path: string) => {
+    const segments = path.split("/")
+    const currentLocale = segments[1]
+    if (locales.includes(currentLocale as (typeof locales)[number])) {
+      return `/${segments.slice(2).join("/")}`.replace(/\/$/, "") || "/"
+    }
+    return path
+  }
+
+  const handleLocaleChange = (lang: (typeof languages)[number]) => {
+    setLanguage(lang)
+    const basePath = stripLocale(pathname)
+    router.push(`/${lang.code}${basePath}`)
+  }
 
   return (
     <DropdownMenu>
@@ -19,7 +38,7 @@ export function LanguageSelector() {
         {languages.map((lang) => (
           <DropdownMenuItem
             key={lang.code}
-            onClick={() => setLanguage(lang)}
+            onClick={() => handleLocaleChange(lang)}
             className="flex items-center justify-between cursor-pointer"
           >
             <span className="flex items-center gap-2">

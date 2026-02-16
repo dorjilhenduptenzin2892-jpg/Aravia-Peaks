@@ -1,6 +1,9 @@
 import type React from "react"
 import type { Metadata } from "next"
+import { cookies } from "next/headers"
 import { Playfair_Display, Inter } from "next/font/google"
+import { NextIntlClientProvider } from "next-intl"
+import { defaultLocale, locales } from "@/i18n/config"
 import { LanguageProvider } from "@/lib/language-context"
 import { ScrollToTop } from "@/components/scroll-to-top"
 import { StickyCTA } from "@/components/sticky-cta"
@@ -35,20 +38,26 @@ export const metadata: Metadata = {
   generator: "v0.app",
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const localeCookie = cookies().get("NEXT_LOCALE")?.value
+  const locale = locales.includes(localeCookie as (typeof locales)[number]) ? localeCookie : defaultLocale
+  const messages = (await import(`../messages/${locale}.json`)).default
+
   return (
-  <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
-    <body className="font-sans antialiased">
-      <LanguageProvider>
-        <ScrollToTop />
-        {children}
-        <StickyCTA />
-        <WhatsAppFloat />
-      </LanguageProvider>
+    <html lang={locale} className={`${playfair.variable} ${inter.variable}`}>
+      <body className="font-sans antialiased">
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <LanguageProvider>
+            <ScrollToTop />
+            {children}
+            <StickyCTA />
+            <WhatsAppFloat />
+          </LanguageProvider>
+        </NextIntlClientProvider>
 
       <script
         dangerouslySetInnerHTML={{
@@ -75,8 +84,8 @@ export default function RootLayout({
     `,
         }}
       />
-    </body>
-  </html>
-)
+      </body>
+    </html>
+  )
 
 }

@@ -254,6 +254,25 @@ const translations: Record<string, Record<string, string>> = {
     farmhouse_benefit_1_title: "Authentic Cultural Experience",
     farmhouse_benefit_1_text:
       "Live like a local, engaging in farming activities, cooking traditional meals, and learning about age-old customs.",
+    farmhouse_benefit_2_title: "Heritage Architecture",
+    farmhouse_benefit_2_text:
+      "Stay in centuries-old farmhouses built with traditional Bhutanese craftsmanship and sacred family spaces.",
+    farmhouse_benefit_3_title: "Warm Host Families",
+    farmhouse_benefit_3_text:
+      "Enjoy heartfelt hospitality, storytelling, and a deeper connection with Bhutanese family life.",
+    farmhouse_benefit_4_title: "Farm-to-Table Cuisine",
+    farmhouse_benefit_4_text:
+      "Savor fresh, seasonal dishes made from organic ingredients grown right on the farm.",
+    farmhouse_benefit_5_title: "Scenic Valley Views",
+    farmhouse_benefit_5_text:
+      "Wake up to peaceful mountain landscapes, rice terraces, and tranquil village surroundings.",
+    farmhouse_benefit_6_title: "Restorative Slow Travel",
+    farmhouse_benefit_6_text:
+      "Experience Bhutan at an unhurried pace with mindful activities and rural tranquility.",
+    farmhouse_featured_title: "Featured Farmhouses & Homestays",
+    farmhouse_highlights: "Highlights",
+    farmhouse_book_now: "Book now",
+    farmhouse_learn_more: "Learn more",
     farmhouse_cta_title: "Ready to Experience Authentic Bhutanese Hospitality?",
     farmhouse_cta_description:
       "Connect with local families and create unforgettable memories in the heart of the Thunder Dragon Kingdom.",
@@ -1693,6 +1712,21 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = useState<Language>(languages[0])
 
   useEffect(() => {
+    const localeCookie = document.cookie
+      .split(";")
+      .map((cookie) => cookie.trim())
+      .find((cookie) => cookie.startsWith("NEXT_LOCALE="))
+      ?.split("=")[1]
+
+    if (localeCookie) {
+      const localeLang = languages.find((lang) => lang.code === localeCookie)
+      if (localeLang) {
+        setLanguageState(localeLang)
+        localStorage.setItem("language", localeLang.code)
+        return
+      }
+    }
+
     const saved = localStorage.getItem("language")
     if (saved) {
       const lang = languages.find((l) => l.code === saved)
@@ -1703,10 +1737,25 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const setLanguage = (lang: Language) => {
     setLanguageState(lang)
     localStorage.setItem("language", lang.code)
+    document.cookie = `NEXT_LOCALE=${lang.code}; path=/; max-age=31536000`
   }
 
   const t = (key: string): string => {
-    return translations[language.code]?.[key] || translations["en"]?.[key] || key
+    const localized = translations[language.code]?.[key]
+    const fallback = translations["en"]?.[key]
+
+    if (!localized && !fallback) {
+      if (process.env.NODE_ENV !== "production") {
+        console.error(`[i18n] Missing translation key: ${key}`)
+      }
+      return `Missing translation: ${key}`
+    }
+
+    if (!localized && process.env.NODE_ENV !== "production") {
+      console.warn(`[i18n] Missing ${language.code} translation for key: ${key}`)
+    }
+
+    return localized || fallback || `Missing translation: ${key}`
   }
 
   return <LanguageContext.Provider value={{ language, setLanguage, languages, t }}>{children}</LanguageContext.Provider>
