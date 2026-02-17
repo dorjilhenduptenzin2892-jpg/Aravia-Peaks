@@ -46,12 +46,20 @@ export function Header() {
       try {
         const res = await fetch("/api/admin/session")
         if (!isMounted) return
+
         if (res.ok) {
-          const data = (await res.json()) as { authenticated: boolean }
-          setAdminState(data.authenticated ? "admin" : "guest")
-        } else {
-          setAdminState("guest")
+          const contentType = res.headers.get("content-type") || ""
+          if (!contentType.includes("application/json")) {
+            setAdminState("guest")
+            return
+          }
+
+          const data = (await res.json().catch(() => null)) as { authenticated?: boolean } | null
+          setAdminState(data?.authenticated ? "admin" : "guest")
+          return
         }
+
+        setAdminState("guest")
       } catch {
         if (isMounted) setAdminState("guest")
       }

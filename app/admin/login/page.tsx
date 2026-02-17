@@ -23,8 +23,10 @@ export default function AdminLoginPage() {
         const res = await fetch("/api/admin/session")
         if (!mounted) return
         if (res.ok) {
-          const data = (await res.json()) as { authenticated: boolean }
-          if (data.authenticated) {
+          const contentType = res.headers.get("content-type") || ""
+          if (!contentType.includes("application/json")) return
+          const data = (await res.json().catch(() => null)) as { authenticated?: boolean } | null
+          if (data?.authenticated) {
             router.replace("/admin/packages")
           }
         }
@@ -52,8 +54,12 @@ export default function AdminLoginPage() {
       })
 
       if (!res.ok) {
-        const data = (await res.json()) as { error?: string }
-        throw new Error(data.error || "Invalid credentials")
+        const contentType = res.headers.get("content-type") || ""
+        if (contentType.includes("application/json")) {
+          const data = (await res.json().catch(() => null)) as { error?: string } | null
+          throw new Error(data?.error || "Invalid credentials")
+        }
+        throw new Error("Invalid credentials")
       }
 
       router.replace("/admin/packages")
