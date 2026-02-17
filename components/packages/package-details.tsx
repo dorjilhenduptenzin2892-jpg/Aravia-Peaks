@@ -168,7 +168,12 @@ export function PackageDetails({ pkg }: { pkg: TourPackage }) {
                   ) : null}
                 </div>
                 <div id="itinerary">
-                  <PackageItineraryAccordion itinerary={safeArray(pkg.itinerary)} />
+                  <PackageItineraryAccordion
+                    itinerary={safeArray(pkg.itinerary)}
+                    durationDays={pkg.durationDays}
+                    highlights={safeArray(pkg.highlights)}
+                    packageTitle={pkg.title}
+                  />
                 </div>
               </CardContent>
             </Card>
