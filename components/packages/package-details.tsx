@@ -1,114 +1,234 @@
-"use client"
-
+import Link from "next/link"
+import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { GallerySlider } from "@/components/packages/gallery-slider"
-import { PackageHighlights } from "@/components/packages/package-highlights"
-import { PackageItinerary } from "@/components/packages/package-itinerary"
-import { PackageInfoPanel } from "@/components/packages/package-info-panel"
-import { ImageLoader } from "@/components/media/image-loader"
 import { packageCategories, type TourPackage } from "@/lib/data/packages"
-import { packageUi } from "@/lib/content/package-ui"
+import { PackageItineraryAccordion } from "@/components/packages/package-itinerary-accordion"
+import { PackageGalleryLightbox } from "@/components/packages/package-gallery-lightbox"
+import { PackageInquiryCard } from "@/components/packages/package-inquiry-card"
+
+const DEFAULT_HERO = "/images/package-bg.webp"
+
+const DEFAULT_HIGHLIGHTS = [
+  "Guided by licensed Bhutanese experts",
+  "Handpicked stays and seamless logistics",
+  "Flexible pacing tailored to your group",
+]
+
+const DEFAULT_INCLUSIONS = [
+  "All ground transfers with private vehicle",
+  "Licensed guide and daily support",
+  "Accommodation in trusted hotels",
+  "Breakfasts and selected meals",
+]
+
+const DEFAULT_FAQS = [
+  {
+    question: "When is the best time to visit Bhutan?",
+    answer: "Spring (Mar–May) and autumn (Sep–Nov) offer the clearest skies and festival seasons.",
+  },
+  {
+    question: "Do I need a visa to travel to Bhutan?",
+    answer: "Yes. We handle the visa process once your itinerary is confirmed and payment is received.",
+  },
+  {
+    question: "Is Bhutan suitable for families?",
+    answer: "Absolutely. We tailor pacing, accommodations, and activities for all ages.",
+  },
+  {
+    question: "Can the itinerary be customized?",
+    answer: "Yes. Every journey can be adjusted to match your interests and travel style.",
+  },
+]
+
+const formatCurrency = (value?: number) => {
+  if (!value) return null
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }).format(value)
+}
+
+const safeArray = <T,>(value?: T[]) => (Array.isArray(value) ? value.filter(Boolean) : [])
 
 export function PackageDetails({ pkg }: { pkg: TourPackage }) {
   const categoryLabel = packageCategories.find((cat) => cat.slug === pkg.category)?.label ?? pkg.category
+  const heroImage = pkg.heroImage || DEFAULT_HERO
+  const gallery = safeArray(pkg.gallery)
+  const galleryImages = gallery.length ? gallery : [heroImage]
+
+  const itineraryHighlights = safeArray(pkg.itinerary)
+    .slice(0, 3)
+    .map((item) => item.title)
+    .filter(Boolean)
+
+  const highlights = safeArray(pkg.highlights)
+  const highlightList = highlights.length ? highlights : itineraryHighlights.length ? itineraryHighlights : DEFAULT_HIGHLIGHTS
+
+  const inclusions = safeArray(pkg.included)
+  const exclusions = safeArray(pkg.excluded)
+  const faqList = safeArray(pkg.faqs).length ? safeArray(pkg.faqs) : DEFAULT_FAQS
+
+  const quickFacts = [
+    { label: "Duration", value: pkg.durationLabel || (pkg.durationDays ? `${pkg.durationDays} days` : null) },
+    { label: "Best season", value: pkg.bestTime },
+    { label: "From", value: formatCurrency(pkg.startingFrom) },
+    { label: "Difficulty", value: pkg.difficulty },
+    { label: "Region", value: pkg.region },
+    { label: "Group size", value: pkg.groupSize },
+  ].filter((fact) => Boolean(fact.value))
 
   return (
-    <div className="flex flex-col gap-12">
-      <section className="relative min-h-[55vh] overflow-hidden">
+    <div className="flex flex-col">
+      <section className="relative min-h-[60vh] overflow-hidden">
         <div className="absolute inset-0">
-          <ImageLoader src={pkg.heroImage} alt={pkg.title} fill className="object-cover" priority />
+          <Image src={heroImage} alt={pkg.title} fill priority className="object-cover" sizes="100vw" />
           <div className="absolute inset-0 hero-gradient" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-background" />
         </div>
-        <div className="container px-4 md:px-6 relative z-10 py-24">
-          <div className="max-w-3xl text-white space-y-4">
+        <div className="relative z-10 container px-4 md:px-6 py-20 text-white">
+          <nav className="text-xs uppercase tracking-[0.2em] text-white/70">
+            <div className="flex flex-wrap items-center gap-2">
+              <Link href="/" className="hover:text-white">Home</Link>
+              <span>/</span>
+              <Link href="/packages" className="hover:text-white">Packages</Link>
+              <span>/</span>
+              <Link href={`/packages/${pkg.category}`} className="hover:text-white">{categoryLabel}</Link>
+              <span>/</span>
+              <span className="text-white">{pkg.title}</span>
+            </div>
+          </nav>
+
+          <div className="mt-6 max-w-3xl space-y-4">
             <Badge variant="secondary" className="bg-white/15 text-white border-white/20">
               {categoryLabel}
             </Badge>
-            <h1 className="font-serif text-4xl md:text-5xl font-bold">{pkg.title}</h1>
-            <p className="text-lg text-white/90">{pkg.description}</p>
-            <div className="flex flex-wrap gap-3 text-sm text-white/90">
-              <span className="rounded-full bg-white/15 px-3 py-1">{pkg.durationLabel}</span>
-              <span className="rounded-full bg-white/15 px-3 py-1">{pkg.difficulty}</span>
-              <span className="rounded-full bg-white/15 px-3 py-1">{pkg.region}</span>
-              <span className="rounded-full bg-white/15 px-3 py-1">{pkg.comfortLevel} comfort</span>
-            </div>
+            <h1 className="font-serif text-4xl md:text-5xl font-bold text-balance">{pkg.title}</h1>
+            <p className="text-lg text-white/90 text-balance">{pkg.summary || pkg.description}</p>
           </div>
+
+          {quickFacts.length ? (
+            <div className="mt-8 flex flex-wrap gap-3">
+              {quickFacts.map((fact) => (
+                <div key={fact.label} className="rounded-full bg-white/15 px-4 py-2 text-xs uppercase tracking-wide">
+                  <span className="text-white/70">{fact.label}: </span>
+                  <span className="font-semibold">{fact.value}</span>
+                </div>
+              ))}
+            </div>
+          ) : null}
         </div>
       </section>
 
-      <section className="container px-4 md:px-6 grid gap-10 lg:grid-cols-[2fr_1fr]">
-        <div className="space-y-10">
-          <Card className="card-premium border border-border/60">
-            <CardContent className="p-6 space-y-4">
-              <h2 className="font-serif text-2xl font-bold">{packageUi.overview}</h2>
-              <p className="text-muted-foreground">{pkg.summary}</p>
-              <PackageHighlights highlights={pkg.highlights} />
-            </CardContent>
-          </Card>
-
-          <Card className="card-premium border border-border/60">
-            <CardContent className="p-6 space-y-4">
-              <h2 className="font-serif text-2xl font-bold">{packageUi.itinerary}</h2>
-              <PackageItinerary itinerary={pkg.itinerary} />
-            </CardContent>
-          </Card>
-
-          <Card className="card-premium border border-border/60">
-            <CardContent className="p-6 space-y-4">
-              <h2 className="font-serif text-2xl font-bold">{packageUi.gallery}</h2>
-              <GallerySlider images={pkg.gallery} title={pkg.title} />
-            </CardContent>
-          </Card>
-
-          <Card className="card-premium border border-border/60">
-            <CardContent className="p-6 space-y-4">
-              <h2 className="font-serif text-2xl font-bold">{packageUi.inclusions}</h2>
-              <div className="grid gap-2 text-sm text-muted-foreground">
-                {pkg.included.map((item) => (
-                  <div key={item}>• {item}</div>
-                ))}
-              </div>
-              {pkg.excluded.length ? (
-                <div className="pt-4">
-                  <h3 className="font-semibold">{packageUi.exclusions}</h3>
-                  <div className="grid gap-2 text-sm text-muted-foreground">
-                    {pkg.excluded.map((item) => (
-                      <div key={item}>• {item}</div>
+      <section className="container mx-auto max-w-6xl px-4 md:px-6 py-12">
+        <div className="grid gap-8 md:grid-cols-[1fr_360px]">
+          <div className="space-y-8">
+            <Card className="card-premium border border-border/60">
+              <CardContent className="p-6 space-y-3">
+                <h2 className="font-serif text-2xl font-bold">Overview</h2>
+                <p className="text-muted-foreground leading-relaxed">{pkg.description || pkg.summary}</p>
+                {pkg.keywords?.length ? (
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {pkg.keywords.slice(0, 6).map((keyword) => (
+                      <Badge key={keyword} variant="outline" className="text-xs">
+                        {keyword}
+                      </Badge>
                     ))}
                   </div>
+                ) : null}
+              </CardContent>
+            </Card>
+
+            {highlightList.length ? (
+              <Card className="card-premium border border-border/60">
+                <CardContent className="p-6 space-y-4">
+                  <h2 className="font-serif text-2xl font-bold">Highlights</h2>
+                  <ul className="grid gap-3 text-sm text-muted-foreground">
+                    {highlightList.map((item, index) => (
+                      <li key={`${item}-${index}`} className="flex gap-3">
+                        <span className="mt-1 size-2 rounded-full bg-primary" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            ) : null}
+
+            <Card className="card-premium border border-border/60">
+              <CardContent className="p-6 space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <h2 className="font-serif text-2xl font-bold">Itinerary</h2>
+                  {pkg.itinerary?.length ? (
+                    <Button variant="outline" size="sm" asChild>
+                      <a href="#itinerary">View details</a>
+                    </Button>
+                  ) : null}
                 </div>
-              ) : null}
-            </CardContent>
-          </Card>
+                <div id="itinerary">
+                  <PackageItineraryAccordion itinerary={safeArray(pkg.itinerary)} />
+                </div>
+              </CardContent>
+            </Card>
 
-          <Card className="card-premium border border-border/60">
-            <CardContent className="p-6 space-y-4">
-              <h2 className="font-serif text-2xl font-bold">{packageUi.faqs}</h2>
-              <div className="space-y-3">
-                {pkg.faqs.map((faq) => (
-                  <div key={faq.question}>
-                    <p className="font-semibold">{faq.question}</p>
-                    <p className="text-sm text-muted-foreground">{faq.answer}</p>
+            <Card className="card-premium border border-border/60">
+              <CardContent className="p-6 space-y-6">
+                <div>
+                  <h2 className="font-serif text-2xl font-bold">Inclusions</h2>
+                  <ul className="mt-4 grid gap-2 text-sm text-muted-foreground">
+                    {(inclusions.length ? inclusions : DEFAULT_INCLUSIONS).map((item, index) => (
+                      <li key={`${item}-${index}`} className="flex gap-2">
+                        <span className="mt-1 size-2 rounded-full bg-primary" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                {exclusions.length ? (
+                  <div>
+                    <h3 className="font-semibold">Exclusions</h3>
+                    <ul className="mt-3 grid gap-2 text-sm text-muted-foreground">
+                      {exclusions.map((item, index) => (
+                        <li key={`${item}-${index}`} className="flex gap-2">
+                          <span className="mt-1 size-2 rounded-full bg-muted-foreground/40" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+                ) : null}
+              </CardContent>
+            </Card>
 
-        <div className="space-y-6">
-          <PackageInfoPanel pkg={pkg} />
-          <Card className="card-premium glass-card border border-border/60">
-            <CardContent className="p-6 space-y-3">
-              <h3 className="text-lg font-semibold">{packageUi.map}</h3>
-              <p className="text-sm text-muted-foreground">{packageUi.mapNote}</p>
-              <div className="relative h-40 rounded-lg overflow-hidden">
-                <ImageLoader src="/images/package-bg.webp" alt="Bhutan map" fill className="object-cover" />
-              </div>
-            </CardContent>
-          </Card>
+            <Card className="card-premium border border-border/60">
+              <CardContent className="p-6 space-y-4">
+                <h2 className="font-serif text-2xl font-bold">FAQs</h2>
+                <div className="grid gap-4 text-sm text-muted-foreground">
+                  {faqList.map((faq, index) => (
+                    <div key={`${faq.question}-${index}`}>
+                      <p className="font-semibold text-foreground">{faq.question}</p>
+                      <p className="mt-1">{faq.answer}</p>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="card-premium border border-border/60">
+              <CardContent className="p-6 space-y-4">
+                <h2 className="font-serif text-2xl font-bold">Gallery</h2>
+                <PackageGalleryLightbox images={galleryImages} title={pkg.title} />
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="space-y-6">
+            <div className="sticky top-24">
+              <PackageInquiryCard packageTitle={pkg.title} />
+            </div>
+          </div>
         </div>
       </section>
     </div>
