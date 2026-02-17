@@ -85,8 +85,8 @@ export function PackageItineraryAccordion({
   }
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-wrap gap-3">
+    <div className="space-y-5">
+      <div className="flex flex-wrap items-center gap-3">
         <button
           type="button"
           onClick={() => setOpenItems(allValues)}
@@ -107,22 +107,39 @@ export function PackageItineraryAccordion({
         {items.map((item, index) => {
           const value = allValues[index]
           return (
-            <AccordionItem key={value} value={value}>
+            <AccordionItem
+              key={value}
+              value={value}
+              className="rounded-2xl border border-border/70 bg-card/60 px-4 shadow-sm transition-all duration-300 data-[state=open]:border-primary/40 data-[state=open]:bg-card"
+            >
               <AccordionTrigger>
-                <div className="flex flex-col gap-1">
-                  <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                    Day {item.dayNumber}
-                  </span>
-                  <span className="text-base font-semibold text-foreground">
-                    {item.title || `Day ${item.dayNumber} experience`}
-                  </span>
+                <div className="flex w-full items-start gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-sm font-semibold text-primary">
+                    {item.dayNumber}
+                  </div>
+                  <div className="flex flex-1 flex-col gap-1">
+                    <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                      Day {item.dayNumber}
+                    </span>
+                    <span className="text-base font-semibold text-foreground">
+                      {item.title || `Day ${item.dayNumber} experience`}
+                    </span>
+                    {item.meals || item.stay ? (
+                      <div className="mt-1 flex flex-wrap gap-2 text-xs text-muted-foreground">
+                        {item.meals ? (
+                          <span className="rounded-full bg-muted px-2 py-1">Meals: {item.meals}</span>
+                        ) : null}
+                        {item.stay ? (
+                          <span className="rounded-full bg-muted px-2 py-1">Stay: {item.stay}</span>
+                        ) : null}
+                      </div>
+                    ) : null}
+                  </div>
                 </div>
               </AccordionTrigger>
               <AccordionContent>
-                <div className="space-y-3 text-muted-foreground">
+                <div className="space-y-3 border-l border-border/60 pl-8 text-muted-foreground">
                   <p className="leading-relaxed">{item.description || "Detailed itinerary coming soon."}</p>
-                  {item.meals ? <p className="text-xs">Meals: {item.meals}</p> : null}
-                  {item.stay ? <p className="text-xs">Stay: {item.stay}</p> : null}
                 </div>
               </AccordionContent>
             </AccordionItem>
