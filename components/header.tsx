@@ -4,11 +4,12 @@ import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { LanguageSelector } from "@/components/language-selector"
+import { LockIcon } from "@/components/icons"
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openMenu, setOpenMenu] = useState<"tours" | "guide" | null>(null)
+  const [adminState, setAdminState] = useState<"loading" | "guest" | "admin">("loading")
   const navRef = useRef<HTMLDivElement | null>(null)
   const pathname = usePathname()
   const [isScrolled, setIsScrolled] = useState(false)
@@ -37,6 +38,29 @@ export function Header() {
     handleScroll()
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  useEffect(() => {
+    let isMounted = true
+    const checkSession = async () => {
+      try {
+        const res = await fetch("/api/admin/session")
+        if (!isMounted) return
+        if (res.ok) {
+          const data = (await res.json()) as { authenticated: boolean }
+          setAdminState(data.authenticated ? "admin" : "guest")
+        } else {
+          setAdminState("guest")
+        }
+      } catch {
+        if (isMounted) setAdminState("guest")
+      }
+    }
+
+    checkSession()
+    return () => {
+      isMounted = false
+    }
   }, [])
 
   useEffect(() => {
@@ -202,9 +226,35 @@ export function Header() {
             Book Custom Tour
           </Link>
 
-          <div className="flex items-stretch rounded-lg border border-border bg-muted/60 shadow-sm overflow-hidden">
-            <LanguageSelector />
-          </div>
+          {adminState === "admin" ? (
+            <div className="flex items-center gap-2">
+              <Link
+                href="/admin/packages"
+                className="inline-flex items-center gap-2 rounded-md border border-border px-4 py-2 text-sm font-semibold text-foreground/90 hover:text-foreground"
+                onClick={handleLinkClick}
+              >
+                <LockIcon className="text-base" /> Dashboard
+              </Link>
+              <button
+                type="button"
+                className="text-sm font-semibold text-muted-foreground hover:text-foreground"
+                onClick={async () => {
+                  await fetch("/api/admin/logout", { method: "POST" })
+                  setAdminState("guest")
+                }}
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <Link
+              href="/admin/login"
+              className="inline-flex items-center gap-2 rounded-md border border-border px-4 py-2 text-sm font-semibold text-foreground/90 hover:text-foreground"
+              onClick={handleLinkClick}
+            >
+              <LockIcon className="text-base" /> Admin
+            </Link>
+          )}
         </div>
 
         <button
@@ -254,9 +304,36 @@ export function Header() {
             >
               Contact Us
             </Link>
-            <div className="pt-2">
-              <LanguageSelector />
-            </div>
+            {adminState === "admin" ? (
+              <div className="grid gap-2">
+                <Link
+                  href="/admin/packages"
+                  className="inline-flex items-center gap-2 rounded-md border border-border px-4 py-2 text-sm font-semibold text-foreground/90 hover:text-foreground"
+                  onClick={handleLinkClick}
+                >
+                  <LockIcon className="text-base" /> Dashboard
+                </Link>
+                <button
+                  type="button"
+                  className="inline-flex items-center justify-center rounded-md border border-border px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground"
+                  onClick={async () => {
+                    await fetch("/api/admin/logout", { method: "POST" })
+                    setAdminState("guest")
+                    handleLinkClick()
+                  }}
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <Link
+                href="/admin/login"
+                className="inline-flex items-center gap-2 rounded-md border border-border px-4 py-2 text-sm font-semibold text-foreground/90 hover:text-foreground"
+                onClick={handleLinkClick}
+              >
+                <LockIcon className="text-base" /> Admin
+              </Link>
+            )}
             <Link
               href="/inquiry"
               className="inline-flex items-center justify-center w-full py-3 text-sm font-semibold rounded-md bg-primary text-primary-foreground shadow-sm hover:shadow-md transition-shadow"

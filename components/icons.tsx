@@ -85,3 +85,7 @@ export function X({ className }: { className?: string }) {
 export function Star({ className }: { className?: string }) {
   return <span className={className}>★</span>
 }
+
+export function LockIcon({ className }: { className?: string }) {
+  return <span className={className}>🔒</span>
+}

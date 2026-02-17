@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { packageCategories, type TourPackage } from "@/lib/data/packages"
+import { getPackageImageOverrides } from "@/src/lib/data/package-images"
 import { PackageItineraryAccordion } from "@/components/packages/package-itinerary-accordion"
 import { PackageGalleryLightbox } from "@/components/packages/package-gallery-lightbox"
 import { PackageInquiryCard } from "@/components/packages/package-inquiry-card"
@@ -53,11 +54,23 @@ const formatCurrency = (value?: number) => {
 
 const safeArray = <T,>(value?: T[]) => (Array.isArray(value) ? value.filter(Boolean) : [])
 
-export function PackageDetails({ pkg }: { pkg: TourPackage }) {
+export async function PackageDetails({ pkg }: { pkg: TourPackage }) {
   const categoryLabel = packageCategories.find((cat) => cat.slug === pkg.category)?.label ?? pkg.category
-  const heroImage = pkg.heroImage || DEFAULT_HERO
-  const gallery = safeArray(pkg.gallery)
+  const overrides = await getPackageImageOverrides(pkg.category, pkg.slug)
+  const baseHero = pkg.heroImage || DEFAULT_HERO
+  const heroImage = overrides.mainImage || baseHero
+  const gallery = overrides.gallery?.length ? overrides.gallery : safeArray(pkg.gallery)
   const galleryImages = gallery.length ? gallery : [heroImage]
+  const itineraryOverrides = overrides.itineraryImages || {}
+  const itineraryWithImages = safeArray(pkg.itinerary).map((item, index) => {
+    const dayNumber = item.day || index + 1
+    const overrideImage = itineraryOverrides[String(dayNumber)]
+    const existingImage = (item as { image?: string }).image
+    return {
+      ...item,
+      image: overrideImage || existingImage || heroImage,
+    }
+  })
 
   const itineraryHighlights = safeArray(pkg.itinerary)
     .slice(0, 3)
@@ -191,7 +204,7 @@ export function PackageDetails({ pkg }: { pkg: TourPackage }) {
                   </div>
                   <div id="itinerary">
                     <PackageItineraryAccordion
-                      itinerary={safeArray(pkg.itinerary)}
+                      itinerary={itineraryWithImages}
                       durationDays={pkg.durationDays}
                       highlights={safeArray(pkg.highlights)}
                       packageTitle={pkg.title}
