@@ -110,27 +110,33 @@ export function PackageItineraryAccordion({
             <AccordionItem
               key={value}
               value={value}
-              className="rounded-2xl border border-border/70 bg-card/60 px-4 shadow-sm transition-all duration-300 data-[state=open]:border-primary/40 data-[state=open]:bg-card"
+              className="group rounded-2xl border border-border/70 bg-card/80 px-5 shadow-sm transition-all duration-300 data-[state=open]:border-primary/40 data-[state=open]:bg-card"
             >
               <AccordionTrigger>
                 <div className="flex w-full items-start gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-sm font-semibold text-primary">
+                  <div className="relative flex h-14 w-14 items-center justify-center rounded-full border border-primary/20 bg-primary/10 text-base font-semibold text-primary">
+                    <span className="absolute -left-6 top-1/2 hidden h-0.5 w-6 -translate-y-1/2 bg-border/80 md:block" />
                     {item.dayNumber}
                   </div>
-                  <div className="flex flex-1 flex-col gap-1">
-                    <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                      Day {item.dayNumber}
-                    </span>
-                    <span className="text-base font-semibold text-foreground">
+                  <div className="flex flex-1 flex-col gap-2">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                        Day {item.dayNumber}
+                      </span>
+                      <span className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[11px] font-semibold text-primary">
+                        Signature day
+                      </span>
+                    </div>
+                    <span className="text-base font-semibold text-foreground md:text-lg">
                       {item.title || `Day ${item.dayNumber} experience`}
                     </span>
                     {item.meals || item.stay ? (
-                      <div className="mt-1 flex flex-wrap gap-2 text-xs text-muted-foreground">
+                      <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">
                         {item.meals ? (
-                          <span className="rounded-full bg-muted px-2 py-1">Meals: {item.meals}</span>
+                          <span className="rounded-full bg-muted px-3 py-1">Meals: {item.meals}</span>
                         ) : null}
                         {item.stay ? (
-                          <span className="rounded-full bg-muted px-2 py-1">Stay: {item.stay}</span>
+                          <span className="rounded-full bg-muted px-3 py-1">Stay: {item.stay}</span>
                         ) : null}
                       </div>
                     ) : null}
@@ -138,8 +144,21 @@ export function PackageItineraryAccordion({
                 </div>
               </AccordionTrigger>
               <AccordionContent>
-                <div className="space-y-3 border-l border-border/60 pl-8 text-muted-foreground">
-                  <p className="leading-relaxed">{item.description || "Detailed itinerary coming soon."}</p>
+                <div className="grid gap-4 border-l border-border/60 pl-10 text-muted-foreground">
+                  <p className="leading-relaxed text-sm md:text-base">
+                    {item.description || "Detailed itinerary coming soon."}
+                  </p>
+                  <div className="flex flex-wrap gap-2 text-xs uppercase tracking-wide text-muted-foreground/80">
+                    <span className="rounded-full border border-border/60 bg-background px-3 py-1">
+                      Curated pacing
+                    </span>
+                    <span className="rounded-full border border-border/60 bg-background px-3 py-1">
+                      Private guide
+                    </span>
+                    <span className="rounded-full border border-border/60 bg-background px-3 py-1">
+                      Seamless transfers
+                    </span>
+                  </div>
                 </div>
               </AccordionContent>
             </AccordionItem>
