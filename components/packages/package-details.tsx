@@ -195,6 +195,7 @@ export function PackageDetails({ pkg }: { pkg: TourPackage }) {
                       durationDays={pkg.durationDays}
                       highlights={safeArray(pkg.highlights)}
                       packageTitle={pkg.title}
+                      heroImage={heroImage}
                     />
                   </div>
                 </CardContent>
