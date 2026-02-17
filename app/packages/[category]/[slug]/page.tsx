@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import { PackageDetails } from "@/components/packages/package-details"
+import { Header } from "@/components/header"
+import { Footer } from "@/components/footer"
 import { getAllPackages, getPackageByCategoryAndSlug } from "@/lib/data/packages"
 
 export function generateStaticParams() {
@@ -78,12 +80,16 @@ export default async function PackagePage({
   }
 
   return (
-    <>
+    <div className="flex min-h-screen flex-col">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <PackageDetails pkg={pkg} />
-    </>
+      <Header />
+      <main className="flex-1">
+        <PackageDetails pkg={pkg} />
+      </main>
+      <Footer />
+    </div>
   )
 }
