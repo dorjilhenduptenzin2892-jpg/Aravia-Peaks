@@ -1,4 +1,5 @@
 import type { NextRequest } from "next/server"
+import { createHash } from "node:crypto"
 
 export const ADMIN_SESSION_COOKIE = "admin_session"
 const ADMIN_USER = "admin"
@@ -11,12 +12,8 @@ export const getAdminCredentials = () => {
   }
 }
 
-const hashValue = async (value: string) => {
-  const data = new TextEncoder().encode(value)
-  const digest = await crypto.subtle.digest("SHA-256", data)
-  return Array.from(new Uint8Array(digest))
-    .map((byte) => byte.toString(16).padStart(2, "0"))
-    .join("")
+const hashValue = (value: string) => {
+  return createHash("sha256").update(value).digest("hex")
 }
 
 export const createSessionToken = async () => {
