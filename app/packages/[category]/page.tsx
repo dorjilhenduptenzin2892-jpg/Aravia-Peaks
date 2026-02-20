@@ -4,6 +4,7 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { PackageCard } from "@/components/packages/package-card"
 import { packages, packageCategories, type PackageCategory } from "@/lib/data/packages"
+import { fetchManifest } from "@/src/lib/data/package-images"
 
 type PackagesSearchParams = {
   [key: string]: string | string[] | undefined
@@ -69,6 +70,7 @@ export default async function PackagesCategoryPage({
   params,
   searchParams,
 }: CategoryPageProps) {
+  const manifest = await fetchManifest()
   const { category } = await params
   const categorySlug = category as PackageCategory
   const categoryInfo = packageCategories.find((item) => item.slug === categorySlug)
@@ -178,9 +180,10 @@ export default async function PackagesCategoryPage({
             </div>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {filteredPackages.map((pkg) => (
-                <PackageCard key={`${pkg.category}-${pkg.slug}`} pkg={pkg} />
-              ))}
+              {filteredPackages.map((pkg) => {
+                const override = manifest.packages?.[`${pkg.category}/${pkg.slug}`]?.mainImage
+                return <PackageCard key={`${pkg.category}-${pkg.slug}`} pkg={pkg} imageOverride={override} />
+              })}
             </div>
           </div>
         </section>

@@ -4,16 +4,17 @@ import { Badge } from "@/components/ui/badge"
 import { ImageLoader } from "@/components/media/image-loader"
 import { getPackagePath, packageCategories, type TourPackage } from "@/lib/data/packages"
 
-export function PackageCard({ pkg }: { pkg: TourPackage }) {
+export function PackageCard({ pkg, imageOverride }: { pkg: TourPackage; imageOverride?: string }) {
   const categoryLabel = packageCategories.find((cat) => cat.slug === pkg.category)?.label ?? pkg.category
   const priceLabel = pkg.startingFrom ? `From $${pkg.startingFrom.toLocaleString()}` : null
+  const heroImage = imageOverride || pkg.heroImage
 
   return (
     <Link href={getPackagePath(pkg)} className="block w-full">
       <Card className="card-premium glass-card overflow-hidden h-full border border-border/60 transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl">
         <div className="relative overflow-hidden aspect-[4/3]">
           <ImageLoader
-            src={pkg.heroImage}
+            src={heroImage}
             alt={pkg.title}
             fill
             className="object-cover transition-transform duration-500 hover:scale-105"
