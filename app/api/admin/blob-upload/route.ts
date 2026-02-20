@@ -1,14 +1,21 @@
 import { NextResponse } from "next/server"
 import { put } from "@vercel/blob"
-import { cookies } from "next/headers"
 import { ADMIN_SESSION_COOKIE, isValidSession } from "@/lib/admin-auth"
 
 export const runtime = "nodejs"
 
+const getCookie = (request: Request, name: string) => {
+  const cookieHeader = request.headers.get("cookie")
+  if (!cookieHeader) return null
+  const cookies = cookieHeader.split(";").map((part) => part.trim())
+  const target = cookies.find((item) => item.startsWith(`${name}=`))
+  if (!target) return null
+  return decodeURIComponent(target.slice(name.length + 1))
+}
+
 export async function POST(request: Request) {
   try {
-    const cookieStore = await cookies()
-    const token = cookieStore.get(ADMIN_SESSION_COOKIE)?.value ?? null
+    const token = getCookie(request, ADMIN_SESSION_COOKIE)
     const authenticated = await isValidSession(token)
     if (!authenticated) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
