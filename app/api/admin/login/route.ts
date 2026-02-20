@@ -16,10 +16,9 @@ export async function POST(request: Request) {
     const inputUsername = body.username?.trim() ?? ""
     const inputPassword = body.password?.trim() ?? ""
 
-    const usernameOk = inputUsername === username || inputUsername.length === 0
     const passwordOk = inputPassword === password
 
-    if (!usernameOk || !passwordOk) {
+    if (!passwordOk) {
       return NextResponse.json({ error: "Invalid credentials" }, { status: 401 })
     }
 
