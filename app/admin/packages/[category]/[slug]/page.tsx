@@ -5,12 +5,13 @@ import { Button } from "@/components/ui/button"
 import { AdminPackageEditorClient } from "./editor-client"
 
 type PageProps = {
-  params: { category: string; slug: string }
+  params: Promise<{ category: string; slug: string }>
 }
 
 export default async function AdminPackageEditorPage({ params }: PageProps) {
-  const rawCategory = decodeURIComponent(params.category)
-  const rawSlug = decodeURIComponent(params.slug)
+  const { category, slug } = await params
+  const rawCategory = decodeURIComponent(category)
+  const rawSlug = decodeURIComponent(slug)
   const normalizedCategory = rawCategory.toLowerCase()
   const normalizedSlug = rawSlug.toLowerCase()
   const pkg = packages.find(
