@@ -6,7 +6,7 @@ const PUBLIC_FILE = /\.[^/]+$/
 
 const isAdminPath = (pathname: string) => pathname.startsWith("/admin") || pathname.startsWith("/api/admin")
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   if (isAdminPath(pathname)) {
