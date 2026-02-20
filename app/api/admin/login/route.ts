@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server"
-import { cookies } from "next/headers"
 import { ADMIN_SESSION_COOKIE, createSessionToken, getAdminCredentials } from "@/lib/admin-auth"
 
 export const runtime = "nodejs"
@@ -25,8 +24,8 @@ export async function POST(request: Request) {
     }
 
     const token = await createSessionToken()
-
-    cookies().set(ADMIN_SESSION_COOKIE, token, {
+    const response = NextResponse.json({ success: true })
+    response.cookies.set(ADMIN_SESSION_COOKIE, token, {
       httpOnly: true,
       sameSite: "lax",
       secure: true,
@@ -34,7 +33,7 @@ export async function POST(request: Request) {
       path: "/",
     })
 
-    return NextResponse.json({ success: true })
+    return response
   } catch {
     return NextResponse.json({ error: "Server error" }, { status: 500 })
   }
