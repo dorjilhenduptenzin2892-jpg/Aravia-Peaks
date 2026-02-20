@@ -3,7 +3,12 @@ import { cookies } from "next/headers"
 import { ADMIN_SESSION_COOKIE, createSessionToken, getAdminCredentials } from "@/lib/admin-auth"
 
 export async function POST(request: Request) {
-  const body = (await request.json()) as { username?: string; password?: string }
+  let body: { username?: string; password?: string } = {}
+  try {
+    body = (await request.json()) as { username?: string; password?: string }
+  } catch {
+    return NextResponse.json({ error: "Invalid request" }, { status: 400 })
+  }
   const { username, password } = getAdminCredentials()
 
   const inputUsername = body.username?.trim() ?? ""
@@ -16,7 +21,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid credentials" }, { status: 401 })
   }
 
-  const token = await createSessionToken()
+  let token: string
+  try {
+    token = await createSessionToken()
+  } catch {
+    return NextResponse.json({ error: "Server error" }, { status: 500 })
+  }
   cookies().set(ADMIN_SESSION_COOKIE, token, {
     httpOnly: true,
     sameSite: "lax",
